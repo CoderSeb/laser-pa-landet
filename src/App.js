@@ -1,15 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
 
-const Button = styled.button`
-  background-color: ${props => props.theme.colors.main};
-`
-
+import Footer from './components/footer'
+import Header from './components/header'
 
 const App = () => {
   return (
     <div>
-      <Button>This works!</Button>
+      <Header />
+      <Footer />
     </div>
   )
 }
