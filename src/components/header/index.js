@@ -1,10 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import Button from '../styled/Button'
+import NavButton from './NavLinks'
+import NavLinks from './NavLinks'
+
 
 const StyledHeader = styled.header`
-  padding: 1rem;
+  padding: 0.5rem;
   text-align: center;
   background-color: ${props => props.theme.colors.light};
 `
@@ -12,7 +14,7 @@ const StyledHeader = styled.header`
 const Header = () => {
   return (
     <StyledHeader>
-      <Button>A button</Button>
+      <NavLinks />
     </StyledHeader>
     )
 }

@@ -4,13 +4,13 @@ import styled from 'styled-components'
 import NavList from './components/navlist'
 
 const StyledFooter = styled.footer`
-  background-color: ${props => props.theme.colors.main};
+  background-color: ${props => props.theme.colors.light};
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   padding: 2rem;
-  color: ${props => props.theme.colors.secondary};
+  color: ${props => props.theme.colors.main};
   text-align: center;
 `
 
