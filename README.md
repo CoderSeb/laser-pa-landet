@@ -1,3 +1,3 @@
 # Laser På Landet
 
-En webbplats för ett litet företag på landet som sysslar med medicinsk laser.
+A swedish website for a small company on the countryside working with medical laser treatment.
