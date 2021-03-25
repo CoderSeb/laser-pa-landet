@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import NavList from './components/navlist'
+
 
 const StyledFooter = styled.footer`
   background-color: ${props => props.theme.colors.light};
@@ -10,14 +10,15 @@ const StyledFooter = styled.footer`
   bottom: 0;
   width: 100%;
   padding: 2rem;
-  color: ${props => props.theme.colors.main};
+  color: ${props => props.theme.colors.dark};
   text-align: center;
 `
 
 const Footer = () => {
+  const year = new Date().getFullYear()
   return (
     <StyledFooter>
-      <NavList />
+      <small>&copy; Copyright {year} Laser på Landet. All Rights Reserved.</small>
     </StyledFooter>
     )
 }
