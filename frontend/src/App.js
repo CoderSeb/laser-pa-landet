@@ -12,6 +12,7 @@ import About from './components/pages/about'
 import Treatments from './components/pages/treatments'
 import Contact from './components/pages/contact'
 import Blog from './components/pages/blog'
+import Admin from './components/pages/admin'
 
 const App = () => {
   return (
@@ -30,6 +31,9 @@ const App = () => {
         </Route>
         <Route path='/om'>
           <About />
+        </Route>
+        <Route path='/admin'>
+          <Admin />
         </Route>
         <Route path='/'>
           <Landing />
