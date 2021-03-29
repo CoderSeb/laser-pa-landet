@@ -3,7 +3,7 @@ import styled from "styled-components"
 
 const StyledBurgerButton = styled.button`
   position: absolute;
-  top: 5%;
+  top: 2%;
   left: 2rem;
   display: flex;
   flex-direction: column;
@@ -18,6 +18,10 @@ const StyledBurgerButton = styled.button`
   
   &:focus {
     outline: none;
+  }
+
+  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+    display: none;
   }
   
   div {

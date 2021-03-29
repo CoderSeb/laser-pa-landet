@@ -21,6 +21,18 @@ const StyledNavbar = styled.nav`
     width: 100%;
   }
 
+  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+    position:relative;
+    min-height:100px;
+    width:100%;
+    display:inline-block;
+    float:left;
+    transform: none;
+    text-align: center;
+    margin-bottom: 1em;
+    max-height:150px;
+  }
+
   a {
     font-size: 2rem;
     padding: 1em 1em;
@@ -30,9 +42,18 @@ const StyledNavbar = styled.nav`
     text-decoration: none;
     transition: color 0.3s linear;
     
-    @media (max-width: ${(props) => props.theme.sizes.mobile}) {
+    @media (max-width: ${(props) => props.theme.sizes.tablet}) {
       font-size: 1.5rem;
       text-align: center;
+    }
+
+    @media only screen and (min-width: ${props => props.theme.sizes.desktop}) {
+      font-size: 1em;
+      margin:0em 1.5em;
+    }
+
+    @media only screen and (max-width: ${props => props.theme.sizes.desktop}) {
+      font-size: .8em;
     }
 
     &:hover {
@@ -52,7 +73,7 @@ const Navbar = ({isOpen}) => {
        />
        <NavLink
       key="treatmentsLink"
-      linkTo="/behandingar"
+      linkTo="/behandlingar"
       linkName="Behandlingar"
        />
        <NavLink

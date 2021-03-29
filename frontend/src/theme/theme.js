@@ -7,8 +7,8 @@ const theme = {
   },
   sizes: {
     mobile: '550px',
-    tablet: '600px',
-    desktop: '1024px'
+    tablet: '940px',
+    desktop: '1150px'
   }
 }
 

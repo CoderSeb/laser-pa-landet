@@ -6,8 +6,8 @@ import Burger from './components/Burger'
 import useClickRef from '../../hooks/useClickRef'
 
 const StyledHeader = styled.header`
-  padding: 0.5rem;
   background-color: ${props => props.theme.colors.light};
+  min-height:100px;
 `
 
 const Header = () => {
