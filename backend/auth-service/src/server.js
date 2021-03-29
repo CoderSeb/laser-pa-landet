@@ -10,6 +10,8 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 
+import { router } from './routes/router.js'
+
 /**
  * Main function of the authentication service.
  */
@@ -34,7 +36,7 @@ const main = async () => {
   })
 
   // Register routes.
-  // app.use('/', router)
+  app.use('/api/v1/auth/', router)
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)
