@@ -6,10 +6,13 @@ html {
 }
 
 * {
-  font-family: 'Palanquin', sans-serif;
+  -moz-box-sizing: border-box;
+  -webkit-kit-box-sizing: border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  border: 0;
+  font-family: 'Palanquin', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 `
 

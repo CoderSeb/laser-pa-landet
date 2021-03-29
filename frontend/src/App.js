@@ -15,11 +15,15 @@ import Blog from './components/pages/blog'
 import Admin from './components/pages/admin'
 
 const App = () => {
+
   return (
     <Router>
     <div>
       <Header />
       <Switch>
+      <Route exact path='/'>
+          <Landing />
+        </Route>
         <Route path='/blog'>
           <Blog />
         </Route>
@@ -35,10 +39,6 @@ const App = () => {
         <Route path='/admin'>
           <Admin />
         </Route>
-        <Route path='/'>
-          <Landing />
-        </Route>
-        
       </Switch>
       <Footer />
     </div>

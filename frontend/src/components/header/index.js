@@ -1,21 +1,23 @@
-import React from 'react'
+import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
 
-import NavLinks from './components/NavLinks'
-
+import Navbar from './components/Navbar'
+import Burger from './components/Burger'
+import useClickRef from '../../hooks/useClickRef'
 
 const StyledHeader = styled.header`
   padding: 0.5rem;
   background-color: ${props => props.theme.colors.light};
 `
 
-
-
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const headerRef = useRef()
+  useClickRef(headerRef, () => setIsOpen(false))
   return (
-    <StyledHeader>
-      <NavLinks />
-      
+    <StyledHeader ref={headerRef}>
+      <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
+      <Navbar isOpen={isOpen} setIsOpen={setIsOpen} />
     </StyledHeader>
     )
 }
