@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import NavLink from './NavLink'
+import logo from '../../../assets/img/LPL-Brand.png'
 
 
 const StyledNavbar = styled.nav`
@@ -33,6 +34,16 @@ const StyledNavbar = styled.nav`
     max-height:150px;
   }
 
+  img {
+    height:60px;
+    margin: 1em;
+    float:left;
+
+    @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+      display:none;
+    }
+  }
+
   a {
     font-size: 2rem;
     padding: 1em 1em;
@@ -63,9 +74,11 @@ const StyledNavbar = styled.nav`
   }
 `
 
+
 const Navbar = ({isOpen}) => {
   return(
     <StyledNavbar isOpen={isOpen}>
+      <img src={logo} alt="Laser på landet logo" />
       <NavLink
       key="homeLink"
       linkTo="/"
