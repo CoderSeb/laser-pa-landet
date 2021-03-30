@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Blog = () => {
+const Blog = (props) => {
   return (
     <div>
       <h1>Blog page</h1>
