@@ -32,7 +32,7 @@ export class AuthenticationController {
    * @param {Function} next - Express next middleware function.
    */
   async loginUser (req, res, next) {
-    res.json('Reached login path')
+    res.json('Reached login path\nThis is a test!')
   }
 }
 
