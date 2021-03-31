@@ -13,6 +13,7 @@ const StyledItem = styled.li`
     text-decoration: none;
     background-color: ${props => props.theme.colors.light};
     color: ${props => props.theme.colors.dark};
+    user-select: none;
   &:hover {
     font-weight:bold;
   }

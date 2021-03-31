@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import NavLink from './NavLink'
 import logo from '../../../assets/img/LPL-Brand.png'
 
 
@@ -47,35 +46,11 @@ const StyledNavbar = styled.nav`
 `
 
 
-const Navbar = ({isOpen}) => {
+const Navbar = ({isOpen, children}) => {
   return(
     <StyledNavbar isOpen={isOpen}>
       <img src={logo} alt="Laser på landet logo" />
-      <NavLink
-      key="homeLink"
-      linkTo="/"
-      linkName="Hem"
-       />
-       <NavLink
-      key="treatmentsLink"
-      linkTo="/behandlingar"
-      linkName="Behandlingar"
-       />
-       <NavLink
-      key="about"
-      linkTo="/om"
-      linkName="Om företaget"
-       />
-       <NavLink
-      key="contactLink"
-      linkTo="/kontakt"
-      linkName="Kontakt"
-       />
-       <NavLink
-      key="blogLink"
-      linkTo="/blog"
-      linkName="Blog"
-       />
+      {children}
     </StyledNavbar>
   )
 }

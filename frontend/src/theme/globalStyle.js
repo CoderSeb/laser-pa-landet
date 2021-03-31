@@ -13,6 +13,11 @@ html {
   padding: 0;
   font-family: 'Palanquin', sans-serif;
   -webkit-font-smoothing: antialiased;
+
+  &::selection {
+      background: ${props => props.theme.colors.main};
+      color: ${props => props.theme.colors.light};
+    }
 }
 `
 
