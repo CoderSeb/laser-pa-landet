@@ -2,7 +2,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
 html {
-  height: 100%;
+  height: 100vh;
 }
 
 * {
@@ -15,8 +15,8 @@ html {
   -webkit-font-smoothing: antialiased;
 
   &::selection {
-      background: ${props => props.theme.colors.main};
-      color: ${props => props.theme.colors.light};
+      background: ${props => props.theme.colors.accent};
+      color: ${props => props.theme.colors.white};
     }
 }
 `

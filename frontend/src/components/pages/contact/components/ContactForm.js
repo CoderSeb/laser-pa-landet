@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import axios from 'axios'
 
 const StyledForm = styled.form`
-  background: ${props => props.theme.colors.light};
+  background: ${props => props.theme.colors.main};
   border-radius: 10px;
   padding:1em;
   width: 600px;
   min-height: 600px;
   margin: 1em auto;
+  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   h2 {
     text-align: center;
     margin-bottom:1rem;
@@ -17,11 +17,15 @@ const StyledForm = styled.form`
   p {
     float:right;
   }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+    width: 450px;
+  }
 `
 
 const StyledInput = styled.input`
-  background: ${props => props.theme.colors.main};
-  color: ${props => props.theme.colors.light};
+  background: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
   width:60%;
@@ -29,22 +33,17 @@ const StyledInput = styled.input`
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.main};
+  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   transition: all 0.4s ease-in-out;
 
   &:focus {
     width:100%;
   }
-
-  &::selection {
-    background: ${props => props.theme.colors.light};
-    color: ${props => props.theme.colors.main};
-  }
 `
 
 const StyledTextarea = styled.textarea`
-  background: ${props => props.theme.colors.main};
-  color: ${props => props.theme.colors.light};
+  background: ${props => props.theme.colors.white};
+  color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
   width:100%;
@@ -52,7 +51,7 @@ const StyledTextarea = styled.textarea`
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.main};
+  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   resize: none;
   height: 120px;
   transition: all 0.4s ease-in-out;
@@ -60,23 +59,19 @@ const StyledTextarea = styled.textarea`
   &:focus {
     height:250px;
   }
-
-  &::selection {
-    background: ${props => props.theme.colors.light};
-    color: ${props => props.theme.colors.main};
-  }
 `
 
 const StyledSubmit = styled.button`
   white-space: nowrap;
   user-select: none;
-  background-color: ${props => props.theme.colors.light};
+  background-color: ${props => props.theme.colors.white};
   padding:0.5em 1em;
-  color:${props => props.theme.colors.dark};
+  color:${props => props.theme.colors.black};
   border-radius:42px;
   display:inline-block;
   cursor:pointer;
   font-size: 1.1em;
+  outline:none;
   transition: 0.1s ease;
   font-size: 1em;
   font-weight: bold;
@@ -84,19 +79,18 @@ const StyledSubmit = styled.button`
   transition: color 0.3s linear;
   text-align:center;
   margin: 1em auto;
-  border: 1px solid ${props => props.theme.colors.main};
+  border: 1px solid ${props => props.theme.colors.accent};
 
   &:hover {
-    box-shadow: 0px 0px 3px 1px ${props => props.theme.colors.main};
-    background: ${props => props.theme.colors.main};
-    color: ${props => props.theme.colors.light};
-    text-shadow:0px 1px 0px ${props => props.theme.colors.dark};
+    box-shadow: 0px 0px 3px 1px ${props => props.theme.colors.accent};
+    background: ${props => props.theme.colors.accent};
+    color: ${props => props.theme.colors.white};
   }
 
   &:active {
-    background: ${props => props.theme.colors.dark};
-    color: ${props => props.theme.colors.light};
-    box-shadow: 0px 0px 5px 1px ${props => props.theme.colors.dark};
+    background: ${props => props.theme.colors.black};
+    box-shadow: 0px 0px 5px 1px ${props => props.theme.colors.black};
+    border: 1px solid ${props => props.theme.colors.black};
   }
 
 `

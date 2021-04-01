@@ -4,13 +4,14 @@ import {NavLink} from 'react-router-dom'
 const StyledNavLink = styled(NavLink)`
   white-space: nowrap;
   user-select: none;
-  background-color: ${props => props.theme.colors.light};
+  background-color: inherit;
   padding:0.5em 1em;
-  color:${props => props.theme.colors.dark};
+  color:${props => props.theme.colors.black};
   border-radius:42px;
   display:inline-block;
   cursor:pointer;
   font-size: 1.1em;
+  outline:none;
   transition: 0.1s ease;
   font-size: 2rem;
   font-weight: bold;
@@ -34,16 +35,16 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &:hover {
-    box-shadow: 0px 0px 3px 1px ${props => props.theme.colors.main};
-    background: ${props => props.theme.colors.main};
-    color: ${props => props.theme.colors.light};
-    text-shadow:0px 1px 0px ${props => props.theme.colors.dark};
+    box-shadow: 0px 0px 3px 1px ${props => props.theme.colors.accent};
+    background: ${props => props.theme.colors.accent};
+    color: ${props => props.theme.colors.white};
+    text-shadow:0px 1px 0px ${props => props.theme.colors.black};
   }
 
   &:active {
-    background: ${props => props.theme.colors.dark};
-    color: ${props => props.theme.colors.light};
-    box-shadow: 0px 0px 5px 1px ${props => props.theme.colors.dark};
+    background: ${props => props.theme.colors.black};
+    color: ${props => props.theme.colors.white};
+    box-shadow: 0px 0px 5px 1px ${props => props.theme.colors.black};
   }
 
   .onPage {

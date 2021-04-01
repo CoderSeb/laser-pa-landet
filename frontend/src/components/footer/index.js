@@ -7,14 +7,15 @@ import SocialItem from './components/SocialItem'
 import ContactField from './components/ContactField'
 
 const StyledFooter = styled.footer`
-  background-color: ${props => props.theme.colors.light};
+  background-color: ${props => props.theme.colors.main};
   position: fixed;
   left: 0;
   bottom: 0;
   width: 100%;
   padding: 2rem;
-  color: ${props => props.theme.colors.dark};
+  color: ${props => props.theme.colors.black};
   text-align: center;
+  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
 
   small {
     position:absolute;

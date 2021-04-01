@@ -7,7 +7,7 @@ const StyledNavbar = styled.nav`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background: ${(props) => props.theme.colors.light};
+  background: inherit;
   height: 100vh;
   text-align: center;
   padding: 2rem;

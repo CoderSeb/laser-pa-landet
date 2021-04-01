@@ -27,7 +27,7 @@ const StyledBurgerButton = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${(props) => props.theme.colors.dark};
+    background: ${(props) => props.theme.colors.black};
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;

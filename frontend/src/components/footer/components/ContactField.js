@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 
 const StyledContainer = styled.div`
-  background-color: ${props => props.theme.colors.light};
-  color: ${props => props.theme.colors.dark};
+  background-color: inherit;
+  color: ${props => props.theme.colors.black};
   text-align: left;
   border: 1px dotted black;
   padding: .5em;

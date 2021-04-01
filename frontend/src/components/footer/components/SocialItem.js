@@ -11,14 +11,14 @@ const StyledItem = styled.li`
 
   a {
     text-decoration: none;
-    background-color: ${props => props.theme.colors.light};
-    color: ${props => props.theme.colors.dark};
+    background-color: inherit;
+    color: ${props => props.theme.colors.black};
     user-select: none;
   &:hover {
     font-weight:bold;
   }
   &:active {
-    color: ${props => props.theme.colors.main};
+    color: ${props => props.theme.colors.secondary};
   }
   }
 `
@@ -32,5 +32,3 @@ const SocialItem = ({linkTo, logo, altText, title}) => {
 }
 
 export default SocialItem
-
-
