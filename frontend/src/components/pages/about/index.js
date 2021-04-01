@@ -1,9 +1,17 @@
 import React from 'react'
+import TextField from '../../styled/TextField'
 
 const About = () => {
   return (
     <div>
-      <h1>About page</h1>
+      <TextField sidePos={'right'}>
+      Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik.<br />
+    Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning
+    som deltidssysselsättning.<br />
+    Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på
+    Österlen.<br />
+Väl mött!
+      </TextField>
     </div>
   )
 }
