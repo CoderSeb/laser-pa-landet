@@ -1,9 +1,14 @@
 import React from 'react'
+import ContactForm from './components/ContactForm'
+import TextField from '../../styled/TextField'
 
 const Contact = () => {
   return (
     <div>
-      <h1>Contact page</h1>
+    <TextField>
+    Kontakta mig gärna via formuläret nedan!
+    </TextField>
+    <ContactForm />
     </div>
   )
 }

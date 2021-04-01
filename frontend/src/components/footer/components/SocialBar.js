@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 
 const StyledList = styled.ul`
-  background-color: ${props => props.theme.colors.light};
-  color: ${props => props.theme.colors.dark};
+  background-color: inherit;
+  color: ${props => props.theme.colors.black};
   text-align: center;
   list-style: none;
   align-self: auto;
