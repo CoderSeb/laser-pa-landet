@@ -5,10 +5,10 @@ import TextField from '../../styled/TextField'
 const Contact = () => {
   return (
     <div>
-    <TextField>
-    Kontakta mig gärna via formuläret nedan!
-    </TextField>
-    <ContactForm />
+      <TextField>
+        Kontakta mig gärna via formuläret nedan!
+      </TextField>
+      <ContactForm left />
     </div>
   )
 }

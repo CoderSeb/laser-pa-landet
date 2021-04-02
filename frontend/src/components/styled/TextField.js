@@ -6,8 +6,7 @@ const StyledText = styled.div`
   padding:1em;
   border-radius: 10px;
   box-shadow: 0 0 5px 1px ${props => props.theme.colors.accent};
-  max-width:80%;
-  margin: 1em auto;
+  margin: 1em;
   background: ${props => props.theme.colors.main};
 
   ${({left}) => left && css`
@@ -21,8 +20,7 @@ const StyledText = styled.div`
   `}
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    max-width:90%;
-    margin:1em auto;
+    margin:1em;
   }
 `
 
