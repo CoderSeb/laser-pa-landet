@@ -28,7 +28,6 @@
         "array-bracket-newline": "error",
         "array-bracket-spacing": "error",
         "array-callback-return": "error",
-        "array-element-newline": "error",
         "arrow-body-style": "off",
         "arrow-parens": [
             "error",
@@ -75,7 +74,6 @@
             "error",
             "expression"
         ],
-        "function-call-argument-newline": "error",
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "grouped-accessor-pairs": "error",

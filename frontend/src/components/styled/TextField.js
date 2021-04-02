@@ -20,9 +20,11 @@ const StyledText = styled.div`
     margin: 1em;
   `}
 
-  ${({width}) => width && css`
+  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+    ${({width}) => width && css`
     max-width: ${width};
   `}
+  }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     margin:1em;
