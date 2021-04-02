@@ -19,6 +19,11 @@ html {
       color: ${props => props.theme.colors.white};
     }
 }
+
+body {
+position:relative;
+min-height:100vh;
+}
 `
 
 export default GlobalStyle

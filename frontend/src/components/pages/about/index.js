@@ -4,19 +4,17 @@ import TextField from '../../styled/TextField'
 const About = () => {
   return (
     <div>
-    <TextField right>
-      Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik.<br />
+    <TextField right width="60%">
+      Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik.
       Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning
-      som deltidssysselsättning.<br />
+      som deltidssysselsättning.
       Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på
-      Österlen.<br />
+      Österlen.
       Väl mött!
     </TextField>
-    <TextField right>
-      <h3>Medicinsk laser mot akuta/kroniska smärtor och inflammationer</h3>
-
-      Vad är MEDICINSK LASER
-      En laser är en ljuskälla, som en lampa.Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat.Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).
+    <TextField right width="60%">
+      <h3>Vad är Medicinsk Laser?</h3><br />
+      En laser är en ljuskälla, som en lampa. Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).<br />Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat. Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).
 
       Medicinsk laser innebär att man använder sig av laserljus med lägre styrka, som är icke brännande.Metoden bygger inte på värmeutveckling som man kanske kan tro utan på fotobiologiska och fotokemiska mekanismer.
 

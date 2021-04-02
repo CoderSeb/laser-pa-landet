@@ -1,6 +1,6 @@
 import React from 'react'
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom'
-
+import styled from 'styled-components'
 import Footer from './components/footer'
 import Header from './components/header'
 
@@ -11,12 +11,35 @@ import Contact from './components/pages/contact'
 import Blog from './components/pages/blog'
 import Admin from './components/pages/admin'
 
+
+const StyledFlexBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-grow:5;
+  width:100%;
+  height:100%;
+
+  Header {
+    order:1
+  }
+
+  Footer {
+    order: 3;
+  }
+`
+
+const StyledWrapper = styled.div`
+order:2;
+padding-bottom:10rem;
+`
+
 const App = () => {
 
   return (
     <Router>
-      <div>
+      <StyledFlexBox>
         <Header />
+        <StyledWrapper>
         <Switch>
           <Route exact path="/">
             <Landing />
@@ -37,8 +60,9 @@ const App = () => {
             <Admin />
           </Route>
         </Switch>
+        </StyledWrapper>
         <Footer />
-      </div>
+        </StyledFlexBox>
     </Router>
   )
 }
