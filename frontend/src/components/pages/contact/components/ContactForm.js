@@ -109,47 +109,49 @@ const StyledSubmit = styled.button`
 `
 
 
-
 const ContactForm = ({right, left}) => {
-  const [charsLeft, setCharsLeft] = useState(0)
+  const [
+charsLeft,
+setCharsLeft
+] = useState(0)
   const maxLength = 600
-  const handleChange = (e) => {
+  const handleChange = e => {
     const {value} = e.target
     setCharsLeft(maxLength - value.length)
   }
   return (
     <StyledForm right={right} left={left}>
-    <h2>Kontaktformulär</h2>
-    <div>
-    <h3>Dina uppgifter</h3>
-      <StyledInput
-      placeholder="För- och efternamn..."
-      type="text"
-       />
-       <StyledInput
-      placeholder="Epost..."
-      type="email"
-       />
-       <StyledInput
-      placeholder="Telefon inkl. eventuellt riktnummer..."
-      type="tel"
-       />
-    </div>
-    <div>
-    <h3>Ditt meddelande</h3>
-    <StyledInput
-      placeholder="Ämne"
-      type="text"
-       />
-    <StyledTextarea
-    placeholder="Meddelande"
-    maxLength={maxLength}
-    onChange={handleChange} />
-    <p>{charsLeft}/{maxLength}</p>
-    </div>
-    <StyledSubmit>Skicka meddelande</StyledSubmit>
+      <h2>Kontaktformulär</h2>
+      <div>
+        <h3>Dina uppgifter</h3>
+        <StyledInput
+          placeholder="För- och efternamn..."
+          type="text"
+        />
+        <StyledInput
+          placeholder="Epost..."
+          type="email"
+        />
+        <StyledInput
+          placeholder="Telefon inkl. eventuellt riktnummer..."
+          type="tel"
+        />
+      </div>
+      <div>
+        <h3>Ditt meddelande</h3>
+        <StyledInput
+          placeholder="Ämne"
+          type="text"
+        />
+        <StyledTextarea
+          placeholder="Meddelande"
+          maxLength={maxLength}
+          onChange={handleChange} />
+        <p>{charsLeft}/{maxLength}</p>
+      </div>
+      <StyledSubmit>Skicka meddelande</StyledSubmit>
     </StyledForm>
   )
 }
 
-export default ContactForm;
+export default ContactForm

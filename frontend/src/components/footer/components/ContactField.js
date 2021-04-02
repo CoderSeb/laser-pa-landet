@@ -21,7 +21,7 @@ const ContactField = ({street, postal, city}) => {
       <p>{street}<br />{postal}</p>
       <p>{city}</p>
     </StyledContainer>
-    )
+  )
 }
 
 export default ContactField

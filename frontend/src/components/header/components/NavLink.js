@@ -1,3 +1,4 @@
+import React from 'react'
 import styled from 'styled-components'
 import {NavLink} from 'react-router-dom'
 
@@ -21,7 +22,7 @@ const StyledNavLink = styled(NavLink)`
   text-align:center;
   margin:1em 1.5em;
   
-  @media (max-width: ${(props) => props.theme.sizes.tablet}) {
+  @media (max-width: ${props => props.theme.sizes.tablet}) {
     font-size: 1.5rem;
     text-align: center;
   }

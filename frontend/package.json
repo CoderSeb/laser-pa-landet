@@ -2,6 +2,7 @@
   "name": "laser-pa-landet",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -9,6 +10,7 @@
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "is-svg": "^4.0.0",
+    "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -20,13 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "eject": "react-scripts eject",
+    "lint": "eslint ./**/*.js",
+    "lint:fix": "eslint --fix ./**/*.js"
   },
   "browserslist": {
     "production": [
@@ -39,5 +37,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint": "^7.23.0",
+    "eslint-plugin-react": "^7.23.1"
   }
 }

@@ -27,11 +27,11 @@ const StyledText = styled.div`
 const TextField = ({ children, left, right }) => {
   return (
     <StyledText left={left} right={right}>
-    <p>
-    {children}
-    </p>
+      <p>
+        {children}
+      </p>
     </StyledText>
   )
 }
 
-export default TextField;
+export default TextField

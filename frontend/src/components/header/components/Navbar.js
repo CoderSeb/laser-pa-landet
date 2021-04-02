@@ -17,7 +17,7 @@ const StyledNavbar = styled.nav`
   transition: transform 0.3s ease-in-out;
   transform: ${({ isOpen }) => isOpen ? 'translateX(0)' : 'translateX(-100%)'};
   
-  @media (max-width: ${(props) => props.theme.sizes.mobile}) {
+  @media (max-width: ${props => props.theme.sizes.mobile}) {
     width: 100%;
   }
 
@@ -47,7 +47,7 @@ const StyledNavbar = styled.nav`
 
 
 const Navbar = ({isOpen, children}) => {
-  return(
+  return (
     <StyledNavbar isOpen={isOpen}>
       <img src={logo} alt="Laser på landet logo" />
       {children}

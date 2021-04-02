@@ -26,9 +26,9 @@ const StyledItem = styled.li`
 const SocialItem = ({linkTo, logo, altText, title}) => {
   return (
     <StyledItem>
-        <a href={linkTo} target="_blank" rel="noreferrer"><img src={logo} alt={altText} /> {title}</a>
+      <a href={linkTo} target="_blank" rel="noreferrer"><img src={logo} alt={altText} /> {title}</a>
     </StyledItem>
-    )
+  )
 }
 
 export default SocialItem

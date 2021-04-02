@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from "styled-components"
+import styled from 'styled-components'
 
 const StyledBurgerButton = styled.button`
   position: absolute;
@@ -27,7 +27,7 @@ const StyledBurgerButton = styled.button`
   div {
     width: 2rem;
     height: 0.25rem;
-    background: ${(props) => props.theme.colors.black};
+    background: ${props => props.theme.colors.black};
     transition: all 0.3s linear;
     position: relative;
     transform-origin: 1px;
@@ -51,14 +51,14 @@ const StyledBurgerButton = styled.button`
 const Burger = ({isOpen, setIsOpen}) => {
   return (
     <StyledBurgerButton
-    isOpen={isOpen}
-    onClick={() => setIsOpen(!isOpen)}
+      isOpen={isOpen}
+      onClick={() => setIsOpen(!isOpen)}
     >
-    <div></div>
-    <div></div>
-    <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </StyledBurgerButton>
   )
 }
 
-export default Burger;
+export default Burger
