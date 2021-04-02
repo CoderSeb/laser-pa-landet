@@ -31,24 +31,24 @@ const Footer = () => {
   const year = new Date().getFullYear()
   return (
     <StyledFooter>
-    <BarContainer>
-    <ContactField
-      street="Sjörödtorpsvägen 10"
-      postal="27297"
-      city="Gärsnäs"
-      />
-      <SocialBar>
-        <SocialItem
-          title={"Följ oss på Facebook!"}
-          linkTo={"https://www.facebook.com/laserpalandet"}
-          logo={fbLogo}
-          altText={"The facebook 'f' logo"}
-         />
-      </SocialBar>
-    </BarContainer>
+      <BarContainer>
+        <ContactField
+          street="Sjörödtorpsvägen 10"
+          postal="27297"
+          city="Gärsnäs"
+        />
+        <SocialBar>
+          <SocialItem
+            title={'Följ oss på Facebook!'}
+            linkTo={'https://www.facebook.com/laserpalandet'}
+            logo={fbLogo}
+            altText={'The facebook \'f\' logo'}
+          />
+        </SocialBar>
+      </BarContainer>
       <small>&copy; Copyright {year} Laser på Landet. All Rights Reserved.</small>
     </StyledFooter>
-    )
+  )
 }
 
 export default Footer

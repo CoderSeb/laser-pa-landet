@@ -14,7 +14,7 @@ const BarContainer = ({children}) => {
     <StyledContainer>
       {children}
     </StyledContainer>
-    )
+  )
 }
 
 export default BarContainer

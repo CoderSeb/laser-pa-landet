@@ -25,37 +25,43 @@ const StyledHeader = styled.header`
 `
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [
+isOpen,
+setIsOpen
+] = useState(false)
   const headerRef = useRef()
-  useClickRef(headerRef, () => setIsOpen(false))
+  useClickRef(
+headerRef,
+() => setIsOpen(false)
+)
   return (
     <StyledHeader ref={headerRef}>
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
       <Navbar isOpen={isOpen} setIsOpen={setIsOpen}>
-      <NavLink
-      linkTo="/"
-      linkName="Hem"
-       />
-       <NavLink
-      linkTo="/behandlingar"
-      linkName="Behandlingar"
-       />
-       <NavLink
-      linkTo="/om"
-      linkName="Om företaget"
-       />
-       <NavLink
-      linkTo="/kontakt"
-      linkName="Kontakt"
-       />
-       <NavLink
-      linkTo="/blog"
-      linkName="Blog"
-       />
+        <NavLink
+          linkTo="/"
+          linkName="Hem"
+        />
+        <NavLink
+          linkTo="/behandlingar"
+          linkName="Behandlingar"
+        />
+        <NavLink
+          linkTo="/om"
+          linkName="Om företaget"
+        />
+        <NavLink
+          linkTo="/kontakt"
+          linkName="Kontakt"
+        />
+        <NavLink
+          linkTo="/blog"
+          linkName="Blog"
+        />
       </Navbar>
       <img className="mainBrand" src={logo} alt="Laser på landet logo" />
     </StyledHeader>
-    )
+  )
 }
 
 export default Header

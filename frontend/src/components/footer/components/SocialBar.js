@@ -15,7 +15,7 @@ const SocialBar = ({children}) => {
     <StyledList>
       {children}
     </StyledList>
-    )
+  )
 }
 
 export default SocialBar

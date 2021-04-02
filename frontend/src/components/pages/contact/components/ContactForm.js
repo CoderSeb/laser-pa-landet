@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
@@ -18,8 +18,21 @@ const StyledForm = styled.form`
     float:right;
   }
 
+  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+    ${({left}) => left && css`
+    float: left;
+    margin: 1em;
+  `}
+
+  ${({right}) => right && css`
+    float: right;
+    margin: 1em;
+  `}
+  }
+
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    width: 450px;
+    margin: 1em auto;
+    max-width: 90%;
   }
 `
 
@@ -96,47 +109,49 @@ const StyledSubmit = styled.button`
 `
 
 
-
-const ContactForm = () => {
-  const [charsLeft, setCharsLeft] = useState(0)
+const ContactForm = ({right, left}) => {
+  const [
+charsLeft,
+setCharsLeft
+] = useState(0)
   const maxLength = 600
-  const handleChange = (e) => {
+  const handleChange = e => {
     const {value} = e.target
     setCharsLeft(maxLength - value.length)
   }
   return (
-    <StyledForm>
-    <h2>Kontaktformulär</h2>
-    <div>
-    <h3>Dina uppgifter</h3>
-      <StyledInput
-      placeholder="För- och efternamn..."
-      type="text"
-       />
-       <StyledInput
-      placeholder="Epost..."
-      type="email"
-       />
-       <StyledInput
-      placeholder="Telefon inkl. eventuellt riktnummer..."
-      type="tel"
-       />
-    </div>
-    <div>
-    <h3>Ditt meddelande</h3>
-    <StyledInput
-      placeholder="Ämne"
-      type="text"
-       />
-    <StyledTextarea
-    placeholder="Meddelande"
-    maxLength={maxLength}
-    onChange={handleChange} />
-    <p>{charsLeft}/{maxLength}</p>
-    </div>
-    <StyledSubmit>Skicka meddelande</StyledSubmit>
+    <StyledForm right={right} left={left}>
+      <h2>Kontaktformulär</h2>
+      <div>
+        <h3>Dina uppgifter</h3>
+        <StyledInput
+          placeholder="För- och efternamn..."
+          type="text"
+        />
+        <StyledInput
+          placeholder="Epost..."
+          type="email"
+        />
+        <StyledInput
+          placeholder="Telefon inkl. eventuellt riktnummer..."
+          type="tel"
+        />
+      </div>
+      <div>
+        <h3>Ditt meddelande</h3>
+        <StyledInput
+          placeholder="Ämne"
+          type="text"
+        />
+        <StyledTextarea
+          placeholder="Meddelande"
+          maxLength={maxLength}
+          onChange={handleChange} />
+        <p>{charsLeft}/{maxLength}</p>
+      </div>
+      <StyledSubmit>Skicka meddelande</StyledSubmit>
     </StyledForm>
   )
 }
 
-export default ContactForm;
+export default ContactForm
