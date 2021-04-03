@@ -30,7 +30,8 @@ const StyledFlexBox = styled.div`
 
 const StyledWrapper = styled.div`
 order:2;
-padding-bottom:10rem;
+flex: 5  1 auto;
+padding-bottom:9.5rem;
 `
 
 const App = () => {

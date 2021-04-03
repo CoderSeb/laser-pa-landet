@@ -8,7 +8,6 @@ const StyledForm = styled.form`
   width: 600px;
   min-height: 600px;
   margin: 1em auto;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   h2 {
     text-align: center;
     margin-bottom:1rem;
@@ -37,7 +36,7 @@ const StyledForm = styled.form`
 `
 
 const StyledInput = styled.input`
-  background: ${props => props.theme.colors.white};
+  background: ${props => props.theme.colors.secondary};
   color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
@@ -46,16 +45,16 @@ const StyledInput = styled.input`
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   transition: all 0.4s ease-in-out;
 
   &:focus {
     width:100%;
+    box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   }
 `
 
 const StyledTextarea = styled.textarea`
-  background: ${props => props.theme.colors.white};
+  background: ${props => props.theme.colors.secondary};
   color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
@@ -64,13 +63,13 @@ const StyledTextarea = styled.textarea`
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   resize: none;
   height: 120px;
   transition: all 0.4s ease-in-out;
 
   &:focus {
     height:250px;
+    box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   }
 `
 

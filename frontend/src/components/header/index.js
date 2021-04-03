@@ -11,7 +11,6 @@ const StyledHeader = styled.header`
   background-color: ${props => props.theme.colors.main};
   height:7rem;
   overflow:hidden;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
 
   .mainBrand {
     height:60px;
