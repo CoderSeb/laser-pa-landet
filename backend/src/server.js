@@ -9,6 +9,7 @@
 import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
+import cors from 'cors'
 
 import { router } from './routes/router.js'
 
@@ -19,6 +20,7 @@ const main = async () => {
   // Creates an express application.
   const app = express()
   app.use(helmet())
+  app.use(cors())
   app.use(logger('dev'))
   app.use(express.json())
 
@@ -36,7 +38,7 @@ const main = async () => {
   })
 
   // Register routes.
-  app.use('/api/v1/auth/', router)
+  app.use('/api/v1/', router)
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)

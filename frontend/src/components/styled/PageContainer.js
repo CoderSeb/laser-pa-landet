@@ -6,7 +6,7 @@ width: 100%;
 min-height: 80vh;
 overflow:auto;
 padding: 1em;
-background-color: ${props => props.theme.colors.accent};
+background-color: #ccd6ff;
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});
     background-position: center;
@@ -15,7 +15,6 @@ background-color: ${props => props.theme.colors.accent};
   `}
 
 `
-
 
 const PageContainer = ({backImgSrc, backImgAlt, children}) => {
   return (

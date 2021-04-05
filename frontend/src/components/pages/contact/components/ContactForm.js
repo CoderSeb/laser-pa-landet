@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled, { css } from 'styled-components'
+import axios from 'axios'
 
 const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
@@ -118,22 +119,47 @@ setCharsLeft
     const {value} = e.target
     setCharsLeft(maxLength - value.length)
   }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    axios({
+      method: "POST",
+      url: "http://localhost:5050/api/v1/email",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: {
+        fullName: e.target.emailFullName.value,
+        email: e.target.emailEmail.value,
+        phone: e.target.emailPhone.value,
+        subject: e.target.emailSubject.value,
+        message: e.target.emailMessage.value
+      }
+    }).then(response => {
+      // eslint-disable-next-line no-console
+      console.log(response.config.data)
+    })
+  }
+
   return (
-    <StyledForm right={right} left={left}>
+    <StyledForm right={right} left={left} onSubmit={handleSubmit} method="POST">
       <h2>Kontaktformulär</h2>
       <div>
         <h3>Dina uppgifter</h3>
         <StyledInput
           placeholder="För- och efternamn..."
           type="text"
+          name="emailFullName"
         />
         <StyledInput
           placeholder="Epost..."
           type="email"
+          name="emailEmail"
         />
         <StyledInput
           placeholder="Telefon inkl. eventuellt riktnummer..."
           type="tel"
+          name="emailPhone"
         />
       </div>
       <div>
@@ -141,14 +167,16 @@ setCharsLeft
         <StyledInput
           placeholder="Ämne"
           type="text"
+          name="emailSubject"
         />
         <StyledTextarea
           placeholder="Meddelande"
+          name="emailMessage"
           maxLength={maxLength}
           onChange={handleChange} />
         <p>{charsLeft}/{maxLength}</p>
       </div>
-      <StyledSubmit>Skicka meddelande</StyledSubmit>
+      <StyledSubmit type="submit">Skicka meddelande</StyledSubmit>
     </StyledForm>
   )
 }
