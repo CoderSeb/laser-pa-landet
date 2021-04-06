@@ -151,7 +151,7 @@ const ContactForm = ({right, left}) => {
 
   const validateForm = errList => {
     let isValid = true
-    Object.values(errList).forEach(error => error === null && (isValid = false))
+    Object.values(errList).forEach(error => error !== null && (isValid = false))
     return isValid
   }
 
@@ -199,21 +199,24 @@ const ContactForm = ({right, left}) => {
           headers: {
             'Content-Type': 'application/json'
           },
-          data: {
+          data: JSON.stringify({
             fullName,
             email,
             phone,
             subject,
             message
-          }
+          })
         }).then(response => {
           // eslint-disable-next-line no-console
-          console.log(response.config.data)
+          console.log(response.data.status)
         })
       } catch (err) {
         // eslint-disable-next-line no-console
         console.log(err.message)
       }
+    } else {
+      // eslint-disable-next-line no-console
+      console.log('Ops...')
     }
   }
 
