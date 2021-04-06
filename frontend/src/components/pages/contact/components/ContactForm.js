@@ -141,6 +141,14 @@ const ContactForm = ({right, left}) => {
     return false
   }
 
+  const validatePhone = numberToBeChecked => {
+    const regexPhone = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{3,6}$/im
+    if (numberToBeChecked.match(regexPhone)) {
+      return true
+    }
+    return false
+  }
+
   const validateForm = errList => {
     let isValid = true
     Object.values(errList).forEach(error => error === null && (isValid = false))
@@ -168,6 +176,11 @@ const ContactForm = ({right, left}) => {
         setMessage(value)
         break
       case 'phone':
+        if (value.length !== 0) {
+          errors.phone = validatePhone(value) ? null : 'Telefonnumret är ogiltigt'
+        } else {
+          errors.phone = null
+        }
         setPhone(value)
         break
       default:
@@ -231,6 +244,8 @@ const ContactForm = ({right, left}) => {
           name="phone"
           onChange={handleInputChange}
         />
+        {errors.subject !== null &&
+        <span>{errors.phone}</span>}
       </div>
       <div>
         <h3>Ditt meddelande</h3>
