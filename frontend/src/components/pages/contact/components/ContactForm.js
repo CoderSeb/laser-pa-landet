@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
+import axios from 'axios'
 
 const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
@@ -8,7 +9,6 @@ const StyledForm = styled.form`
   width: 600px;
   min-height: 600px;
   margin: 1em auto;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   h2 {
     text-align: center;
     margin-bottom:1rem;
@@ -16,6 +16,13 @@ const StyledForm = styled.form`
 
   p {
     float:right;
+  }
+
+  span {
+    color: red;
+    display:block;
+    margin-top: 0;
+    margin-bottom: 1em;
   }
 
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
@@ -32,30 +39,30 @@ const StyledForm = styled.form`
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     margin: 1em auto;
-    max-width: 90%;
+    max-width: 100%;
   }
 `
 
 const StyledInput = styled.input`
-  background: ${props => props.theme.colors.white};
+  background: ${props => props.theme.colors.secondary};
   color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
   width:60%;
-  margin:1em auto;
+  margin:.5em auto;
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   transition: all 0.4s ease-in-out;
 
   &:focus {
     width:100%;
+    box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   }
 `
 
 const StyledTextarea = styled.textarea`
-  background: ${props => props.theme.colors.white};
+  background: ${props => props.theme.colors.secondary};
   color: ${props => props.theme.colors.black};
   border: none;
   outline:none;
@@ -64,13 +71,13 @@ const StyledTextarea = styled.textarea`
   padding: .5em;
   font-size: 1em;
   border-radius:8px;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   resize: none;
   height: 120px;
   transition: all 0.4s ease-in-out;
 
   &:focus {
     height:250px;
+    box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
   }
 `
 
@@ -110,46 +117,169 @@ const StyledSubmit = styled.button`
 
 
 const ContactForm = ({right, left}) => {
-  const [
-charsLeft,
-setCharsLeft
-] = useState(0)
+  const [charsLeft, setCharsLeft] = useState(0)
+  const [errors, setErrors] = useState({})
+  const [fullName, setFullName] = useState(null)
+  const [email, setEmail] = useState(null)
+  const [phone, setPhone] = useState(null)
+  const [subject, setSubject] = useState(null)
+  const [message, setMessage] = useState(null)
+  const [serverMessage, setServerMessage] = useState('')
+
   const maxLength = 600
-  const handleChange = e => {
+
+  const handleTextChange = e => {
     const {value} = e.target
     setCharsLeft(maxLength - value.length)
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setServerMessage('')
+    }, 3000)
+  }, [serverMessage])
+
+  const validateEmail = emailToBeChecked => {
+    // From: https://www.codegrepper.com/app/profile.php?id=14164
+    const regexEmail = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/
+    if (emailToBeChecked.match(regexEmail)) {
+      return true
+    }
+    return false
+  }
+
+  const validatePhone = numberToBeChecked => {
+    const regexPhone = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{3,6}$/im
+    if (numberToBeChecked.match(regexPhone)) {
+      return true
+    }
+    return false
+  }
+
+  const validateForm = errList => {
+    let isValid = true
+    Object.values(errList).forEach(error => error !== null && (isValid = false))
+    return isValid
+  }
+
+  const handleInputChange = e => {
+    e.preventDefault()
+    const {name, value} = e.target
+    switch (name) {
+      case 'fullName':
+        errors.fullName = value.length < 3 ? 'Vänligen fyll i ditt fullständiga namn.' : null
+        setFullName(value)
+        break
+      case 'email':
+        errors.email = validateEmail(value) ? null : 'Epost addressen är inte giltig.'
+        setEmail(value)
+        break
+      case 'subject':
+        errors.subject = value.length < 3 ? 'Ämnet behöver vara minst 3 tecken långt.' : null
+        setSubject(value)
+        break
+      case 'message':
+        errors.message = value.length < 8 ? 'Meddelandet behöver vara minst 8 tecken långt.' : null
+        setMessage(value)
+        break
+      case 'phone':
+        if (value.length !== 0) {
+          errors.phone = validatePhone(value) ? null : 'Telefonnumret är ogiltigt'
+        } else {
+          errors.phone = null
+        }
+        setPhone(value)
+        break
+      default:
+        break
+    }
+    setErrors(errors)
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (validateForm(errors)) {
+      try {
+        axios({
+          method: "POST",
+          url: "http://localhost:5050/api/v1/email",
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          data: JSON.stringify({
+            fullName,
+            email,
+            phone,
+            subject,
+            message
+          })
+        }).then(response => {
+          setServerMessage(response.data.status)
+          e.target.reset()
+        })
+      } catch (err) {
+        setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
+      }
+    } else {
+      setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
+    }
+  }
+
   return (
-    <StyledForm right={right} left={left}>
+    <StyledForm right={right} left={left} onSubmit={handleSubmit} method="POST">
       <h2>Kontaktformulär</h2>
       <div>
         <h3>Dina uppgifter</h3>
         <StyledInput
           placeholder="För- och efternamn..."
           type="text"
+          name="fullName"
+          onChange={handleInputChange}
         />
+        {errors.fullName !== null &&
+        <span>{errors.fullName}</span>}
         <StyledInput
           placeholder="Epost..."
           type="email"
+          name="email"
+          onChange={handleInputChange}
         />
+        {errors.email !== null &&
+        <span>{errors.email}</span>}
         <StyledInput
-          placeholder="Telefon inkl. eventuellt riktnummer..."
+          placeholder="(Frivilligt) Telefon..."
           type="tel"
+          name="phone"
+          onChange={handleInputChange}
         />
+        {errors.subject !== null &&
+        <span>{errors.phone}</span>}
       </div>
       <div>
         <h3>Ditt meddelande</h3>
         <StyledInput
           placeholder="Ämne"
           type="text"
+          name="subject"
+          onChange={handleInputChange}
         />
+        {errors.subject !== null &&
+        <span>{errors.subject}</span>}
         <StyledTextarea
           placeholder="Meddelande"
+          name="message"
           maxLength={maxLength}
-          onChange={handleChange} />
+          onChange={e => {
+            handleTextChange(e)
+            handleInputChange(e)
+            }} />
         <p>{charsLeft}/{maxLength}</p>
+        {errors.message !== null &&
+        <span>{errors.message}</span>}
       </div>
-      <StyledSubmit>Skicka meddelande</StyledSubmit>
+      <StyledSubmit type="submit">Skicka meddelande</StyledSubmit>
+      {serverMessage.length > 0 &&
+      <span style={{color: "black"}}>{serverMessage}</span>}
     </StyledForm>
   )
 }

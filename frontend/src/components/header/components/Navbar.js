@@ -6,11 +6,12 @@ import logo from '../../../assets/img/LPL-Brand.png'
 const StyledNavbar = styled.nav`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   background: inherit;
-  height: 100vh;
   text-align: center;
-  padding: 2rem;
+  padding: 1rem;
+  height:100%;
+  padding-top: 15rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -23,14 +24,13 @@ const StyledNavbar = styled.nav`
 
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     position:relative;
-    min-height:100px;
     width:100%;
     display:inline-block;
     float:left;
     transform: none;
     text-align: center;
-    margin-bottom: 1em;
-    max-height:150px;
+    max-height:6rem;
+    padding-top: 1rem;
   }
 
   img {

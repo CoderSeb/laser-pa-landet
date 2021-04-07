@@ -4,10 +4,11 @@ import styled, { css } from 'styled-components'
 const StyledText = styled.div`
   text-align:center;
   padding:1em;
+  white-space: normal;
   border-radius: 10px;
-  box-shadow: 0 0 5px 1px ${props => props.theme.colors.accent};
   margin: 1em;
-  background: ${props => props.theme.colors.main};
+  background: ${props => props.theme.colors.mainTransparent};
+  user-select:none;
 
   ${({left}) => left && css`
     float: left;
@@ -19,14 +20,26 @@ const StyledText = styled.div`
     margin: 1em;
   `}
 
+  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+    ${({width}) => width && css`
+    max-width: ${width};
+  `}
+  }
+
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     margin:1em;
   }
+
+  li {
+    margin:1em 1.5em;
+    display: inline-block;
+    font-weight: bold;
+  }
 `
 
-const TextField = ({ children, left, right }) => {
+const TextField = ({ children, left, right, width }) => {
   return (
-    <StyledText left={left} right={right}>
+    <StyledText width={width} left={left} right={right}>
       <p>
         {children}
       </p>

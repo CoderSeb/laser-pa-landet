@@ -1,80 +1,81 @@
 import React from 'react'
 import TextField from '../../styled/TextField'
+import PageContainer from '../../styled/PageContainer'
+
+const diagnoser = [
+      'Allergi',
+      'Ansiktsförlamning',
+      'Artros',
+      'Bensår',
+      'Bihåleinflammation',
+      'Depression',
+      'Diskbråck',
+      'Eksem',
+      'Fibromyalgi',
+      'Frusen axel',
+      'Herpes',
+      'Huvudvärk',
+      'Hälseneinflammation',
+      'Hälsporre',
+      'IBS',
+      'Ischias',
+      'Karpaltunnelsyndrom',
+      'Lymfödem',
+      'Mensvärk',
+      'Migrän',
+      'Morbus crohn/ ulcerös colit',
+      'Musarm',
+      'Muskelsträckning',
+      'Nervskador',
+      'Psoriasis',
+      'Reumatism',
+      'Restless legs',
+      'Rosacea',
+      'Sekretorisk otit',
+      'Slemsäcksinflammation',
+      'Spinal stenos',
+      'Tennisarmbåge',
+      'Hypotyreos',
+      'Utmattningssyndrom',
+      'Whiplash',
+      'Åderbråck'
+]
+
 
 const About = () => {
   return (
-    <div>
-    <TextField right>
-      Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik.<br />
-      Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning
-      som deltidssysselsättning.<br />
-      Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på
-      Österlen.<br />
-      Väl mött!
-    </TextField>
-    <TextField right>
-      <h3>Medicinsk laser mot akuta/kroniska smärtor och inflammationer</h3>
+    <PageContainer>
+    <TextField right width="60%"><h3>Vad är Medicinsk Laser?</h3>
+      <hr />
+      En laser är en ljuskälla, som en lampa. Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).<br />Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat. Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).<br /><br />
 
-      Vad är MEDICINSK LASER
-      En laser är en ljuskälla, som en lampa.Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat.Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).
+      <p>Medicinsk laser innebär att man använder sig av laserljus med lägre styrka, som är icke brännande. Metoden bygger inte på värmeutveckling som man kanske kan tro utan på fotobiologiska och fotokemiska mekanismer.</p>
 
-      Medicinsk laser innebär att man använder sig av laserljus med lägre styrka, som är icke brännande.Metoden bygger inte på värmeutveckling som man kanske kan tro utan på fotobiologiska och fotokemiska mekanismer.
+      Medicinsk laser är en vetenskaplig behandlingsmetod som har använts inom sportmedicinen i ca 20 år. Behandlingen är fri från kontraindikationer och biverkningar. Beprövat och tryggt.<br />
 
-      Medicinsk laser är en vetenskaplig behandlingsmetod som har använts inom sportmedicinen i ca 20 år.Behandlingen är fri från kontraindikationer och biverkningar.Beprövat och tryggt.
+      Laserbehandling går utmärkt att kombinera med medicinering, pacemaker, implantat etc.<br /><br />
 
-      Laserbehandling går utmärkt att kombinera med medicinering, pacemaker, implantat etc.
-
-      Hur går en behandling till
+      <strong>Hur går en behandling till?</strong><br />
       Initialt ges 5-6 behandlingar i följd.Efter första behandlingstillfället kan efter några timmar uppstå träningsvärkssmärta, detta är positivt då det visar att läkningsprocessen kommit igång.Behandlingen uppvisar mycket goda behandlingsresultat.Drick mycket vatten innan behandlingen och efter behandlingen.
 
       För att lasern ska fungera fullt ut och hjälpa kroppen läka ”rätt besvär” är det viktigt att kroppen får rätt förutsättningar att kunna läka sig.
       Där har kosten en central plats.
-      Jag hjälper dig se över din kost, hjälper dig med kostplan och ger dig råd för hur du ska kunna optimera din hälsa och välmående.Om du har det önskemålet.
-      Välkommen!
-
-
-      Vilka diagnoser kan behandlas
-      Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.Se nedan områden där det är applicerbart.
-
-      Erfarenhetsbaserade resultat vid följande diagnoser:
-      Allergi
-      Ansiktsförlamning
-      Artros
-      Bensår
-      Bihåleinflammation
-      Depression
-      Diskbråck
-      Eksem
-      Fibromyalgi
-      Frusen axel
-      Herpes
-      Huvudvärk
-      Hälseneinflammation
-      Hälsporre
-      IBS
-      Ischias
-      Karpaltunnelsyndrom
-      Lymfödem
-      Mensvärk
-      Migrän
-      Morbus crohn/ ulcerös colit
-      Musarm
-      Muskelsträckning
-      Nervskador
-      Psoriasis
-      Reumatism
-      Restless legs
-      Rosacea
-      Sekretorisk otit
-      Slemsäcksinflammation
-      Spinal stenos
-      Tennisarmbåge
-      Underfunktion av sköldkörteln
-      Utmattningssyndrom
-      Whiplash
-      Åderbråck
+      Jag hjälper dig se över din kost, hjälper dig med kostplan och ger dig råd för hur du ska kunna optimera din hälsa och välmående. Om du har det önskemålet.
+      <br />
+      Välkommen!<br /></TextField>
+    <TextField right width="60%">
+      <h3>Vilka diagnoser kan behandlas?</h3>
+      Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.<br />Nedan är några exempel på diagnoser där laserbehandling givit resultat.
+      <hr />
+      <ul className="diagnosisList">
+      {diagnoser.map(diagnos => {
+        return (
+          <li key={diagnos}>{diagnos}</li>
+        )
+      })}
+      </ul>
     </TextField>
-  </div>
+  </PageContainer>
   )
 }
 

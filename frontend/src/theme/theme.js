@@ -1,7 +1,8 @@
 const theme = {
   "colors": {
-    "main": '#e3fce1',
-    "secondary": '#66FFFF',
+    "main": 'rgba(254, 247, 255, 1)',
+    "mainTransparent": 'rgba(254, 247, 255, 0.6)',
+    "secondary": '#ccd6ff',
     "accent": '#D940B3',
     "accentLight": '#FF0099',
     "accentDark": '#B380CC',

@@ -7,13 +7,11 @@
 
 // Imports
 import express from 'express'
-import { AuthenticationController } from '../controllers/auth-controller.js'
+import { router as emailRouter } from './email-router.js'
 
 export const router = express.Router()
-const controller = new AuthenticationController()
 
-router.post('/register', controller.registerUser)
-router.post('/login', controller.loginUser)
+router.use('/email', emailRouter)
 
 // Catch 404 (ALWAYS keep this as the last route).
 router.use('*', (req, res, next) => next(res.sendStatus(404)))

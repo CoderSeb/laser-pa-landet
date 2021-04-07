@@ -9,9 +9,8 @@ import logo from '../../assets/img/LPL-Brand.png'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.theme.colors.main};
-  min-height:100px;
+  height:7rem;
   overflow:hidden;
-  box-shadow: 0 0 3px 1px ${props => props.theme.colors.accent};
 
   .mainBrand {
     height:60px;
@@ -25,15 +24,11 @@ const StyledHeader = styled.header`
 `
 
 const Header = () => {
-  const [
-isOpen,
-setIsOpen
-] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
   const headerRef = useRef()
-  useClickRef(
-headerRef,
-() => setIsOpen(false)
-)
+
+  useClickRef(headerRef, () => setIsOpen(false))
+
   return (
     <StyledHeader ref={headerRef}>
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
