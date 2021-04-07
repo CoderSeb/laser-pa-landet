@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { css } from 'styled-components'
 import axios from 'axios'
 
@@ -124,6 +124,7 @@ const ContactForm = ({right, left}) => {
   const [phone, setPhone] = useState(null)
   const [subject, setSubject] = useState(null)
   const [message, setMessage] = useState(null)
+  const [serverMessage, setServerMessage] = useState('')
 
   const maxLength = 600
 
@@ -131,6 +132,12 @@ const ContactForm = ({right, left}) => {
     const {value} = e.target
     setCharsLeft(maxLength - value.length)
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      setServerMessage('')
+    }, 3000)
+  }, [serverMessage])
 
   const validateEmail = emailToBeChecked => {
     // From: https://www.codegrepper.com/app/profile.php?id=14164
@@ -207,16 +214,14 @@ const ContactForm = ({right, left}) => {
             message
           })
         }).then(response => {
-          // eslint-disable-next-line no-console
-          console.log(response.data.status)
+          setServerMessage(response.data.status)
+          e.target.reset()
         })
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.log(err.message)
+        setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
       }
     } else {
-      // eslint-disable-next-line no-console
-      console.log('Ops...')
+      setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
     }
   }
 
@@ -273,6 +278,8 @@ const ContactForm = ({right, left}) => {
         <span>{errors.message}</span>}
       </div>
       <StyledSubmit type="submit">Skicka meddelande</StyledSubmit>
+      {serverMessage.length > 0 &&
+      <span style={{color: "black"}}>{serverMessage}</span>}
     </StyledForm>
   )
 }

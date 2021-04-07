@@ -49,13 +49,13 @@ const About = () => {
       <hr />
       En laser är en ljuskälla, som en lampa. Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).<br />Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat. Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).<br /><br />
 
-      Medicinsk laser innebär att man använder sig av laserljus med lägre styrka, som är icke brännande. Metoden bygger inte på värmeutveckling som man kanske kan tro utan på fotobiologiska och fotokemiska mekanismer.
+      <p>Medicinsk laser innebär att man använder sig av laserljus med lägre styrka, som är icke brännande. Metoden bygger inte på värmeutveckling som man kanske kan tro utan på fotobiologiska och fotokemiska mekanismer.</p>
 
       Medicinsk laser är en vetenskaplig behandlingsmetod som har använts inom sportmedicinen i ca 20 år. Behandlingen är fri från kontraindikationer och biverkningar. Beprövat och tryggt.<br />
 
       Laserbehandling går utmärkt att kombinera med medicinering, pacemaker, implantat etc.<br /><br />
 
-      <h3>Hur går en behandling till?</h3>
+      <strong>Hur går en behandling till?</strong><br />
       Initialt ges 5-6 behandlingar i följd.Efter första behandlingstillfället kan efter några timmar uppstå träningsvärkssmärta, detta är positivt då det visar att läkningsprocessen kommit igång.Behandlingen uppvisar mycket goda behandlingsresultat.Drick mycket vatten innan behandlingen och efter behandlingen.
 
       För att lasern ska fungera fullt ut och hjälpa kroppen läka ”rätt besvär” är det viktigt att kroppen får rätt förutsättningar att kunna läka sig.
@@ -65,8 +65,7 @@ const About = () => {
       Välkommen!<br /></TextField>
     <TextField right width="60%">
       <h3>Vilka diagnoser kan behandlas?</h3>
-      <p>
-      Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.<br />Nedan är några exempel på diagnoser där laserbehandling givit resultat.</p>
+      Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.<br />Nedan är några exempel på diagnoser där laserbehandling givit resultat.
       <hr />
       <ul className="diagnosisList">
       {diagnoser.map(diagnos => {

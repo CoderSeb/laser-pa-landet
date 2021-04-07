@@ -36,7 +36,12 @@ export const EmailController = {
       }
     })
 
-    const content = `<h3>Email från användare av Laser på landet!</h3>\nNamn: ${fullName} \nEpost: ${email} \nTelefon: ${phone}\nMeddelande: ${message}`
+    const content = `<div style="background: #ccd6ff; padding: 0px .5em .5em .5em;">
+    <h3>Nytt email från användare av Laser på landet!</h3>\n
+    <span>Namn: <code>${fullName}</code></span><br />
+    <span>Epost: <a href="mailto:${email}">${email}</a></span><br />
+    <span>Telefon: <code>${phone}</code></span><br />
+    <p>Meddelande: <pre>${message}</pre></p></div>`
 
     const mailOptions = {
       from: `${fullName} ${email}`,
@@ -47,7 +52,7 @@ export const EmailController = {
 
     await transport.sendMail(mailOptions, (err, data) => {
       if (err) {
-        res.json({ status: err.message })
+        res.json({ status: 'Något gick fel, ladda om sidan och försök gärna igen.' })
       } else {
         res.json({ status: 'Ditt meddelande är skickat!' })
       }
