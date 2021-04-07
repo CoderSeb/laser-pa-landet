@@ -6,9 +6,8 @@ import landingImg from '../../../assets/img/stockphoto/woman-receiving-laser-the
 const Landing = () => {
   return (
     <PageContainer backImgSrc={landingImg} pageImgAlt="Image of a woman receiving laser therapy.">
-    <TextField width="50%" left>
-    <h2>Hej!<br /></h2>
-    <h4>Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik. Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning som deltidssysselsättning. Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på Österlen.<br />Väl mött!</h4>
+    <TextField>
+      <h1>Welcoem!</h1>
     </TextField>
     </PageContainer>
   )

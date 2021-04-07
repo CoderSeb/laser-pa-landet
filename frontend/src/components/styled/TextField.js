@@ -24,6 +24,14 @@ const StyledText = styled.div`
     ${({width}) => width && css`
     max-width: ${width};
   `}
+
+  @media only screen and (min-width: 1275px) {
+    max-width: 47%;
+  }
+
+  ${({height}) => height && css`
+    height: ${height};
+  `}
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
@@ -37,12 +45,10 @@ const StyledText = styled.div`
   }
 `
 
-const TextField = ({ children, left, right, width }) => {
+const TextField = ({ children, left, right, width, height }) => {
   return (
-    <StyledText width={width} left={left} right={right}>
-      <p>
+    <StyledText width={width} left={left} right={right} height={height}>
         {children}
-      </p>
     </StyledText>
   )
 }

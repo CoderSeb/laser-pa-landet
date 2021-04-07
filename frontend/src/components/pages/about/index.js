@@ -1,6 +1,8 @@
 import React from 'react'
 import TextField from '../../styled/TextField'
 import PageContainer from '../../styled/PageContainer'
+import ImageCard from '../../styled/ImageCard'
+import profilePic from '../../../assets/img/laser-pa-landet/neck_laser.jpg'
 
 const diagnoser = [
       'Allergi',
@@ -45,7 +47,13 @@ const diagnoser = [
 const About = () => {
   return (
     <PageContainer>
-    <TextField right width="60%"><h3>Vad är Medicinsk Laser?</h3>
+    <TextField width="47%" left className="michaela-info">
+    <h2>Hej!</h2>
+    Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik. Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning som deltidssysselsättning.
+    <ImageCard portrait width="100%" backImgSrc={profilePic} />
+    Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på Österlen.<br />Väl mött!
+    </TextField>
+    <TextField right width="47%"><h3>Vad är Medicinsk Laser?</h3>
       <hr />
       En laser är en ljuskälla, som en lampa. Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).<br />Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat. Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).<br /><br />
 
@@ -63,7 +71,7 @@ const About = () => {
       Jag hjälper dig se över din kost, hjälper dig med kostplan och ger dig råd för hur du ska kunna optimera din hälsa och välmående. Om du har det önskemålet.
       <br />
       Välkommen!<br /></TextField>
-    <TextField right width="60%">
+    <TextField right width="100%">
       <h3>Vilka diagnoser kan behandlas?</h3>
       Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.<br />Nedan är några exempel på diagnoser där laserbehandling givit resultat.
       <hr />
