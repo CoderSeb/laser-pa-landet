@@ -16,6 +16,7 @@ const StyledFooter = styled.footer`
   margin-top:1em;
   height:9.5rem;
   padding:1rem;
+  z-index: 100;
 
   small {
     position:absolute;

@@ -35,13 +35,13 @@ background-color: gray;
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     ${({width}) => width && css`
     max-width: ${width};
+    max-height: 600px;
   `}
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     margin:1em;
   }
-
 `
 
 const ImageCard = ({backImgSrc, backImgAlt, portrait, landscape, left, right}) => {

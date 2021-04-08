@@ -11,6 +11,7 @@ const StyledHeader = styled.header`
   background-color: ${props => props.theme.colors.main};
   height:7rem;
   overflow:hidden;
+  z-index: 100;
 
   .mainBrand {
     height:60px;

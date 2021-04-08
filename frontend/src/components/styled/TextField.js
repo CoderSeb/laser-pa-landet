@@ -25,10 +25,6 @@ const StyledText = styled.div`
     max-width: ${width};
   `}
 
-  @media only screen and (min-width: 1275px) {
-    max-width: 47%;
-  }
-
   ${({height}) => height && css`
     height: ${height};
   `}
