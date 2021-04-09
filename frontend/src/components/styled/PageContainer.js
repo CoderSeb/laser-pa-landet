@@ -4,9 +4,9 @@ import styled, { css } from 'styled-components'
 const StyledContainer = styled.div`
 width: 100%;
 min-height: 100vh;
-overflow: inherit;
+overflow: auto;
 padding: 1em;
-height:100%;
+height: fit-content;
 background-color: #ccd6ff;
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});
