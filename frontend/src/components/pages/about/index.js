@@ -71,7 +71,7 @@ const About = () => {
       Jag hjälper dig se över din kost, hjälper dig med kostplan och ger dig råd för hur du ska kunna optimera din hälsa och välmående. Om du har det önskemålet.
       <br />
       Välkommen!<br /></TextField>
-    <TextField right width="100%">
+    <TextField right width="47%">
       <h3>Vilka diagnoser kan behandlas?</h3>
       Då man arbetar med att påverka celler och vävnad, så har medicinsk laser ett stort användningsområde.<br />Nedan är några exempel på diagnoser där laserbehandling givit resultat.
       <hr />

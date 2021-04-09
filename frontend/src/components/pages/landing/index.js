@@ -1,14 +1,14 @@
 import React from 'react'
-import TextField from '../../styled/TextField'
 import PageContainer from '../../styled/PageContainer'
-import landingImg from '../../../assets/img/stockphoto/woman-receiving-laser-therapy.jpg&size=1024.jpg'
+import ImageCard from '../../styled/ImageCard'
+import laserPic1 from '../../../assets/img/laser-pa-landet/neck_laser.jpg'
+import Jumbo from './components/Jumbo'
 
 const Landing = () => {
   return (
-    <PageContainer backImgSrc={landingImg} pageImgAlt="Image of a woman receiving laser therapy.">
-    <TextField width="100%">
-      <h1>Välkommen!</h1>
-    </TextField>
+    <PageContainer>
+    <Jumbo />
+    <ImageCard backImgSrc={laserPic1} portrait />
     </PageContainer>
   )
 }

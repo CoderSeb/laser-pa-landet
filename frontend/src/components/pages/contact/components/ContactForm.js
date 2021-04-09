@@ -6,9 +6,10 @@ const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
   border-radius: 10px;
   padding:1em;
-  width: 600px;
-  min-height: 600px;
-  margin: 1em auto;
+  width: 900px;
+  min-height: 650px;
+  margin: 5rem auto;
+
   h2 {
     text-align: center;
     margin-bottom:1rem;
