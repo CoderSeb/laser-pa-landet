@@ -9,13 +9,14 @@ const StyledContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  align-content: center;
+  align-content: center-top;
   max-width:100%;
   gap: 1em;
-  overflow: inherit;
+  height:auto;
 `
 
 const BlogContainer = ({children}) => {
+
   return (
     <StyledContainer>
       {children}

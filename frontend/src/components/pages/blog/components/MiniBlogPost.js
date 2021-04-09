@@ -12,13 +12,21 @@ const StyledContainer = styled.div`
   transition: all 0.2s ease;
   max-width: 100%;
   width: 90%;
+  height:fit-content;
+  overflow: hidden;
+
+
+  img {
+    width: 100%;
+    border-radius: 10px;
+  }
 
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
-    width: 45%;
+    max-width: 47%;
   }
 
   @media only screen and (min-width: ${props => props.theme.sizes.desktop}) {
-    width: 20%;
+    width: 25%;
   }
 
   &:hover {
@@ -37,10 +45,6 @@ const StyledContainer = styled.div`
     float: right;
   }
 
-  img {
-    width: 100%;
-    border-radius: 10px;
-  }
 
   h1 {
     text-align: center;
@@ -51,6 +55,8 @@ const StyledContainer = styled.div`
     border-radius:5px;
     padding:.5em;
     min-height:100px;
+    max-height: 190px;
+    overflow: hidden;
   }
 `
 
@@ -60,6 +66,8 @@ const BlogPost = ({title, text, blogImg, created}) => {
   const blogRef = useRef(null)
   let bigStyle = {}
   let innerStyle = {}
+  let textStyle = {}
+  let imgStyle = {}
   const handleSelection = () => {
     setSelected(prevSelected => !prevSelected)
   }
@@ -72,19 +80,31 @@ const BlogPost = ({title, text, blogImg, created}) => {
     }
     window.addEventListener('resize', updateWidth)
     updateWidth()
-
   }, [])
 
   if (selected) {
     innerStyle = {
       scale: '1.2',
       position: 'absolute',
-      top: '220px',
+      top: '280px',
       left: '50%',
       translate: '-50%',
-      width: '40%',
+      width: '70%',
       zIndex: '50',
-      overflow: 'auto'
+      maxHeight: 'initial'
+    }
+
+    imgStyle = {
+      maxWidth: '500px',
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '1rem'
+    }
+
+    textStyle = {
+      maxHeight: 'initial',
+      overflow: 'initial'
     }
 
     bigStyle = {}
@@ -95,12 +115,18 @@ const BlogPost = ({title, text, blogImg, created}) => {
     }
 
     innerStyle = {
-      scale: '1.2',
+      scale: '1.1',
       position: 'relative',
       height: 'auto',
-      marginTop: '5rem',
-      marginBottom: '5rem',
-      zIndex: '50'
+      marginTop: '8rem',
+      marginBottom: '8rem',
+      zIndex: '50',
+      maxHeight: 'initial'
+    }
+
+    textStyle = {
+      maxHeight: 'initial',
+      overflow: 'initial'
     }
   }
 
@@ -108,8 +134,8 @@ const BlogPost = ({title, text, blogImg, created}) => {
     <StyledContainer style={innerStyle} ref={blogRef} onClick={handleSelection}>
     <div style={bigStyle}>
     <h1>{title}</h1>
-      {blogImg && <img src={blogImg} alt={`Image for ${title}`} />}
-      <div className="blogTextContainer">
+      {blogImg && <img src={blogImg} style={imgStyle} alt={`Image for ${title}`} />}
+      <div style={textStyle} className="blogTextContainer">
         <p>{text}</p>
       </div>
       <small>Skapad {created}</small>

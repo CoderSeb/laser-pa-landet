@@ -4,8 +4,9 @@ import styled, { css } from 'styled-components'
 const StyledContainer = styled.div`
 width: 100%;
 min-height: 100vh;
-overflow:auto;
+overflow: inherit;
 padding: 1em;
+height:100%;
 background-color: #ccd6ff;
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});
@@ -13,11 +14,15 @@ background-color: #ccd6ff;
     background-size: cover;
     background-repeat: no-repeat;
   `}
+
+  ${({height}) => height && css`
+    min-height: ${height};
+  `}
 `
 
-const PageContainer = ({backImgSrc, backImgAlt, children}) => {
+const PageContainer = ({backImgSrc, backImgAlt, children, height}) => {
   return (
-    <StyledContainer backImgSrc={backImgSrc} title={backImgAlt}>
+    <StyledContainer backImgSrc={backImgSrc} title={backImgAlt} height={height}>
       {children}
     </StyledContainer>
     )
