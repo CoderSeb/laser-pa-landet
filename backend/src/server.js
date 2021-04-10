@@ -10,6 +10,7 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
+import createError from 'http-errors'
 
 import { router } from './routes/router.js'
 
@@ -26,19 +27,23 @@ const main = async () => {
 
   const PORT = process.env.PORT || 5050
 
+  // Register routes.
+  app.use('/api/v1/', router)
+
   // Error handler.
   app.use(function (err, req, res, next) {
     // 404 Not Found.
     if (err.status === 404) {
-      return res
-        .status(404)
-    } else {
-      return res.status(500)
+      return res.status(err.status).send('Oops!\nNothing here...')
     }
+    if (err.status < 500) {
+      return res.status(err.status).json({
+        status: err.status,
+        message: err.message
+      })
+    }
+    return res.status(500).send()
   })
-
-  // Register routes.
-  app.use('/api/v1/', router)
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)

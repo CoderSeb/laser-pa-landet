@@ -7,7 +7,7 @@
 
 // Imports
 import express from 'express'
-import { AdminAuthController as controller } from '../controllers/email-controller.js'
+import { AdminAuthController as controller } from '../controllers/admin-auth-controller.js'
 
 export const router = express.Router()
 
