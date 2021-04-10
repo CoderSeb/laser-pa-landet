@@ -11,7 +11,5 @@ import { EmailController as controller } from '../controllers/email-controller.j
 
 export const router = express.Router()
 
+// Routes
 router.post('/', controller.sendEmail)
-
-// Catch 404 (ALWAYS keep this as the last route).
-router.use('*', (req, res, next) => next(res.sendStatus(404)))
