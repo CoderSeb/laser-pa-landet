@@ -10,15 +10,53 @@ const StyledContainer = styled.div`
   padding:1em;
   background: ${props => props.theme.colors.secondary};
   border: 1px solid ${props => props.theme.colors.accent};
+
+  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+    width: 100%;
+    padding: .5em;
+  }
+
+  .titleInput {
+    font-size: 1.3em;
+    padding: 0.5em;
+    width: 50%;
+    margin: 1em 0em;
+
+    @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+    width: 100%;
+    }
+  }
 `
 
+const StyledButton = styled.button`
+  width: 30%;
+  font-size: 1.2em;
+  padding: .5em;
+  border: 1px solid ${props => props.theme.colors.accent};
+  outline: none;
+  border-radius: 10px;
+  margin: 1em 0;
+
+  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+    width: 100%;
+  }
+
+  &:hover {
+    background: ${props => props.theme.colors.accent};
+    color: ${props => props.theme.colors.main};
+  }
+
+  &:active {
+    background: black;
+  }
+`
 
 const BlogEditor = () => {
   return (
     <StyledContainer>
       <h2>Blog Editor</h2>
+      <input className="titleInput" placeholder="Titel..." />
       <CKEditor
-        className="blogEditor"
         editor={ClassicEditor}
         data="<p>Skriv det nya inlägget här!</p>"
         onReady={editor => {
@@ -40,6 +78,7 @@ const BlogEditor = () => {
             console.log('Focus.', editor)
           }}
       />
+      <StyledButton>Spara inlägg</StyledButton>
     </StyledContainer>
   )
 }
