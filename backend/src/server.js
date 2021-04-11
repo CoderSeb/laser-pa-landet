@@ -10,9 +10,9 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
-import createError from 'http-errors'
 
 import { router } from './routes/router.js'
+import { connectDB } from './config/mongo.js'
 
 /**
  * Main function of the authentication service.
@@ -26,6 +26,9 @@ const main = async () => {
   app.use(express.json())
 
   const PORT = process.env.PORT || 5050
+
+  // Connect to database
+  connectDB()
 
   // Register routes.
   app.use('/api/v1/', router)

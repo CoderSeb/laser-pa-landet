@@ -8,6 +8,8 @@
 // Imports
 import createError from 'http-errors'
 import val from 'validator'
+import { Admin } from '../models/admin.js'
+
 /**
  * Encapsulates a controller.
  */
@@ -36,6 +38,21 @@ export const AdminAuthController = {
       if (!fullName || fullName.length < 5) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
       if (!pass || pass.length < 8) throw createError(400, 'Lösenord krävs!')
+
+      const newAdmin = new Admin({
+        name: fullName,
+        email: email,
+        password: pass
+      })
+
+      newAdmin.save().then(user => {
+        res.status(201).json({
+          message: `Administratorskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
+        })
+      }).catch(err => {
+        console.log(err.message)
+        res.status(400).send(createError(400, 'Ops! Något gick fel...'))
+      })
     } catch (err) {
       next(err)
     }

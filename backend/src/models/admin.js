@@ -1,5 +1,5 @@
 /**
- * Mongoose model User.
+ * Mongoose model Admin.
  *
  * @author Sebastian Åkerblom <sa224ny@student.lnu.se>
  * @version 1.0.0
@@ -53,4 +53,4 @@ schema.methods.valPass = async function (password) {
 }
 
 // Create a model using the schema.
-export const User = mongoose.model('User', schema)
+export const Admin = mongoose.model('Admin', schema)

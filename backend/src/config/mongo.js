@@ -27,7 +27,7 @@ export const connectDB = async () => {
   })
 
   // Connect to database.
-  return mongoose.connect(process.env.DB_CONNECTION_STRING, {
+  return mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSPHRASE}${process.env.DB_CONNECTION_STRING}`, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
