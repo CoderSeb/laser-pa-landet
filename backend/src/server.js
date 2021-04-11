@@ -25,6 +25,9 @@ const main = async () => {
   app.use(logger('dev'))
   app.use(express.json())
 
+  // Allow server proxy.
+  app.set('trust proxy', 1)
+
   const PORT = process.env.PORT || 5050
 
   // Connect to database
@@ -39,6 +42,7 @@ const main = async () => {
     if (err.status === 404) {
       return res.status(err.status).send('Oops!\nNothing here...')
     }
+
     if (err.status < 500) {
       return res.status(err.status).json({
         status: err.status,

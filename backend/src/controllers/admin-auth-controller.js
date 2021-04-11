@@ -37,7 +37,7 @@ export const AdminAuthController = {
       const { fullName, email, pass } = await req.body
       if (!fullName || fullName.length < 5) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
-      if (!pass || pass.length < 8) throw createError(400, 'Lösenord krävs!')
+      if (!pass || !val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler')
 
       const newAdmin = new Admin({
         name: fullName,
