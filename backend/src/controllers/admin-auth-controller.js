@@ -8,6 +8,7 @@
 // Imports
 import createError from 'http-errors'
 import val from 'validator'
+import jwt from 'jsonwebtoken'
 import { Admin } from '../models/admin.js'
 
 /**
@@ -22,7 +23,31 @@ export const AdminAuthController = {
    * @param {Function} next - Express next middleware function.
    */
   async loginAdmin (req, res, next) {
-    res.json({ message: 'Reached admin login' })
+    try {
+      const { email, pass } = await req.body
+      // Validate input
+      if (!email || !val.isEmail(email)) throw createError(400, 'En giltig epost krävs för att logga in!')
+      if (!pass) throw createError(400, 'Lösenord krävs!')
+      // Find the user
+      const admin = await Admin.findOne({ email: email })
+      const isAuth = await admin.valPass(pass)
+      // If no user or wrong password
+      if (!admin || !isAuth) throw createError(401, 'Fel användaruppgifter!')
+      // Token data
+      const tokenData = {
+        adminEmail: admin.email,
+        adminName: admin.name.split(' ')[0]
+      }
+      // Generate token
+      const newToken = await generateToken(tokenData)
+      // Send token
+      res.json({
+        message: 'Lyckad inloggning!',
+        token: newToken
+      })
+    } catch (err) {
+      next(err)
+    }
   },
 
   /**
@@ -35,9 +60,9 @@ export const AdminAuthController = {
   async registerAdmin (req, res, next) {
     try {
       const { fullName, email, pass } = await req.body
-      if (!fullName || fullName.length < 5) throw createError(400, 'Fullständigt namn krävs!')
+      if (!fullName || fullName.length < 3) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
-      if (!pass || !val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler')
+      if (!val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler')
 
       const newAdmin = new Admin({
         name: fullName,
@@ -47,7 +72,7 @@ export const AdminAuthController = {
 
       newAdmin.save().then(user => {
         res.status(201).json({
-          message: `Administratorskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
+          message: `Administratörskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
         })
       }).catch(err => {
         console.log(err.message)
@@ -57,4 +82,19 @@ export const AdminAuthController = {
       next(err)
     }
   }
+}
+
+/**
+ * Function that returns a json web token containing the data given.
+ *
+ * @param {object} tokenData - As the data to be contained within the token.
+ * @returns {string} - The json web token.
+ */
+async function generateToken (tokenData) {
+  const signOptions = {
+    expiresIn: '1h',
+    algorithm: 'RS256'
+  }
+  const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString()
+  return jwt.sign(tokenData, privateKey, signOptions)
 }

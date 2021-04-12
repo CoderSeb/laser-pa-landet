@@ -7,12 +7,17 @@ const StyledContainer = styled.div`
   background: ${props => props.theme.colors.secondary};
   min-height: 100vh;
   padding-bottom:10rem;
+  
+  h2 {
+    text-align: center;
+  }
 `
 
-const Dashboard = () => {
+const Dashboard = ({ currentUser }) => {
+
   return (
     <StyledContainer>
-      <h1>Dashboard page</h1>
+      <h2>Inloggad som {currentUser.adminName}</h2>
       <BlogEditor />
     </StyledContainer>
   )

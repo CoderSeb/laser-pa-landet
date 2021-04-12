@@ -40,7 +40,7 @@ const main = async () => {
   app.use(function (err, req, res, next) {
     // 404 Not Found.
     if (err.status === 404) {
-      return res.status(err.status).send('Oops!\nNothing here...')
+      return res.status(err.status).json({ message: 'Oops!\nNothing here...' })
     }
 
     if (err.status < 500) {
@@ -49,6 +49,7 @@ const main = async () => {
         message: err.message
       })
     }
+    console.log(err)
     return res.status(500).send()
   })
 

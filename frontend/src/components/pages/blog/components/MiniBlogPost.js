@@ -31,6 +31,7 @@ const StyledContainer = styled.div`
 
   &:hover {
     background: ${props => props.theme.colors.secondary};
+    cursor: zoom-in;
 
     .blogTextContainer {
       background: ${props => props.theme.colors.main};
@@ -91,7 +92,8 @@ const BlogPost = ({title, text, blogImg, created}) => {
       translate: '-50%',
       width: '70%',
       zIndex: '50',
-      maxHeight: 'initial'
+      maxHeight: 'initial',
+      cursor: 'zoom-out'
     }
 
     imgStyle = {
@@ -121,7 +123,8 @@ const BlogPost = ({title, text, blogImg, created}) => {
       marginTop: '8rem',
       marginBottom: '8rem',
       zIndex: '50',
-      maxHeight: 'initial'
+      maxHeight: 'initial',
+      cursor: 'zoom-out'
     }
 
     textStyle = {

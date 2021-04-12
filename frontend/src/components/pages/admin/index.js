@@ -1,32 +1,25 @@
 import React from 'react'
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom'
 
-
+import useToken from './components/useToken'
 import Login from './pages/auth/Login'
-import SignUp from './pages/auth/SignUp'
 import Dashboard from './pages/dashboard'
 
 const Admin = () => {
+  const { tokenState, setTokenState, verifyToken } = useToken()
+  const isValidToken = verifyToken()
+  if (!tokenState || !isValidToken) {
+    return <Login setTokenState={setTokenState} />
+  }
+
   return (
     <Router>
       <Switch>
-        <Route path="/admin/login">
-          <Login />
-        </Route>
-        <Route path="/admin/signup">
-          <SignUp />
-        </Route>
-        <Route path="/admin/dashboard">
-          <Dashboard />
-        </Route>
-        <Route path="/">
-          <div>
-            <h1>Admin page</h1>
-          </div>
+        <Route exact path="/admin">
+          <Dashboard currentUser={isValidToken} />
         </Route>
       </Switch>
     </Router>
-
   )
 }
 
