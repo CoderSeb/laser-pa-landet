@@ -14,10 +14,15 @@ const StyledContainer = styled.div`
 `
 
 const Dashboard = ({ currentUser }) => {
-
+  const handleLogout = e => {
+    e.preventDefault()
+    sessionStorage.removeItem('lpl-admin-token')
+    window.location.reload()
+  }
   return (
     <StyledContainer>
       <h2>Inloggad som {currentUser.adminName}</h2>
+      <button onClick={handleLogout}>Logout</button>
       <BlogEditor />
     </StyledContainer>
   )
