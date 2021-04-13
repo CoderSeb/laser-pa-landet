@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components'
 
 const StyledContainer = styled.div`
 width: 100%;
-min-height: 100vh;
+min-height: 80vh;
 overflow: auto;
 padding: 1em;
 height: fit-content;
@@ -15,14 +15,18 @@ background-color: #ccd6ff;
     background-repeat: no-repeat;
   `}
 
+  ${({backColor}) => backColor && css`
+    background-color: ${backColor};
+  `}
+
   ${({height}) => height && css`
     min-height: ${height};
   `}
 `
 
-const PageContainer = ({backImgSrc, backImgAlt, children, height}) => {
+const PageContainer = ({backImgSrc, backImgAlt, children, height, backColor}) => {
   return (
-    <StyledContainer backImgSrc={backImgSrc} title={backImgAlt} height={height}>
+    <StyledContainer backColor={backColor} backImgSrc={backImgSrc} title={backImgAlt} height={height}>
       {children}
     </StyledContainer>
     )

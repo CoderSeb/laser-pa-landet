@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-undef */
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
@@ -30,12 +29,19 @@ const StyledForm = styled.form`
   input {
     background: ${props => props.theme.colors.secondary};
     color: ${props => props.theme.colors.accent};
+
     &:focus {
       color: ${props => props.theme.colors.black};
     }
   }
 `
 
+/**
+ * Send Post request to backend login.
+ *
+ * @param {object} adminCreds as the admin credentials.
+ * @return {object} as the response object data.
+ */
 const adminLogin = async adminCreds => {
   const response = await axios(process.env.REACT_APP_API_LOGIN, {
     method: 'POST',
@@ -53,12 +59,18 @@ const Login = ({ setTokenState }) => {
   const [passphrase, setPassphrase] = useState()
   const [feedback, setFeedback] = useState('')
 
+  // Remove feedback message after 3 seconds.
   useEffect(() => {
     setTimeout(() => {
       setFeedback('')
     }, 3000)
+
+    return () => {
+      setFeedback('')
+    }
   }, [feedback])
 
+  // Calls the login method and sets the feedback message.
   const handleLogin = async e => {
     e.preventDefault()
     const loginResponse = await adminLogin({

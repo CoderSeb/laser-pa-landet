@@ -1,25 +1,28 @@
-import React from 'react'
-import {Switch, Route, BrowserRouter as Router} from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
 
 import useToken from './components/useToken'
 import Login from './pages/auth/Login'
 import Dashboard from './pages/dashboard'
 
 const Admin = () => {
+  const [loggedIn, setLoggedIn] = useState(false)
   const { tokenState, setTokenState, verifyToken } = useToken()
   const isValidToken = verifyToken()
-  if (!tokenState || !isValidToken) {
-    return <Login setTokenState={setTokenState} />
-  }
+
+  useEffect(() => {
+    if (!tokenState || !isValidToken) {
+      setLoggedIn(false)
+    } else {
+      setTimeout(() => {
+        setLoggedIn(true)
+      }, 1500)
+    }
+  }, [tokenState, isValidToken])
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/admin">
-          <Dashboard currentUser={isValidToken} />
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      {loggedIn ? <Dashboard currentUser={isValidToken} /> : <Login setTokenState={setTokenState} />}
+    </>
   )
 }
 

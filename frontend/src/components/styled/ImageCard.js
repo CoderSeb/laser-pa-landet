@@ -32,6 +32,10 @@ background-color: gray;
     margin: 1em;
   `}
 
+  ${({sat}) => sat && css`
+    filter: saturate(${sat});
+  `}
+
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     ${({width}) => width && css`
     max-width: ${width};
@@ -40,11 +44,11 @@ background-color: gray;
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    margin:1em;
+    margin:.5em;
   }
 `
 
-const ImageCard = ({backImgSrc, backImgAlt, portrait, landscape, left, right}) => {
+const ImageCard = ({backImgSrc, backImgAlt, portrait, landscape, left, right, saturation}) => {
   return (
     <StyledContainer
     backImgSrc={backImgSrc}
@@ -53,6 +57,7 @@ const ImageCard = ({backImgSrc, backImgAlt, portrait, landscape, left, right}) =
     landscape={landscape}
     left={left}
     right={right}
+    sat={saturation}
     >
     </StyledContainer>
     )

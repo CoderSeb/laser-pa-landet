@@ -29,8 +29,9 @@ const StyledJumbo = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   font-weight: bold;
-  color: ${props => props.theme.colors.accent};
+  color: ${props => props.theme.colors.main};
   transition: all 0.3s ease;
+  text-shadow: 1px 2px 7px ${props => props.theme.colors.accent};
 
   &:hover {
     font-size: 1.5em;

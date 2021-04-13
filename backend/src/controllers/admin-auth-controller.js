@@ -10,6 +10,7 @@ import createError from 'http-errors'
 import val from 'validator'
 import jwt from 'jsonwebtoken'
 import { Admin } from '../models/admin.js'
+import axios from 'axios'
 
 /**
  * Encapsulates a controller.
@@ -59,18 +60,35 @@ export const AdminAuthController = {
    */
   async registerAdmin (req, res, next) {
     try {
-      const { fullName, email, pass } = await req.body
+      const { fullName, email, pass, token } = await req.body
+      // Validate token
+      const validToken = await verifyToken(token)
+      if (!validToken) throw createError(403, 'Ej behörig att skapa användare!')
+      // Validate credentials
       if (!fullName || fullName.length < 3) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
-      if (!val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler')
-
+      if (!val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler.')
+      // Create new admin object
       const newAdmin = new Admin({
         name: fullName,
         email: email,
         password: pass
       })
-
+      // Save new admin
       newAdmin.save().then(user => {
+        axios({
+          method: 'post',
+          url: 'http://localhost:5050/api/v1/email',
+          data: {
+            fullName: user.name,
+            email: user.email,
+            phone: '',
+            subject: 'Administratör skapad!',
+            message: `Admin-konto för ${user.name} med epost ${user.email}\nskapades ${user.createdAt}`
+          }
+        }).catch(err => {
+          console.log(err.message)
+        })
         res.status(201).json({
           message: `Administratörskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
         })
@@ -97,4 +115,21 @@ async function generateToken (tokenData) {
   }
   const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString()
   return jwt.sign(tokenData, privateKey, signOptions)
+}
+
+/**
+ * Function that returns a decoded web token if verified.
+ *
+ * @param {object} token - As the json web token.
+ * @returns {string} - The decoded web token.
+ */
+async function verifyToken (token) {
+  const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString()
+  const result = jwt.verify(token, privateKey, { algorithms: ['RS256'] }, (err, decoded) => {
+    if (!err) {
+      return decoded
+    }
+    return false
+  })
+  return result
 }

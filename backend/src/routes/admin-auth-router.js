@@ -12,7 +12,7 @@ import { AdminAuthController as controller } from '../controllers/admin-auth-con
 
 const authLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
+  max: 10,
   message: 'För många försök! Vänta en (1) timme innan nästa försök.'
 })
 

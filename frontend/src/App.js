@@ -10,6 +10,7 @@ import Treatments from './components/pages/treatments'
 import Contact from './components/pages/contact'
 import Blog from './components/pages/blog'
 import Admin from './components/pages/admin'
+import FourOFour from './components/pages/404'
 
 
 const StyledFlexBox = styled.div`
@@ -45,21 +46,21 @@ const App = () => {
           <Route exact path="/">
             <Landing />
           </Route>
-          <Route path="/blog">
+          <Route exact path="/blog">
             <Blog />
           </Route>
-          <Route path="/kontakt">
+          <Route exact path="/kontakt">
             <Contact />
           </Route>
-          <Route path="/behandlingar">
+          <Route exact path="/behandlingar">
             <Treatments />
           </Route>
-          <Route path="/om">
+          <Route exact path="/om">
             <About />
           </Route>
-          <Route path="/admin">
-            <Admin />
+          <Route exact path="/admin" component={Admin}>
           </Route>
+          <Route render={() => <FourOFour />} />
         </Switch>
         </StyledWrapper>
         <Footer />

@@ -1,7 +1,7 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import BlogEditor from './components/BlogEditor'
-
 
 const StyledContainer = styled.div`
   background: ${props => props.theme.colors.secondary};
@@ -14,17 +14,28 @@ const StyledContainer = styled.div`
 `
 
 const Dashboard = ({ currentUser }) => {
+  const [logout, setLogout] = useState(false)
+
+  useEffect(() => {
+    if (logout) {
+      sessionStorage.removeItem('lpl-admin-token')
+    }
+  }, [logout])
+
   const handleLogout = e => {
     e.preventDefault()
-    sessionStorage.removeItem('lpl-admin-token')
-    window.location.reload()
+    setLogout(true)
   }
+
   return (
-    <StyledContainer>
-      <h2>Inloggad som {currentUser.adminName}</h2>
-      <button onClick={handleLogout}>Logout</button>
-      <BlogEditor />
-    </StyledContainer>
+    <>
+    {logout ? <Redirect to="/admin" />
+    : <StyledContainer>
+        <h2>Inloggad som {currentUser.adminName}</h2>
+        <button onClick={handleLogout}>Logout</button>
+        <BlogEditor />
+      </StyledContainer>}
+    </>
   )
 }
 
