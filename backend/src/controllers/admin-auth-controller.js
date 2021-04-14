@@ -67,6 +67,8 @@ export const AdminAuthController = {
       if (!fullName || fullName.length < 3) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
       if (!val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler.')
+      const isAllowed = await AllowedEmail.findOne({ email: email })
+      if (!isAllowed) throw createError(401, 'Eposten får ej registrera en administratör!')
       // Create new admin object
       const newAdmin = new Admin({
         name: fullName,
@@ -87,13 +89,14 @@ export const AdminAuthController = {
           }
         }).catch(err => {
           console.log(err.message)
+          if (err.code && err.code === 11000) throw createError(400, 'Kontrollera att dina uppgifter stämmer!')
         })
         res.status(201).json({
           message: `Administratörskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
         })
       }).catch(err => {
         console.log(err.message)
-        res.status(400).send(createError(400, 'Ops! Något gick fel...'))
+        next(createError(400, 'Kontrollera att dina uppgifter stämmer!'))
       })
     } catch (err) {
       next(err)
@@ -124,7 +127,7 @@ export const AdminAuthController = {
         })
       }).catch(err => {
         console.log(err.message)
-        res.status(400).send(createError(400, 'Ops! Något gick fel...'))
+        res.status(400).send(createError(400, err.message))
       })
     } catch (err) {
       next(err)
