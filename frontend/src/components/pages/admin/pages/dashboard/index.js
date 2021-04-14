@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import BlogEditor from './components/BlogEditor'
+import AddAdmin from './components/AddAdmin'
+
 
 const StyledContainer = styled.div`
   background: ${props => props.theme.colors.secondary};
@@ -10,6 +12,41 @@ const StyledContainer = styled.div`
   
   h2 {
     text-align: center;
+  }
+`
+
+const StyledButton = styled.button`
+  padding:.5em;
+  font-size: 1.1em;
+  outline: none;
+  border: none;
+  background: ${props => props.theme.colors.secondary};
+  border-radius: 10px;
+  position: absolute;
+  top:8rem;
+  right: 2rem;
+  box-shadow: -1px -1px 5px 3px ${props => props.theme.colors.secondary};
+  background: ${props => props.theme.colors.accent};
+  color: ${props => props.theme.colors.main};
+  border: 1px solid ${props => props.theme.colors.main};
+  box-shadow: none;
+  z-index: 100;
+
+  &:hover {
+    border: none;
+    background: ${props => props.theme.colors.main};
+    box-shadow: -1px -1px 5px 3px ${props => props.theme.colors.main};
+    color: ${props => props.theme.colors.black};
+    }
+
+  &:active {
+    color: ${props => props.theme.colors.main};
+    background: ${props => props.theme.colors.black};
+    box-shadow: -1px -1px 5px 3px ${props => props.theme.colors.black};
+  }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+    left: 0.6rem;
   }
 `
 
@@ -32,8 +69,9 @@ const Dashboard = ({ currentUser }) => {
     {logout ? <Redirect to="/admin" />
     : <StyledContainer>
         <h2>Inloggad som {currentUser.adminName}</h2>
-        <button onClick={handleLogout}>Logout</button>
+        <StyledButton onClick={handleLogout}>Logout</StyledButton>
         <BlogEditor />
+        <AddAdmin />
       </StyledContainer>}
     </>
   )

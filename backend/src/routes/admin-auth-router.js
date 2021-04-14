@@ -21,3 +21,4 @@ export const router = express.Router()
 // Routes
 router.post('/register', authLimiter, controller.registerAdmin)
 router.post('/login', authLimiter, controller.loginAdmin)
+router.post('/add-admin', authLimiter, controller.addAdmin)

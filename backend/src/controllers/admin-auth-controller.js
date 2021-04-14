@@ -10,6 +10,7 @@ import createError from 'http-errors'
 import val from 'validator'
 import jwt from 'jsonwebtoken'
 import { Admin } from '../models/admin.js'
+import { AllowedEmail } from '../models/allowedEmail.js'
 import axios from 'axios'
 
 /**
@@ -60,10 +61,8 @@ export const AdminAuthController = {
    */
   async registerAdmin (req, res, next) {
     try {
-      const { fullName, email, pass, token } = await req.body
-      // Validate token
-      const validToken = await verifyToken(token)
-      if (!validToken) throw createError(403, 'Ej behörig att skapa användare!')
+      const { fullName, email, pass } = await req.body
+
       // Validate credentials
       if (!fullName || fullName.length < 3) throw createError(400, 'Fullständigt namn krävs!')
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
@@ -91,6 +90,37 @@ export const AdminAuthController = {
         })
         res.status(201).json({
           message: `Administratörskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
+        })
+      }).catch(err => {
+        console.log(err.message)
+        res.status(400).send(createError(400, 'Ops! Något gick fel...'))
+      })
+    } catch (err) {
+      next(err)
+    }
+  },
+
+  /**
+   * Adds an email to AllowedEmail collection.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async addAdmin (req, res, next) {
+    try {
+      const { email, token } = await req.body
+      const validToken = verifyToken(token)
+      if (!validToken) throw createError(403, 'Ej behörig att lägga till användare!')
+      if (!email || !val.isEmail(email)) throw createError(400, 'En giltig epost krävs!')
+
+      const newAdminEmail = new AllowedEmail({
+        email: email
+      })
+
+      newAdminEmail.save().then(email => {
+        res.status(201).json({
+          message: `Epost sparad! ${email.email} kan nu registrera sig som administratör!`
         })
       }).catch(err => {
         console.log(err.message)
