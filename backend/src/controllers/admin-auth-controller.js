@@ -132,6 +132,37 @@ export const AdminAuthController = {
     } catch (err) {
       next(err)
     }
+  },
+
+  /**
+   * Adds changes password for current user.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async adminChangePass (req, res, next) {
+    try {
+      const { email, oldPass, newPass, token } = await req.body
+      console.log(email)
+      const validToken = verifyToken(token)
+      if (!validToken) throw createError(403, 'Token ej giltig!')
+      const admin = await Admin.findOne({ email: email })
+      if (!admin) throw createError(401, 'Fel användaruppgifter!')
+      const isAuth = await admin.valPass(oldPass)
+      if (!isAuth || !admin) throw createError(401, 'Fel användaruppgifter!')
+      admin.password = newPass
+      admin.save().then(newAdmin => {
+        res.status(200).json({
+          message: `Lösenord bytt för ${newAdmin.email}!`
+        })
+      }).catch(err => {
+        console.log(err.message)
+        res.send(createError(400, 'Lösenordet kunde inte bytas just nu...'))
+      })
+    } catch (err) {
+      next(err)
+    }
   }
 }
 

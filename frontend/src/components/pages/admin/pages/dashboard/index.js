@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import BlogEditor from './components/BlogEditor'
 import AddAdmin from './components/AddAdmin'
-
+import ChangePass from './components/ChangePass.js'
 
 const StyledContainer = styled.div`
   background: ${props => props.theme.colors.secondary};
@@ -50,8 +50,17 @@ const StyledButton = styled.button`
   }
 `
 
+const StyledButton02 = styled(StyledButton)`
+  position: relative;
+  top: auto;
+  right: auto;
+  margin-left:50%;
+  transform: translate(-50%)
+`
+
 const Dashboard = ({ currentUser }) => {
   const [logout, setLogout] = useState(false)
+  const [showChangePass, setShowChangePass] = useState(false)
 
   useEffect(() => {
     if (logout) {
@@ -72,6 +81,8 @@ const Dashboard = ({ currentUser }) => {
         <StyledButton onClick={handleLogout}>Logout</StyledButton>
         <BlogEditor />
         <AddAdmin />
+        <StyledButton02 type="button" onClick={() => setShowChangePass(prev => !prev)}>Byta lösenord?</StyledButton02>
+        {showChangePass && <ChangePass currentUser={currentUser} />}
       </StyledContainer>}
     </>
   )
