@@ -120,14 +120,24 @@ const StyledSubmit = styled.button`
 const ContactForm = ({right, left}) => {
   const [charsLeft, setCharsLeft] = useState(0)
   const [errors, setErrors] = useState({})
-  const [fullName, setFullName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [phone, setPhone] = useState(null)
-  const [subject, setSubject] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
   const [serverMessage, setServerMessage] = useState('')
 
   const maxLength = 600
+
+  const resetForm = () => {
+    setFullName('')
+    setEmail('')
+    setPhone('')
+    setSubject('')
+    setMessage('')
+    setErrors({})
+    setCharsLeft(maxLength)
+  }
 
   const handleTextChange = e => {
     const {value} = e.target
@@ -159,7 +169,11 @@ const ContactForm = ({right, left}) => {
 
   const validateForm = errList => {
     let isValid = true
-    Object.values(errList).forEach(error => error !== null && (isValid = false))
+    Object.values(errList).forEach(error => {
+      if (error) {
+        isValid = false
+      }
+    })
     return isValid
   }
 
@@ -168,26 +182,26 @@ const ContactForm = ({right, left}) => {
     const {name, value} = e.target
     switch (name) {
       case 'fullName':
-        errors.fullName = value.length < 3 ? 'Vänligen fyll i ditt fullständiga namn.' : null
+        errors.fullName = value.length < 3 && 'Vänligen fyll i ditt fullständiga namn.'
         setFullName(value)
         break
       case 'email':
-        errors.email = validateEmail(value) ? null : 'Epost addressen är inte giltig.'
+        errors.email = !validateEmail(value) && 'Epost addressen är inte giltig.'
         setEmail(value)
         break
       case 'subject':
-        errors.subject = value.length < 3 ? 'Ämnet behöver vara minst 3 tecken långt.' : null
+        errors.subject = value.length < 3 && 'Ämnet behöver vara minst 3 tecken långt.'
         setSubject(value)
         break
       case 'message':
-        errors.message = value.length < 8 ? 'Meddelandet behöver vara minst 8 tecken långt.' : null
+        errors.message = value.length < 8 && 'Meddelandet behöver vara minst 8 tecken långt.'
         setMessage(value)
         break
       case 'phone':
         if (value.length !== 0) {
-          errors.phone = validatePhone(value) ? null : 'Telefonnumret är ogiltigt'
+          errors.phone = !validatePhone(value) && 'Telefonnumret är ogiltigt.'
         } else {
-          errors.phone = null
+          errors.phone = false
         }
         setPhone(value)
         break
@@ -199,6 +213,15 @@ const ContactForm = ({right, left}) => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    const stateArray = [fullName, email, subject, message]
+    stateArray.forEach(element => {
+      if (element.length < 1) {
+        errors.empty = 'Du behöver fylla i formuläret för att skicka!'
+      } else {
+        errors.empty = false
+      }
+      setErrors(errors)
+    })
     if (validateForm(errors)) {
       try {
         axios({
@@ -216,13 +239,14 @@ const ContactForm = ({right, left}) => {
           })
         }).then(response => {
           setServerMessage(response.data.status)
+          resetForm()
           e.target.reset()
         })
       } catch (err) {
         setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
       }
     } else {
-      setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
+      setServerMessage('Vänligen kontrollera dina uppgifter...')
     }
   }
 
@@ -236,24 +260,27 @@ const ContactForm = ({right, left}) => {
           type="text"
           name="fullName"
           onChange={handleInputChange}
+          value={fullName}
         />
-        {errors.fullName !== null &&
+        {errors.fullName &&
         <span>{errors.fullName}</span>}
         <StyledInput
           placeholder="Epost..."
           type="email"
           name="email"
           onChange={handleInputChange}
+          value={email}
         />
-        {errors.email !== null &&
+        {errors.email &&
         <span>{errors.email}</span>}
         <StyledInput
           placeholder="(Frivilligt) Telefon..."
           type="tel"
           name="phone"
           onChange={handleInputChange}
+          value={phone}
         />
-        {errors.subject !== null &&
+        {errors.subject &&
         <span>{errors.phone}</span>}
       </div>
       <div>
@@ -263,8 +290,9 @@ const ContactForm = ({right, left}) => {
           type="text"
           name="subject"
           onChange={handleInputChange}
+          value={subject}
         />
-        {errors.subject !== null &&
+        {errors.subject &&
         <span>{errors.subject}</span>}
         <StyledTextarea
           placeholder="Meddelande"
@@ -273,14 +301,17 @@ const ContactForm = ({right, left}) => {
           onChange={e => {
             handleTextChange(e)
             handleInputChange(e)
-            }} />
+            }}
+          value={message} />
         <p>{charsLeft}/{maxLength}</p>
-        {errors.message !== null &&
+        {errors.message &&
         <span>{errors.message}</span>}
       </div>
       <StyledSubmit type="submit">Skicka meddelande</StyledSubmit>
-      {serverMessage.length > 0 &&
+      {serverMessage.length > 0 && !errors.empty &&
       <span style={{color: "black"}}>{serverMessage}</span>}
+      {errors.empty &&
+        <span>{errors.empty}</span>}
     </StyledForm>
   )
 }
