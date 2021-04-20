@@ -238,9 +238,12 @@ const ContactForm = ({right, left}) => {
             message
           })
         }).then(response => {
-          setServerMessage(response.data.status)
+          setServerMessage(response.data.message)
           resetForm()
           e.target.reset()
+        }).
+        catch(err => {
+          setServerMessage(err.response.data.message)
         })
       } catch (err) {
         setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')

@@ -32,6 +32,7 @@ export const AdminAuthController = {
       if (!pass) throw createError(400, 'Lösenord krävs!')
       // Find the user
       const admin = await Admin.findOne({ email: email })
+      if (!admin) throw createError(401, 'Fel användaruppgifter!')
       const isAuth = await admin.valPass(pass)
       // If no user or wrong password
       if (!admin || !isAuth) throw createError(401, 'Fel användaruppgifter!')
@@ -68,7 +69,7 @@ export const AdminAuthController = {
       if (!email || !val.isEmail(email)) throw createError(400, 'Epost krävs!')
       if (!val.isStrongPassword(pass)) throw createError(400, 'Ett säkert lösenord krävs! Krav: Minst 8 tecken av stora och små bokstäver, siffror samt symboler.')
       const isAllowed = await AllowedEmail.findOne({ email: email })
-      if (!isAllowed) throw createError(401, 'Eposten får ej registrera en administratör!')
+      if (!isAllowed) throw createError(401, 'Ej tillåtelse att registrera!')
       // Create new admin object
       const newAdmin = new Admin({
         name: fullName,

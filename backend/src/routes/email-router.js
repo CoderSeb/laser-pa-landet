@@ -12,7 +12,7 @@ import rateLimit from 'express-rate-limit'
 
 const emailLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 5,
+  max: 15,
   message: 'För många mail har skickats redan! Vänta en (1) timme innan nästa försök.'
 })
 
