@@ -10,7 +10,8 @@
     "start": "node -r dotenv/config src/server.js",
     "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
     "lint": "npx eslint src || exit 0",
-    "lint:fix": "npx eslint src --fix || exit 0"
+    "lint:fix": "npx eslint src --fix || exit 0",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose"
   },
   "keywords": [],
   "license": "ISC",
@@ -31,14 +32,23 @@
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.21.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
-    "nodemon": "^2.0.7"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   },
   "eslintConfig": {
     "extends": "@lnu"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

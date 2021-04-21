@@ -15,9 +15,9 @@ import { router } from './routes/router.js'
 import { connectDB } from './config/mongo.js'
 
 /**
- * Main function of the authentication service.
+ * Main function of the laser-pa-landet backend.
  */
-const main = async () => {
+export const main = async () => {
   // Creates an express application.
   const app = express()
   app.use(helmet())
@@ -28,7 +28,7 @@ const main = async () => {
   // Allow server proxy.
   app.set('trust proxy', 1)
 
-  const PORT = process.env.PORT || 5050
+  const PORT = process.env.NODE_ENV === 'test' ? process.env.TEST_PORT : process.env.PORT
 
   // Connect to database
   connectDB()

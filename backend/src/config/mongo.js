@@ -7,6 +7,9 @@
 
 // Imports
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 /**
  * Creates a connection to the database.
@@ -27,7 +30,7 @@ export const connectDB = async () => {
   })
 
   // Connect to database.
-  return mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSPHRASE}${process.env.DB_CONNECTION_STRING}`, {
+  return await mongoose.connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSPHRASE}${process.env.DB_CONNECTION_STRING}`, {
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
