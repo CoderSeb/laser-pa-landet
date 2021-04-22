@@ -95,8 +95,7 @@ export const AdminAuthController = {
           message: `Administratörskonto för ${fullName} skapades! Förvara dina uppgifter säkert!`
         })
       }).catch(err => {
-        console.log(err.message)
-        next(createError(400, 'Kontrollera att dina uppgifter stämmer!'))
+        next(err)
       })
     } catch (err) {
       next(err)
