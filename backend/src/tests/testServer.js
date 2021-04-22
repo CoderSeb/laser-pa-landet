@@ -24,7 +24,7 @@ app.use(express.json())
 // Allow server proxy.
 app.set('trust proxy', 1)
 
-const PORT = process.env.NODE_ENV === 'test' ? process.env.TEST_PORT : process.env.PORT
+const PORT = process.env.TEST_PORT
 
 // Register routes.
 app.use('/api/v1/', router)
@@ -46,7 +46,4 @@ app.use(function (err, req, res, next) {
   return res.status(500).send()
 })
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`)
-  console.log('Press Ctrl-C to terminate...')
-})
+app.listen(PORT)

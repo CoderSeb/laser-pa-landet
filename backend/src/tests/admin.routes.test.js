@@ -1,6 +1,6 @@
 /*eslint-disable */
 // Imports
-import { app } from './server.js'
+import { app } from './testServer.js'
 import request from 'supertest'
 import mongoose from 'mongoose'
 import { connectTestDB } from '../config/mongo.js'
@@ -31,6 +31,16 @@ const testAdminIncorrectEmail = {
 
 const testAdminLogin = {
   email: "test@email.com",
+  pass: "TestTestsson#1212"
+}
+
+const testAdminLoginIncorrectPass = {
+  email: "test@email.com",
+  pass: "TestTestsson#1234"
+}
+
+const testAdminLoginIncorrectEmail = {
+  email: "test@emails.com",
   pass: "TestTestsson#1212"
 }
 
@@ -73,6 +83,20 @@ describe('Admin routes tests', () => {
     const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLogin)
     expect(loginRes.statusCode).toBe(200)
     loginToken = loginRes.body.token
+    done()
+  })
+
+  it('Login with wrong password', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLoginIncorrectPass)
+    expect(loginRes.statusCode).toBe(401)
+    done()
+  })
+
+  it('Login with wrong email', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLoginIncorrectEmail)
+    expect(loginRes.statusCode).toBe(401)
     done()
   })
 })

@@ -30,7 +30,7 @@ export const main = async () => {
   // Allow server proxy.
   app.set('trust proxy', 1)
 
-  const PORT = process.env.NODE_ENV === 'test' ? process.env.TEST_PORT : process.env.PORT
+  const PORT = process.env.PORT
 
   // Connect to database
   connectDB()
