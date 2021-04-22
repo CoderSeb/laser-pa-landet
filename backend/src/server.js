@@ -10,6 +10,7 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
+import dotenv from 'dotenv'
 
 import { router } from './routes/router.js'
 import { connectDB } from './config/mongo.js'
@@ -18,6 +19,7 @@ import { connectDB } from './config/mongo.js'
  * Main function of the laser-pa-landet backend.
  */
 export const main = async () => {
+  dotenv.config()
   // Creates an express application.
   const app = express()
   app.use(helmet())

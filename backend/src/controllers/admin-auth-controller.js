@@ -80,7 +80,7 @@ export const AdminAuthController = {
       newAdmin.save().then(user => {
         axios({
           method: 'post',
-          url: 'http://localhost:5050/api/v1/email',
+          url: '/api/v1/email',
           data: {
             fullName: user.name,
             email: user.email,
@@ -89,7 +89,6 @@ export const AdminAuthController = {
             message: `Admin-konto för ${user.name} med epost ${user.email}\nskapades ${user.createdAt}`
           }
         }).catch(err => {
-          console.log(err.message)
           if (err.code && err.code === 11000) throw createError(400, 'Kontrollera att dina uppgifter stämmer!')
         })
         res.status(201).json({
@@ -145,7 +144,6 @@ export const AdminAuthController = {
   async adminChangePass (req, res, next) {
     try {
       const { email, oldPass, newPass, token } = await req.body
-      console.log(email)
       const validToken = verifyToken(token)
       if (!validToken) throw createError(403, 'Token ej giltig!')
       const admin = await Admin.findOne({ email: email })
