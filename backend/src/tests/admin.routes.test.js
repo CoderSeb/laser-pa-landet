@@ -91,12 +91,40 @@ describe('Admin routes tests', () => {
   })
 
   it('Adding correct email with invalid token to allowed email database, should return 403 Forbidden.', async done => {
-    const payloadTwo = {
+    const payload = {
       email: 'anothertest@email.com',
       token: 'IncorrectTokenString'
     }
 
-    const res = await request(app).post('/api/v1/admin/auth/add-admin').send(payloadTwo)
+    const res = await request(app).post('/api/v1/admin/auth/add-admin').send(payload)
+    expect(res.statusCode).toBe(403)
+    done()
+  })
+
+  it('Changing admin password with correct information, should return 200 OK.', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLogin)
+    const payload = {
+      email: 'test@email.com',
+      oldPass: 'TestTestsson#1212',
+      newPass: 'TestChangedTestsson#2323',
+      token: loginToken
+    }
+
+    const res = await request(app).put('/api/v1/admin/auth/change-pass').send(payload)
+    expect(res.statusCode).toBe(200)
+    done()
+  })
+
+  it('Changing admin password with incorrect token, should return 403 Forbidden.', async done => {
+    const payload = {
+      email: 'test@email.com',
+      oldPass: 'TestTestsson#1212',
+      newPass: 'TestChangedTestsson#2323',
+      token: 'IncorrectToken'
+    }
+
+    const res = await request(app).put('/api/v1/admin/auth/change-pass').send(payload)
     expect(res.statusCode).toBe(403)
     done()
   })
