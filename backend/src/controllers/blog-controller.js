@@ -55,8 +55,9 @@ export const BlogController = {
    */
   async createPost (req, res, next) {
     try {
-      const { title, content, token } = await req.body
-      const validToken = await verifyToken(token)
+      const { title, content } = await req.body
+      const token = await req.headers.authorization
+      const validToken = await verifyToken(token.split(' ')[1])
       if (!validToken) throw createError(403, 'Ej behörig att skapa bloginlägg!')
       if (!title || title.length > 50) throw createError(400, 'Kontrollera titeln! Max storlek: 50 tecken.')
       if (!content || content.length > 2000) throw createError(400, 'Kontrollera texten! Max storlek: 2000 tecken.')
@@ -90,11 +91,15 @@ export const BlogController = {
    */
   async deletePost (req, res, next) {
     try {
-      const { token } = await req.body
-      const validToken = await verifyToken(token)
+      const token = await req.headers.authorization
+      const validToken = await verifyToken(token.split(' ')[1])
       if (!validToken) throw createError(403, 'Ej behörig att ta bort inlägg!')
-      await BlogPost.findOneAndDelete({ _id: req.params.id })
-      res.sendStatus(204)
+      const postToDelete = await BlogPost.findOne({ _id: req.params.id })
+      if (!postToDelete) throw createError(400, 'Inlägget finns inte!')
+      await BlogPost.deleteOne({ _id: req.params.id }, (err) => {
+        if (err) throw createError(500, 'Något gick fel, ladda om sidan och försök igen.')
+        res.sendStatus(204)
+      })
     } catch (err) {
       next(err)
     }
