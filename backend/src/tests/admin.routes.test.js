@@ -11,7 +11,9 @@ import dotenv from 'dotenv'
 // Config .env
 dotenv.config()
 
-
+/**
+ * Admin routes tests.
+ */
 describe('Admin routes tests', () => {
   let loginToken
   beforeEach(async () => {
@@ -21,6 +23,7 @@ describe('Admin routes tests', () => {
     await AllowedEmail.insertMany({ email: "test@email.com" })
   })
 
+  // Register with correct credentials.
   it('Register with correct admin credentials, should return 201 Created.', async done => {
     const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     expect(res.statusCode).toEqual(201)
@@ -28,6 +31,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Register with weak password.
   it('Register admin with weak password, should return 400 Bad Request.', async done => {
     const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminIncorrectPass)
     expect(res.statusCode).toBe(400)
@@ -37,6 +41,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Register with unauthorized email.
   it('Register admin with email that is not allowed, should return 401 Unauthorized.', async done => {
     const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminIncorrectEmail)
     expect(res.statusCode).toBe(401)
@@ -46,6 +51,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Login with correct credentials.
   it('Login correct admin, should return 200 OK.', async done => {
     await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLogin)
@@ -54,6 +60,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Login with wrong password.
   it('Login with wrong password, should return 401 Unauthorized.', async done => {
     await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLoginIncorrectPass)
@@ -61,6 +68,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Login with wrong email.
   it('Login with wrong email, should return 401 Unauthorized.', async done => {
     await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLoginIncorrectEmail)
@@ -68,6 +76,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Add email with correct information.
   it('Adding correct email to allowed email database, should return 201 Created.', async done => {
     const payload = {
       email: 'anothertest@email.com',
@@ -79,6 +88,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Add email with invalid information.
   it('Adding invalid email to allowed email database, should return 400 Bad Request.', async done => {
     const payload = {
       email: 'anothertestAtemail.com',
@@ -90,6 +100,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Add email with invalid token.
   it('Adding correct email with invalid token to allowed email database, should return 403 Forbidden.', async done => {
     const payload = {
       email: 'anothertest@email.com',
@@ -101,6 +112,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Change password with correct credentials.
   it('Changing admin password with correct information, should return 200 OK.', async done => {
     await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLogin)
@@ -116,6 +128,7 @@ describe('Admin routes tests', () => {
     done()
   })
 
+  // Change password with invalid token.
   it('Changing admin password with incorrect token, should return 403 Forbidden.', async done => {
     const payload = {
       email: 'test@email.com',
