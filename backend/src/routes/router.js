@@ -9,6 +9,7 @@
 import express from 'express'
 import { router as emailRouter } from './email-router.js'
 import { router as adminAuthRouter } from './admin-auth-router.js'
+import { router as blogRouter } from './blog-router.js'
 import createError from 'http-errors'
 
 export const router = express.Router()
@@ -18,6 +19,9 @@ router.use('/email', emailRouter)
 
 // Admin authentication
 router.use('/admin/auth', adminAuthRouter)
+
+// Blog
+router.use('/blog', blogRouter)
 
 // Catch 404 (ALWAYS keep this as the last route).
 router.use('*', (req, res, next) => {

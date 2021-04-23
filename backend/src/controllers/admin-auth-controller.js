@@ -185,7 +185,7 @@ async function generateToken (tokenData) {
  * @param {object} token - As the json web token.
  * @returns {string} - The decoded web token.
  */
-async function verifyToken (token) {
+export async function verifyToken (token) {
   const privateKey = Buffer.from(process.env.PRIVATE_KEY, 'base64').toString()
   const result = jwt.verify(token, privateKey, { algorithms: ['RS256'] }, (err, decoded) => {
     if (!err) {
