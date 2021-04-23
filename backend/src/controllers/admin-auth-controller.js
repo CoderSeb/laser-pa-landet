@@ -112,8 +112,8 @@ export const AdminAuthController = {
   async addAdmin (req, res, next) {
     try {
       const { email, token } = await req.body
-      const validToken = verifyToken(token)
-      if (!validToken) throw createError(403, 'Ej behörig att lägga till användare!')
+      const validToken = await verifyToken(token)
+      if (!validToken) throw createError(403, 'Ej behörig att lägga till epost!')
       if (!email || !val.isEmail(email)) throw createError(400, 'En giltig epost krävs!')
 
       const newAdminEmail = new AllowedEmail({
@@ -143,8 +143,8 @@ export const AdminAuthController = {
   async adminChangePass (req, res, next) {
     try {
       const { email, oldPass, newPass, token } = await req.body
-      const validToken = verifyToken(token)
-      if (!validToken) throw createError(403, 'Token ej giltig!')
+      const validToken = await verifyToken(token)
+      if (!validToken) throw createError(403, 'Ej behörig att ändra lösenord!')
       const admin = await Admin.findOne({ email: email })
       if (!admin) throw createError(401, 'Fel användaruppgifter!')
       const isAuth = await admin.valPass(oldPass)

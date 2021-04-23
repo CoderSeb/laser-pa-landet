@@ -2,47 +2,15 @@
 // Imports
 import { app } from './testServer.js'
 import request from 'supertest'
-import mongoose from 'mongoose'
 import { connectTestDB } from '../config/mongo.js'
 import { AllowedEmail } from '../models/allowedEmail.js'
 import { Admin } from '../models/Admin.js'
+import { authData } from './testData.js'
 import dotenv from 'dotenv'
 
 // Config .env
 dotenv.config()
 
-const testAdminCorrect = {
-  fullName: "Test Testsson",
-  email: "test@email.com",
-  pass: "TestTestsson#1212"
-}
-
-const testAdminIncorrectPass = {
-  fullName: "Test Testsson",
-  email: "test@email.com",
-  pass: "Test"
-}
-
-const testAdminIncorrectEmail = {
-  fullName: "Test Testsson",
-  email: "anothertest@email.com",
-  pass: "TestTestsson#1212"
-}
-
-const testAdminLogin = {
-  email: "test@email.com",
-  pass: "TestTestsson#1212"
-}
-
-const testAdminLoginIncorrectPass = {
-  email: "test@email.com",
-  pass: "TestTestsson#1234"
-}
-
-const testAdminLoginIncorrectEmail = {
-  email: "test@emails.com",
-  pass: "TestTestsson#1212"
-}
 
 describe('Admin routes tests', () => {
   let loginToken
@@ -53,15 +21,15 @@ describe('Admin routes tests', () => {
     await AllowedEmail.insertMany({ email: "test@email.com" })
   })
 
-  it('Register correct admin', async done => {
-    const res = await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
+  it('Register with correct admin credentials, should return 201 Created.', async done => {
+    const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
     expect(res.statusCode).toEqual(201)
     expect(res.body).toEqual({ message: 'Administratörskonto för Test Testsson skapades! Förvara dina uppgifter säkert!' })
     done()
   })
 
-  it('Register admin with weak password', async done => {
-    const res = await request(app).post('/api/v1/admin/auth/register').send(testAdminIncorrectPass)
+  it('Register admin with weak password, should return 400 Bad Request.', async done => {
+    const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminIncorrectPass)
     expect(res.statusCode).toBe(400)
     expect(res.body).toEqual({
       status: 400,
@@ -69,8 +37,8 @@ describe('Admin routes tests', () => {
     done()
   })
 
-  it('Register admin with email that is not allowed', async done => {
-    const res = await request(app).post('/api/v1/admin/auth/register').send(testAdminIncorrectEmail)
+  it('Register admin with email that is not allowed, should return 401 Unauthorized.', async done => {
+    const res = await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminIncorrectEmail)
     expect(res.statusCode).toBe(401)
     expect(res.body).toEqual({
       status: 401,
@@ -78,25 +46,58 @@ describe('Admin routes tests', () => {
     done()
   })
 
-  it('Login correct admin', async done => {
-    await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
-    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLogin)
+  it('Login correct admin, should return 200 OK.', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLogin)
     expect(loginRes.statusCode).toBe(200)
     loginToken = loginRes.body.token
     done()
   })
 
-  it('Login with wrong password', async done => {
-    await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
-    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLoginIncorrectPass)
+  it('Login with wrong password, should return 401 Unauthorized.', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLoginIncorrectPass)
     expect(loginRes.statusCode).toBe(401)
     done()
   })
 
-  it('Login with wrong email', async done => {
-    await request(app).post('/api/v1/admin/auth/register').send(testAdminCorrect)
-    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(testAdminLoginIncorrectEmail)
+  it('Login with wrong email, should return 401 Unauthorized.', async done => {
+    await request(app).post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
+    const loginRes = await request(app).post('/api/v1/admin/auth/login').send(authData.testAdminLoginIncorrectEmail)
     expect(loginRes.statusCode).toBe(401)
+    done()
+  })
+
+  it('Adding correct email to allowed email database, should return 201 Created.', async done => {
+    const payload = {
+      email: 'anothertest@email.com',
+      token: loginToken
+    }
+
+    const res = await request(app).post('/api/v1/admin/auth/add-admin').send(payload)
+    expect(res.statusCode).toBe(201)
+    done()
+  })
+
+  it('Adding invalid email to allowed email database, should return 400 Bad Request.', async done => {
+    const payload = {
+      email: 'anothertestAtemail.com',
+      token: loginToken
+    }
+
+    const res = await request(app).post('/api/v1/admin/auth/add-admin').send(payload)
+    expect(res.statusCode).toBe(400)
+    done()
+  })
+
+  it('Adding correct email with invalid token to allowed email database, should return 403 Forbidden.', async done => {
+    const payloadTwo = {
+      email: 'anothertest@email.com',
+      token: 'IncorrectTokenString'
+    }
+
+    const res = await request(app).post('/api/v1/admin/auth/add-admin').send(payloadTwo)
+    expect(res.statusCode).toBe(403)
     done()
   })
 })
