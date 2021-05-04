@@ -113,6 +113,7 @@ export const AdminAuthController = {
     try {
       const { email } = await req.body
       const token = await req.headers.authorization
+      console.log(token)
       if (!token) throw createError(401, 'Du är inte inloggad!')
       const validToken = await verifyToken(token.split(' ')[1])
       if (!validToken) throw createError(403, 'Ej behörig att lägga till epost!')

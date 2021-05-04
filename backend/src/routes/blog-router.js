@@ -12,13 +12,13 @@ import rateLimit from 'express-rate-limit'
 
 const blogLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: process.env.NODE_ENV === 'test' ? 100 : 50,
+  max: process.env.NODE_ENV !== 'production' ? 100 : 50,
   message: 'För många anrop har gjorts! Vänta en (1) timme innan nästa försök.'
 })
 
 const blogGetLimiter = rateLimit({
   windowMs: 60 * 60 * 250, // 15 minutes
-  max: 100,
+  max: 50,
   message: 'För många anrop har gjorts! Vänta femton (15) minuter innan nästa försök.'
 })
 

@@ -75,14 +75,18 @@ const StyledContainer = styled.div`
 `
 
 const changePass = creds => {
+  const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
   axios({
-    method: 'post',
+    method: 'put',
     // eslint-disable-next-line no-undef
     url: process.env.REACT_APP_API_CHANGE_PASS,
+    headers: {
+      Authorization: bearerToken.replace(/['"]+/g, '')
+    },
     data: creds
   }).
   then(response => {
-    return response.data
+    return response.message
   }).
   catch(err => err.response.data)
 }
@@ -104,8 +108,7 @@ const ChangePass = ({ currentUser }) => {
       const payload = {
         email: currentUser.adminEmail,
         oldPass: oldPassphrase,
-        newPass: newPassphrase,
-        token: sessionStorage.getItem('lpl-admin-token')
+        newPass: newPassphrase
       }
       const changedResponse = await changePass(payload)
       if (changedResponse) {
@@ -121,7 +124,7 @@ const ChangePass = ({ currentUser }) => {
         <input onChange={e => setOldPassphrase(e.target.value)} type="password" placeholder="Ditt nuvarande lösenord..." name="oldPassphrase" />
         <input onChange={e => setNewPassphrase(e.target.value)} type="password" placeholder="Nytt lösenord..." name="newPassphrase" />
         <input onChange={e => setNewPassphraseConfirm(e.target.value)} type="password" placeholder="Bekräfta nytt lösenord..." name="newPassphrase" />
-        <p>{feedback}</p>
+        {feedback && <p>{feedback}</p>}
         <button type="submit">Byt lösenord</button>
       </form>
     </StyledContainer>

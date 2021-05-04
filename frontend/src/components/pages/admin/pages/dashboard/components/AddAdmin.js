@@ -80,16 +80,18 @@ const AddAdmin = () => {
 
   const handleSaveAdmin = e => {
     e.preventDefault()
-    const token = sessionStorage.getItem('lpl-admin-token')
+    const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
     const payload = {
-      email,
-      token
+      email
     }
 
     axios({
       method: 'post',
       // eslint-disable-next-line no-undef
       url: process.env.REACT_APP_API_ADD_ADMIN,
+      headers: {
+        Authorization: bearerToken.replace(/['"]+/g, '')
+      },
       data: payload
     }).
     then(response => {

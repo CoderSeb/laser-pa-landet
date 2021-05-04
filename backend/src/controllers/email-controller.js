@@ -37,8 +37,8 @@ export const EmailController = {
         port: process.env.EMAIL_SERVICE_PORT,
         secure: process.env.EMAIL_SERVICE_SECURE,
         auth: {
-          user: process.env.EMAIL_USER_NAME,
-          pass: process.env.EMAIL_PASSWORD
+          user: process.env.NODE_ENV !== 'production' ? process.env.DEV_EMAIL_USER_NAME : process.env.EMAIL_USER_NAME,
+          pass: process.env.NODE_ENV !== 'production' ? process.env.DEV_EMAIL_PASSWORD : process.env.EMAIL_PASSWORD
         },
         tls: {
           rejectUnAuthorized: true
@@ -49,7 +49,7 @@ export const EmailController = {
     <h3>Nytt epost från Laser på landet!</h3>\n
     <span>Namn: <code>${fullName}</code></span><br />
     <span>Epost: <a href="mailto:${email}">${email}</a></span><br />
-    <span>Telefon: <code>${phone}</code></span><br />
+    <span>Telefon: <code>${phone !== 'undefined' ? phone : ''}</code></span><br />
     <p>Meddelande: <pre>${message}</pre></p></div>`
 
       const mailOptions = {
