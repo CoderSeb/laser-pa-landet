@@ -54,7 +54,7 @@ export const EmailController = {
 
       const mailOptions = {
         from: `${fullName} ${email}`,
-        to: process.env.EMAIL_USER_NAME,
+        to: process.env.NODE_ENV !== 'production' ? process.env.DEV_EMAIL_USER_NAME : process.env.EMAIL_USER_NAME,
         subject: subject,
         html: content
       }
