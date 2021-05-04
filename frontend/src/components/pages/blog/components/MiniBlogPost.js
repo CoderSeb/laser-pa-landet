@@ -61,7 +61,7 @@ const StyledContainer = styled.div`
   }
 `
 
-const BlogPost = ({title, text, blogImg, created}) => {
+const BlogPost = ({title, text, blogImg, created, creator}) => {
   const [selected, setSelected] = useState(false)
   const [windowWidth, setWindowWidth] = useState(0)
   const blogRef = useRef(null)
@@ -141,7 +141,8 @@ const BlogPost = ({title, text, blogImg, created}) => {
       <div style={textStyle} className="blogTextContainer">
         <p>{text}</p>
       </div>
-      <small>Skapad {created}</small>
+      <small>Skapad {created}</small><br />
+      <small>Av {creator}</small>
       </div>
     </StyledContainer>
   )
