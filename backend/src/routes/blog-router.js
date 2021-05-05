@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
    * @param {Function} cb - Callback function.
    */
   destination: function (req, file, cb) {
-    cb(null, './src/uploads/images')
+    cb(null, '../uploads/images')
   },
   /**
    * Sets a filename.
@@ -52,6 +52,5 @@ export const router = express.Router()
 
 // Routes
 router.get('/', blogGetLimiter, controller.getAllPosts)
-router.post('/', blogLimiter, controller.createPost)
-router.post('/uploads', upload.single('upload'), controller.saveImage)
+router.post('/', blogLimiter, upload.single('image'), controller.createPost)
 router.delete('/:id', blogLimiter, controller.deletePost)

@@ -24,6 +24,9 @@ const schema = new mongoose.Schema({
   content: {
     type: String,
     required: true
+  },
+  image: {
+    type: String
   }
 }, {
   timestamps: true

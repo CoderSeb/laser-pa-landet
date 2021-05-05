@@ -55,13 +55,18 @@ export const BlogController = {
    */
   async createPost (req, res, next) {
     try {
+      if (req.file.size > 1572864) throw createError(413, 'Bilden är för stor! Max 1,5MB.')
+      const imageDest = await req.file.destination
+      const imageName = await req.file.filename
+      const image = imageDest + '/' + imageName
       const { title, content } = await req.body
+      console.log(title)
+      console.log(content)
       const token = await req.headers.authorization
       const validToken = await verifyToken(token.split(' ')[1])
       if (!validToken) throw createError(403, 'Ej behörig att skapa bloginlägg!')
       if (!title || title.length > 50) throw createError(400, 'Kontrollera titeln! Max storlek: 50 tecken.')
       if (!content || content.length > 2000) throw createError(400, 'Kontrollera texten! Max storlek: 2000 tecken.')
-      console.log(req.files.upload)
 
       const adminCreator = await Admin.findOne({ email: validToken.adminEmail })
       if (!adminCreator) throw createError(403, 'Ej behörig att skapa bloginlägg!')
@@ -69,7 +74,8 @@ export const BlogController = {
         creatorId: adminCreator._id,
         creatorName: adminCreator.name,
         title: title,
-        content: content
+        content: content,
+        image: image
       })
 
       newBlogPost.save()
@@ -102,23 +108,6 @@ export const BlogController = {
         res.sendStatus(204)
       })
     } catch (err) {
-      next(err)
-    }
-  },
-
-  /**
-   * Saves an image.
-   *
-   * @param {object} req - Express request object.
-   * @param {object} res - Express response object.
-   * @param {Function} next - Express next middleware function.
-   */
-  async saveImage (req, res, next) {
-    try {
-      console.log('tjoho')
-      console.log(req.file)
-    } catch (err) {
-      console.log('tjoho')
       next(err)
     }
   }
