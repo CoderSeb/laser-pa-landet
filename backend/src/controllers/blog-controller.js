@@ -11,6 +11,7 @@ import { BlogPost } from '../models/blogPost.js'
 import { Admin } from '../models/admin.js'
 import { verifyToken } from './admin-auth-controller.js'
 import moment from 'moment'
+import fs from 'fs-extra'
 
 /**
  * Encapsulates a controller.
@@ -35,7 +36,8 @@ export const BlogController = {
           content: post.content,
           creator: post.creatorName,
           created: moment(post.createdAt).calendar(),
-          edited: moment(post.editedAt).calendar()
+          edited: moment(post.editedAt).calendar(),
+          image: post.image
         }
         payload.push(postToSend)
       })
@@ -56,9 +58,10 @@ export const BlogController = {
   async createPost (req, res, next) {
     try {
       if (req.file.size > 1572864) throw createError(413, 'Bilden är för stor! Max 1,5MB.')
-      const imageDest = await req.file.destination
       const imageName = await req.file.filename
-      const image = imageDest + '/' + imageName
+      console.log(imageName)
+      const image = 'images/' + imageName
+      console.log(image)
       const { title, content } = await req.body
       console.log(title)
       console.log(content)
@@ -77,7 +80,6 @@ export const BlogController = {
         content: content,
         image: image
       })
-
       newBlogPost.save()
         .then(blogPost => {
           res.status(201).json({ message: `Inlägg: ${title} - skapat!` })
@@ -103,8 +105,12 @@ export const BlogController = {
       if (!validToken) throw createError(403, 'Ej behörig att ta bort inlägg!')
       const postToDelete = await BlogPost.findOne({ _id: req.params.id })
       if (!postToDelete) throw createError(400, 'Inlägget finns inte!')
+      const imageToDelete = `../frontend/public/${postToDelete.image}`
       await BlogPost.deleteOne({ _id: req.params.id }, (err) => {
         if (err) throw createError(500, 'Något gick fel, ladda om sidan och försök igen.')
+        fs.unlink(imageToDelete, (err) => {
+          if (err) throw createError(500, 'Bilden på servern kunde inte tas bort.')
+        })
         res.sendStatus(204)
       })
     } catch (err) {

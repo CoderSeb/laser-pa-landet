@@ -20,7 +20,7 @@ const storage = multer.diskStorage({
    * @param {Function} cb - Callback function.
    */
   destination: function (req, file, cb) {
-    cb(null, '../uploads/images')
+    cb(null, '../frontend/public/images')
   },
   /**
    * Sets a filename.
