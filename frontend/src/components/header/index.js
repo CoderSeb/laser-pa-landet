@@ -43,10 +43,6 @@ const Header = () => {
           linkName="Behandlingar"
         />
         <NavLink
-          linkTo="/om"
-          linkName="Om företaget"
-        />
-        <NavLink
           linkTo="/kontakt"
           linkName="Kontakt"
         />

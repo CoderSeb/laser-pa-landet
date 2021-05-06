@@ -13,13 +13,22 @@ const StyledContainer = styled.div`
   p {
     line-height:normal;
   }
+
+  .companyInfo {
+    font-size: 0.8em;
+    line-height: 15px;
+    user-select: none;
+  }
 `
 
-const ContactField = ({street, postal, city}) => {
+const ContactField = ({street, postal, city, tax, organisation}) => {
   return (
     <StyledContainer>
       <p>{street}<br />{postal}</p>
       <p>{city}</p>
+      <hr />
+      <p className="companyInfo">{organisation}</p>
+      <p className="companyInfo">{tax}</p>
     </StyledContainer>
   )
 }

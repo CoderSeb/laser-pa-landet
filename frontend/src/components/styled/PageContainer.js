@@ -7,6 +7,7 @@ min-height: 80vh;
 overflow: auto;
 padding: 1em;
 height: fit-content;
+padding-bottom: 3rem;
 background-color: #ccd6ff;
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});

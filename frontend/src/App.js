@@ -5,7 +5,6 @@ import Footer from './components/footer'
 import Header from './components/header'
 
 import Landing from './components/pages/landing'
-import About from './components/pages/about'
 import Treatments from './components/pages/treatments'
 import Contact from './components/pages/contact'
 import Blog from './components/pages/blog'
@@ -54,9 +53,6 @@ const App = () => {
           </Route>
           <Route exact path="/behandlingar">
             <Treatments />
-          </Route>
-          <Route exact path="/om">
-            <About />
           </Route>
           <Route exact path="/admin" component={Admin}>
           </Route>

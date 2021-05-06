@@ -59,17 +59,13 @@ export const BlogController = {
     try {
       if (req.file.size > 1572864) throw createError(413, 'Bilden är för stor! Max 1,5MB.')
       const imageName = await req.file.filename
-      console.log(imageName)
       const image = 'images/' + imageName
-      console.log(image)
       const { title, content } = await req.body
-      console.log(title)
-      console.log(content)
       const token = await req.headers.authorization
       const validToken = await verifyToken(token.split(' ')[1])
       if (!validToken) throw createError(403, 'Ej behörig att skapa bloginlägg!')
       if (!title || title.length > 50) throw createError(400, 'Kontrollera titeln! Max storlek: 50 tecken.')
-      if (!content || content.length > 2000) throw createError(400, 'Kontrollera texten! Max storlek: 2000 tecken.')
+      if (!content || content.length > 15000) throw createError(400, 'Kontrollera texten! Max storlek: 15000 tecken.')
 
       const adminCreator = await Admin.findOne({ email: validToken.adminEmail })
       if (!adminCreator) throw createError(403, 'Ej behörig att skapa bloginlägg!')

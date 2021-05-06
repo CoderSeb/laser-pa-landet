@@ -6,9 +6,10 @@ const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
   border-radius: 10px;
   padding:1em;
-  width: 900px;
-  min-height: 650px;
-  margin: 5rem auto;
+  width:45%;
+  min-height: 450px;
+  max-height: fit-content;
+  height: max-content;
 
   h2 {
     text-align: center;
@@ -29,18 +30,16 @@ const StyledForm = styled.form`
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     ${({left}) => left && css`
     float: left;
-    margin: 1em;
   `}
 
   ${({right}) => right && css`
     float: right;
-    margin: 1em;
   `}
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    margin: 1em auto;
     max-width: 100%;
+    width:100%;
   }
 `
 

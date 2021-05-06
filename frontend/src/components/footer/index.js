@@ -14,7 +14,7 @@ const StyledFooter = styled.footer`
   color: ${props => props.theme.colors.black};
   text-align: center;
   margin-top:1em;
-  height:9.5rem;
+  height:12rem;
   padding:1rem;
   z-index: 100;
 
@@ -38,6 +38,8 @@ const Footer = () => {
           street="Sjörödtorpsvägen 10"
           postal="27297"
           city="Gärsnäs"
+          organisation="Org.nr 870207-XXXX"
+          tax="F-skatt registrerad"
         />
         <SocialBar>
           <SocialItem

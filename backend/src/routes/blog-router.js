@@ -37,14 +37,14 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 const blogLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
+  windowMs: 60 * 60 * 500, // 30 minutes
   max: process.env.NODE_ENV !== 'production' ? 100 : 50,
-  message: 'För många anrop har gjorts! Vänta en (1) timme innan nästa försök.'
+  message: 'För många anrop har gjorts! Vänta en (30) minuter innan nästa försök.'
 })
 
 const blogGetLimiter = rateLimit({
   windowMs: 60 * 60 * 250, // 15 minutes
-  max: 50,
+  max: 150,
   message: 'För många anrop har gjorts! Vänta femton (15) minuter innan nästa försök.'
 })
 

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {useState, useRef, useLayoutEffect} from 'react'
 import styled from 'styled-components'
 import useClickRef from '../../../../hooks/useClickRef'
@@ -11,14 +12,20 @@ const StyledContainer = styled.div`
   user-select: none;
   transition: all 0.2s ease;
   max-width: 100%;
-  width: 90%;
-  height:fit-content;
+  width: 100%;
+  height:700px;
   overflow: hidden;
+  justify-content: center;
 
 
   img {
-    width: 100%;
+    max-width: 80%;
+    height: 350px;
     border-radius: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1em;
   }
 
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
@@ -56,6 +63,7 @@ const StyledContainer = styled.div`
     border-radius:5px;
     padding:.5em;
     min-height:100px;
+    height: 190px;
     max-height: 190px;
     overflow: hidden;
   }
@@ -85,19 +93,22 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
 
   if (selected) {
     innerStyle = {
-      scale: '1.2',
+      scale: '1.1',
       position: 'absolute',
-      top: '280px',
+      top: '150px',
       left: '50%',
-      translate: '-50%',
+      transform: 'translate(-50%)',
       width: '70%',
       zIndex: '50',
-      maxHeight: 'initial',
+      maxHeight: '1000px',
+      height: '100%',
+      overflowY: 'scroll',
       cursor: 'zoom-out'
     }
 
     imgStyle = {
-      maxWidth: '500px',
+      maxWidth: '95%',
+      height: '850px',
       display: 'block',
       marginLeft: 'auto',
       marginRight: 'auto',
@@ -105,11 +116,15 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     }
 
     textStyle = {
-      maxHeight: 'initial',
-      overflow: 'initial'
+      maxHeight: 'unset',
+      overflow: 'initial',
+      height: 'unset'
     }
 
-    bigStyle = {}
+    bigStyle = {
+      height: '100%',
+      borderRadius: '10px'
+    }
   }
   if (selected && windowWidth < 1275) {
     bigStyle = {
@@ -117,19 +132,27 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     }
 
     innerStyle = {
-      scale: '1.1',
       position: 'relative',
       height: 'auto',
-      marginTop: '8rem',
-      marginBottom: '8rem',
+      marginTop: '1rem',
+      marginBottom: '1rem',
       zIndex: '50',
       maxHeight: 'initial',
       cursor: 'zoom-out'
     }
 
+    imgStyle = {
+      maxWidth: '95%',
+      display: 'block',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginBottom: '1rem'
+    }
+
     textStyle = {
-      maxHeight: 'initial',
-      overflow: 'initial'
+      maxHeight: 'unset',
+      overflow: 'initial',
+      height: 'unset'
     }
   }
 
@@ -137,9 +160,8 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     <StyledContainer style={innerStyle} ref={blogRef} onClick={handleSelection}>
     <div style={bigStyle}>
     <h1>{title}</h1>
-      {blogImg && <img src={blogImg} style={imgStyle} alt={`Image for ${title}`} />}
-      <div style={textStyle} className="blogTextContainer">
-        <p>{text}</p>
+      <img src={blogImg} style={imgStyle} alt={`Image for ${title}`} />
+      <div style={textStyle} dangerouslySetInnerHTML={{ __html: `${text}` }} className="blogTextContainer">
       </div>
       <small>Skapad {created}</small><br />
       <small>Av {creator}</small>

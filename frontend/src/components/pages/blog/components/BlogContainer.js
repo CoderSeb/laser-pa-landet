@@ -11,8 +11,9 @@ const StyledContainer = styled.div`
   flex-direction: row;
   align-content: center-top;
   max-width:100%;
+  min-height: 100vh;
   gap: 1em;
-  height:auto;
+  height: max-content;
 `
 
 const BlogContainer = ({children}) => {
