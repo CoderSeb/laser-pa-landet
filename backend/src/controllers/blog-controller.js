@@ -57,9 +57,13 @@ export const BlogController = {
    */
   async createPost (req, res, next) {
     try {
-      if (req.file.size > 1572864) throw createError(413, 'Bilden är för stor! Max 1,5MB.')
-      const imageName = await req.file.filename
-      const image = 'images/' + imageName
+      let imageName = ''
+      let image = ''
+      if (req.file) {
+        if (req.file.size > 1572864) throw createError(413, 'Bilden är för stor! Max 1,5MB.')
+        imageName = await req.file.filename
+        image = 'images/' + imageName
+      }
       const { title, content } = await req.body
       const token = await req.headers.authorization
       const validToken = await verifyToken(token.split(' ')[1])

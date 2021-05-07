@@ -70,23 +70,44 @@ const StyledContainer = styled.div`
 
   .tableContainer table {
     text-align: center;
-  border-collapse: collapse;
-  border: 3px solid  ${props => props.theme.colors.accent};
-  width: 100%;
+    border-collapse: collapse;
+    border: 3px solid  ${props => props.theme.colors.accent};
+    width: 100%;
+
+    
+
+  .idTd {
+    width: 230px;
+  }
+
+  .btnTd {
+    width:50px;
+  }
+
+
+  .tableBtn {
+    width: 100%;
+    height: 60px;
+    margin:0;
+    padding: 0;
+    border-radius:0;
+    border-style: ridge;
+    border-width: 3px;
+  }
 
   td, th {
     border: 1px solid ${props => props.theme.colors.accent};
-    padding: 8px;
+    padding: 0px;
   }
 
   tr:nth-child(odd){background-color: ${props => props.theme.colors.mainTransparent};}
-  }
 
 
   tr:hover {
     background: ${props => props.theme.colors.mainTransparent};
     color: black;
     font-weight: bold;
+    cursor: default;
   }
 
   th {
@@ -95,21 +116,40 @@ const StyledContainer = styled.div`
   text-align: center;
   background-color: black;
   color: white;
-}
+  }
 
+  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+      width: 100%;
+      margin: 0 auto;
+      font-size: 0.8em;
+      padding: 0;
+
+      .idTd {
+        display: none;
+      }
+
+      .btnTd {
+        width:40px;
+      }
+    }
+}
 `
 
 const StyledButton = styled.button`
-  width: 30%;
-  font-size: 1.2em;
+  min-width: 100px;
+  font-size: 1em;
   padding: .5em;
   border: 1px solid ${props => props.theme.colors.accent};
   outline: none;
   border-radius: 10px;
-  margin: 1em 0;
+  margin:1em 0;
+  background: ${props => props.theme.colors.main};
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     width: 100%;
+    height: 40px;
+    font-size: 0.9em;
+    padding: 0;
   }
 
   &:hover {
@@ -137,6 +177,19 @@ const BlogEditor = () => {
   const [fileError, setFileError] = useState('')
   const [feedback, setFeedback] = useState('')
   const [blogPosts, setBlogPosts] = useState([])
+  const [modified, setModified] = useState(false)
+
+  const getPosts = () => {
+    // eslint-disable-next-line no-undef
+    axios.get(process.env.REACT_APP_API_BLOG).then(response => {
+    setBlogPosts(response.data)
+  }).
+  catch(err => {
+    if (err) {
+      setFeedback(err.message)
+    }
+  })
+  }
 
   const sendPayload = bodyPayload => {
     const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
@@ -150,23 +203,11 @@ const BlogEditor = () => {
       data: bodyPayload
     }).then(response => {
       setFeedback(response.data.message)
+      setModified(true)
     }).
       catch(err => {
       setFeedback(err.response.data.message)
     })
-  }
-
-  const getPosts = () => {
-    // eslint-disable-next-line no-undef
-    axios.get(process.env.REACT_APP_API_BLOG).then(response => {
-    setBlogPosts(response.data)
-
-  }).
-  catch(err => {
-    if (err) {
-      setFeedback(err.message)
-    }
-  })
   }
 
   const handleSubmit = e => {
@@ -177,7 +218,6 @@ const BlogEditor = () => {
     bodyFormData.append('content', blogContent)
     bodyFormData.append('image', blogImg.currentFile)
     sendPayload(bodyFormData)
-    getPosts()
   }, 500)
   }
 
@@ -194,14 +234,12 @@ const BlogEditor = () => {
       setBlogImg(selectedFile)
   }
 
-  useEffect(() => {
-    setBlogPosts(blogPosts)
-  }, [blogPosts])
-
+  useEffect(() => [blogPosts])
 
   useEffect(() => {
     getPosts()
-  }, [])
+    setModified(false)
+  }, [modified])
 
   const handleRemovePost = id => {
     const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
@@ -212,15 +250,21 @@ const BlogEditor = () => {
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
       }
+    }).then(response => {
+      if (response.status === 204) {
+        setFeedback('Inlägg borttaget')
+        setModified(true)
+      }
+    }).
+    catch(err => {
+      setFeedback(err.response.data.message)
     })
-
-    getPosts()
   }
 
   return (
     <StyledContainer>
       <h2>Blog Editor</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
+      <form encType="multipart/form-data">
       <input className="titleInput" onChange={e => setBlogTitle(e.target.value)} placeholder="Titel..." />
       <br />
       <label>Välj bild för inlägg</label><br />
@@ -256,24 +300,19 @@ const BlogEditor = () => {
           }}
       />
       {feedback.length > 0 && <p className="feedbackParagraph">{feedback}</p>}
-      <StyledButton type="submit">Spara inlägg</StyledButton>
+      <StyledButton onClick={e => handleSubmit(e)}>Spara inlägg</StyledButton>
       </form>
       <div className="tableContainer">
       <h2>Aktiva inlägg</h2>
         <table>
           <tbody>
-          <tr><th>ID</th><th>Titel</th><th>Edit</th><th>Delete</th></tr>
-            {blogPosts && blogPosts.map(post => {
-              const { id, title } = post
-              return (
-              <tr key={post.id}>
-              <td>{id}</td>
-              <td>{title}</td>
-              <td><button type="button">Redigera</button></td>
-              <td><button onClick={() => handleRemovePost(id)}>Ta bort</button></td>
-              </tr>
-              )
-            })}
+          <tr><th className="idTd">ID</th><th>Titel</th><th>Edit</th><th>Delete</th></tr>
+            {blogPosts.map(post => <tr key={post.id}>
+              <td className="idTd">{post.id}</td>
+              <td>{post.title}</td>
+              <td className="btnTd"><StyledButton className="tableBtn" type="button">Redigera</StyledButton></td>
+              <td className="btnTd"><StyledButton className="tableBtn" onClick={() => handleRemovePost(post.id)}>Ta bort</StyledButton></td>
+              </tr>)}
           </tbody>
         </table>
       </div>
