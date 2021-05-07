@@ -108,9 +108,11 @@ export const BlogController = {
       const imageToDelete = `../frontend/public/${postToDelete.image}`
       await BlogPost.deleteOne({ _id: req.params.id }, (err) => {
         if (err) throw createError(500, 'Något gick fel, ladda om sidan och försök igen.')
-        fs.unlink(imageToDelete, (err) => {
-          if (err) throw createError(500, 'Bilden på servern kunde inte tas bort.')
-        })
+        if (imageToDelete !== '../frontend/public/') {
+          fs.unlink(imageToDelete, (err) => {
+            if (err) throw createError(500, 'Bilden på servern kunde inte tas bort.')
+          })
+        }
         res.sendStatus(204)
       })
     } catch (err) {

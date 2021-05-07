@@ -9,24 +9,16 @@ import '@ckeditor/ckeditor5-build-classic/build/translations/sv'
 const editorConfiguration = {
   toolbar: {
     items: [
-      'heading',
+      'heading', '|',
+      'bold', 'italic',
       '|',
-      'bold',
-      'italic',
-      '|',
-      'bulletedList',
-      'numberedList',
-      '|',
-      'insertTable',
-      '|',
-      'undo',
-      'redo'
+      'link', '|',
+      'bulletedList', 'numberedList',
+      'outdent', 'indent', '|',
+      'undo', 'redo'
     ]
   },
   image: {},
-  table: {
-    contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells']
-  },
   language: 'sv'
 }
 
@@ -172,7 +164,7 @@ const PreviewImgContainer = styled.div`
 
 const BlogEditor = () => {
   const [blogTitle, setBlogTitle] = useState('')
-  const [blogContent, setBlogContent] = useState('')
+  const [blogContent, setBlogContent] = useState('<p>Skriv ditt inlägg här!</p>')
   const [blogImg, setBlogImg] = useState({})
   const [fileError, setFileError] = useState('')
   const [feedback, setFeedback] = useState('')
@@ -204,6 +196,9 @@ const BlogEditor = () => {
     }).then(response => {
       setFeedback(response.data.message)
       setModified(true)
+      setBlogImg({})
+      setBlogContent('')
+      setBlogTitle('')
     }).
       catch(err => {
       setFeedback(err.response.data.message)
@@ -212,16 +207,15 @@ const BlogEditor = () => {
 
   const handleSubmit = e => {
     e.preventDefault()
-    setTimeout(() => {
     const bodyFormData = new FormData()
     bodyFormData.append('title', blogTitle)
     bodyFormData.append('content', blogContent)
     bodyFormData.append('image', blogImg.currentFile)
     sendPayload(bodyFormData)
-  }, 500)
   }
 
   const selectFile = e => {
+    e.preventDefault()
     if (e.target.files[0].size > 1572864) {
       setFileError('Bilden är för stor! Max 1,5MB.')
       return
@@ -233,8 +227,6 @@ const BlogEditor = () => {
       }
       setBlogImg(selectedFile)
   }
-
-  useEffect(() => [blogPosts])
 
   useEffect(() => {
     getPosts()
@@ -265,7 +257,7 @@ const BlogEditor = () => {
     <StyledContainer>
       <h2>Blog Editor</h2>
       <form encType="multipart/form-data">
-      <input className="titleInput" onChange={e => setBlogTitle(e.target.value)} placeholder="Titel..." />
+      <input className="titleInput" value={blogTitle} onChange={e => setBlogTitle(e.target.value)} placeholder="Titel..." />
       <br />
       <label>Välj bild för inlägg</label><br />
       {fileError.length > 0 && <small className="fileError">{fileError}</small>}
@@ -281,22 +273,12 @@ const BlogEditor = () => {
           editor={ ClassicEditor }
           config={ editorConfiguration }
           data="<p>Skriv ditt inlägg här!</p>"
-          onReady={ editor => {
-              // You can store the "editor" and use when it is needed.
-              console.log('Editor is ready to use!', editor)
-          } }
+          onReady={editor => {
+            console.log(Array.from(editor.ui.componentFactory.names()))
+          }}
           onChange={(event, editor) => {
               const data = editor.getData()
               setBlogContent(data)
-              console.log({event,
-                editor,
-                data })
-          }}
-          onBlur={(event, editor) => {
-              console.log('Blur.', editor)
-          } }
-          onFocus={(event, editor) => {
-              console.log('Focus.', editor)
           }}
       />
       {feedback.length > 0 && <p className="feedbackParagraph">{feedback}</p>}
