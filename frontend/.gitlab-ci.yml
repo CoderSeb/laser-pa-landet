@@ -11,6 +11,13 @@ install:
   stage: install
   script:
     - npm install
+  artifacts:
+      name: "artifacts"
+      untracked: true
+      expire_in: 30 mins
+      paths:
+        - .npm/
+        - node_modules/
 
 audit:
     stage: audit
@@ -36,3 +43,9 @@ test:
   script:
     - echo "Running frontend tests."
     - npm test
+    
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploy frontend here..."
+  only: - master
