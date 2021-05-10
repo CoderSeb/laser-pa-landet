@@ -4,6 +4,7 @@ default:
   before_script:
     - apt-get update -yqq
     - apt-get install -y nodejs
+    - apt-get install -y npm
 
 stages:
   - install
