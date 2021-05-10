@@ -1,18 +1,48 @@
+image: node:latest
+
 stages:
-  - triggers
+  - frontend_build
+  - frontend_test
+  - backend_build
+  - backend_test
 
-frontend:
-  stage: triggers
-  trigger:
-    include: frontend/.gitlab-ci.yml
-  rules:
-    - changes:
-        - frontend/*
+frontend_build:
+  stage: frontend_build
+  script: 
+    - echo "Start building App"
+    - cd frontend/
+    - npm install
+    - npm run build
+    - echo "Build successfully!"
+  artifacts:
+    expire_in: 20 minutes
+    paths:
+      - frontend/build
+      - frontend/node_modules/
 
-backend:
-  stage: triggers
-  trigger:
-    include: backend/.gitlab-ci.yml
-  rules:
-    - changes:
-        - backend/*
+frontend_test:
+  stage: frontend_test
+  script:
+    - echo "Testing App"
+    - cd frontend/
+    - CI=true npm test
+    - echo "Test successfully!"
+
+  cache:
+    paths:
+      - backend/node_modules/
+
+  backend_build:
+    stage: backend_build
+    script:
+      - cd backend/
+      - npm install
+    artifacts:
+      paths:
+        - backend/node_modules/
+
+  backend_test:
+    stage: backend_test
+    script:
+      - cd backend/
+      - npm test
