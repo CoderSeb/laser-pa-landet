@@ -2,9 +2,8 @@ image: ubuntu:latest
 
 default:
   before_script:
-    - sudo apt update -y
-    - sudo apt install nodejs -y
-    - sudo apt install npm -y
+    - apt-get update -yqq
+    - apt-get install -y nodejs
 
 stages:
   - install

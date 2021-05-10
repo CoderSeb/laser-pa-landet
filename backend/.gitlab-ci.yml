@@ -1,5 +1,10 @@
 image: ubuntu:latest
 
+default:
+  before_script:
+    - apt-get update -yqq
+    - apt-get install -y nodejs
+
 stages:
   - install
   - audit
@@ -37,7 +42,7 @@ test:
 staging:
   type: deploy
   stage: staging
-  image: node:latest
+  image: ubuntu:latest
   script:
     - echo "Running staging stage."
   only:
@@ -46,7 +51,7 @@ staging:
 deploy:
   type: deploy
   stage: deploy
-  image: node:latest
+  image: ubuntu:latest
   script:
     - echo "Running deploy stage."
   only:
