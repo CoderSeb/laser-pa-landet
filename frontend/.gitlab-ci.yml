@@ -39,8 +39,8 @@ build:
       } || {
         echo "Something went wrong while building frontend."
       }
-    only:
-      - master
+  only:
+    - master
 
 test:
   stage: test
@@ -52,4 +52,5 @@ deploy:
   stage: deploy
   script:
     - echo "Deploy frontend here..."
-  only: - master
+  only:
+    - master
