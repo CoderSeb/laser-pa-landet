@@ -1,12 +1,16 @@
+image: node:latest
+
 stages:
-  - audit
   - install
+  - audit
   - build
   - test
   - deploy
 
-default:
-  image: node:latest
+install:
+  stage: install
+  script:
+    - npm install
 
 audit:
     stage: audit
@@ -14,15 +18,8 @@ audit:
         - npm audit
 
 
-install:
-  stage: install
-  needs: [audit]
-  script:
-    - npm install
-
 build:
   stage: build
-  needs: [install]
   script:
     - |
       {
@@ -36,7 +33,6 @@ build:
 
 test:
   stage: test
-  needs: [build]
   script:
     - echo "Running frontend tests."
     - npm test

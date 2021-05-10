@@ -1,24 +1,22 @@
+image: node:latest
+
 stages:
-  - audit
   - install
+  - audit
   - linting
   - test
   - staging
   - deploy
 
-default:
-  image: node:latest
+install:
+  stage: install
+  script:
+    - npm install
 
 audit:
     stage: audit
     script:
         - npm audit
-
-install:
-  stage: install
-  needs: [audit]
-  script:
-    - npm install
 
 linting:
   stage: linting
@@ -27,7 +25,6 @@ linting:
 
 test:
   stage: test
-  needs: [install]
   script:
     - echo "Running backend tests."
     - npm test
