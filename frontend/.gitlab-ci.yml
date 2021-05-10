@@ -22,8 +22,8 @@ install:
   artifacts:
       expire_in: 30 mins
       paths:
-        - ./.npm/
-        - ./node_modules/
+        - frontend/.npm/
+        - frontend/node_modules/
 
 build:
   stage: build

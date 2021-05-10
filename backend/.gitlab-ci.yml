@@ -22,8 +22,8 @@ install:
   artifacts:
       expire_in: 30 mins
       paths:
-        - ./.npm/
-        - ./node_modules/
+        - backend/.npm/
+        - backend/node_modules/
 
 linting:
   stage: linting
