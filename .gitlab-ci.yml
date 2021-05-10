@@ -28,21 +28,21 @@ frontend_test:
     - CI=true npm test
     - echo "Test successfully!"
 
-  cache:
+cache:
+  paths:
+    - backend/node_modules/
+
+backend_build:
+  stage: backend_build
+  script:
+    - cd backend/
+    - npm install
+  artifacts:
     paths:
       - backend/node_modules/
 
-  backend_build:
-    stage: backend_build
-    script:
-      - cd backend/
-      - npm install
-    artifacts:
-      paths:
-        - backend/node_modules/
-
-  backend_test:
-    stage: backend_test
-    script:
-      - cd backend/
-      - npm test
+backend_test:
+  stage: backend_test
+  script:
+    - cd backend/
+    - npm test
