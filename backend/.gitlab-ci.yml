@@ -1,59 +1,24 @@
-image: ubuntu:latest
+image: node:latest
 
-default:
-  before_script:
-    - apt-get update -yqq
-    - apt-get install -y nodejs
-    - apt-get install -y npm
+  stages:
+    - build
+    - test
 
-stages:
-  - install
-  - linting
-  - test
-  - staging
-  - deploy
+  cache:
+    paths:
+      - backend/node_modules/
 
-install:
-  stage: install
-  script:
-    - cd backend/
-    - npm install
-    - npm audit
-  artifacts:
-      expire_in: 30 mins
+  install_dependencies:
+    stage: build
+    script:
+      - cd backend/
+      - npm install
+    artifacts:
       paths:
-        - backend/.npm/
         - backend/node_modules/
 
-linting:
-  stage: linting
-  script:
-    - cd backend/
-    - npm run lint
-
-test:
-  stage: test
-  script:
-    - cd backend/
-    - echo "Running backend tests."
-    - npm test
-
-staging:
-  type: deploy
-  stage: staging
-  image: ubuntu:latest
-  script:
-    - cd backend/
-    - echo "Running staging stage."
-  only:
-    - develop
-
-deploy:
-  type: deploy
-  stage: deploy
-  image: ubuntu:latest
-  script:
-    - cd backend/
-    - echo "Running deploy stage."
-  only:
-    - master
+  testing_testing:
+    stage: test
+    script:
+      - cd backend/
+      - npm test

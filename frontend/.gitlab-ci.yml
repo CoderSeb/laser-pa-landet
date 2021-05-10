@@ -1,55 +1,27 @@
-image: ubuntu:latest
-
-default:
-  before_script:
-    - apt-get update -yqq
-    - apt-get install -y nodejs
-    - apt-get install -y npm
-
 stages:
-  - install
-  - audit
   - build
   - test
-  - deploy
-
-install:
-  stage: install
-  script:
-    - cd frontend/
-    - npm install
-    - npm audit
-  artifacts:
-      expire_in: 30 mins
-      paths:
-        - frontend/.npm/
-        - frontend/node_modules/
 
 build:
   stage: build
-  script:
+  image: node
+  script: 
+    - echo "Start building App"
     - cd frontend/
-    - |
-      {
-        npm run build &&
-        echo "Successfully built frontend."
-      } || {
-        echo "Something went wrong while building frontend."
-      }
-  only:
-    - master
+    - npm install
+    - npm build
+    - echo "Build successfully!"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - frontend/build
+      - frontend/node_modules/
 
 test:
   stage: test
+  image: node
   script:
+    - echo "Testing App"
     - cd frontend/
-    - echo "Running frontend tests."
-    - npm test
-    
-deploy:
-  stage: deploy
-  script:
-    - cd frontend/
-    - echo "Deploy frontend here..."
-  only:
-    - master
+    - CI=true npm test
+    - echo "Test successfully!"
