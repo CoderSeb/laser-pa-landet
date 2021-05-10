@@ -2,7 +2,6 @@ image: ubuntu:latest
 
 default:
   before_script:
-    - cd /frontend
     - apt-get update -yqq
     - apt-get install -y nodejs
     - apt-get install -y npm
@@ -17,6 +16,7 @@ stages:
 install:
   stage: install
   script:
+    - cd frontend/
     - npm install
   artifacts:
       expire_in: 30 mins
@@ -27,12 +27,14 @@ install:
 audit:
     stage: audit
     script:
-        - npm audit
+      - cd frontend/
+      - npm audit
 
 
 build:
   stage: build
   script:
+    - cd frontend/
     - |
       {
         npm run build &&
@@ -46,12 +48,14 @@ build:
 test:
   stage: test
   script:
+    - cd frontend/
     - echo "Running frontend tests."
     - npm test
     
 deploy:
   stage: deploy
   script:
+    - cd frontend/
     - echo "Deploy frontend here..."
   only:
     - master

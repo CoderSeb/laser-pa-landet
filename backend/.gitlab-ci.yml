@@ -2,7 +2,6 @@ image: ubuntu:latest
 
 default:
   before_script:
-    - cd /backend
     - apt-get update -yqq
     - apt-get install -y nodejs
     - apt-get install -y npm
@@ -18,6 +17,7 @@ stages:
 install:
   stage: install
   script:
+    - cd backend/
     - npm install
   artifacts:
       expire_in: 30 mins
@@ -28,16 +28,19 @@ install:
 audit:
     stage: audit
     script:
-        - npm audit
+      - cd backend/
+      - npm audit
 
 linting:
   stage: linting
   script:
+    - cd backend/
     - npm run lint
 
 test:
   stage: test
   script:
+    - cd backend/
     - echo "Running backend tests."
     - npm test
 
@@ -46,6 +49,7 @@ staging:
   stage: staging
   image: ubuntu:latest
   script:
+    - cd backend/
     - echo "Running staging stage."
   only:
     - develop
@@ -55,6 +59,7 @@ deploy:
   stage: deploy
   image: ubuntu:latest
   script:
+    - cd backend/
     - echo "Running deploy stage."
   only:
     - master
