@@ -2,6 +2,7 @@ image: ubuntu:latest
 
 default:
   before_script:
+    - cd /backend
     - apt-get update -yqq
     - apt-get install -y nodejs
     - apt-get install -y npm
@@ -21,8 +22,8 @@ install:
   artifacts:
       expire_in: 30 mins
       paths:
-        - ./backend/.npm/
-        - ./backend/node_modules/
+        - .npm/
+        - node_modules/
 
 audit:
     stage: audit
