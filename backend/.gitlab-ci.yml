@@ -52,7 +52,7 @@ staging:
 
 deploy:
   type: deploy
-  stage: production
+  stage: deploy
   image: node:latest
   script:
     - echo "Running deploy stage."
