@@ -15,7 +15,7 @@ frontend_build:
     - npm run build
     - echo "Build successfully!"
   artifacts:
-    expire_in: 20 minutes
+    expire_in: 1 hour
     paths:
       - frontend/build
       - frontend/node_modules/
