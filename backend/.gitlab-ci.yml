@@ -8,7 +8,6 @@ default:
 
 stages:
   - install
-  - audit
   - linting
   - test
   - staging
@@ -19,17 +18,12 @@ install:
   script:
     - cd backend/
     - npm install
+    - npm audit
   artifacts:
       expire_in: 30 mins
       paths:
-        - .npm/
-        - node_modules/
-
-audit:
-    stage: audit
-    script:
-      - cd backend/
-      - npm audit
+        - ./.npm/
+        - ./node_modules/
 
 linting:
   stage: linting

@@ -18,18 +18,12 @@ install:
   script:
     - cd frontend/
     - npm install
+    - npm audit
   artifacts:
       expire_in: 30 mins
       paths:
-        - .npm/
-        - node_modules/
-
-audit:
-    stage: audit
-    script:
-      - cd frontend/
-      - npm audit
-
+        - ./.npm/
+        - ./node_modules/
 
 build:
   stage: build
