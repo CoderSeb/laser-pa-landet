@@ -9,15 +9,6 @@ stages:
 default:
   image: node:latest
 
-before_script:
-    - |
-      if [[ ! -f package.json ]]; then
-        echo "No package.json found!"
-        exit 1
-      fi
-    - BACKEND_NAME=$(node -p "require('./backend/package.json').name")
-    - BACKEND_VERSION=$(node -p "require('./backend/package.json').version")
-
 audit:
     stage: audit
     script:

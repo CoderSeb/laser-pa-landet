@@ -8,15 +8,6 @@ stages:
 default:
   image: node:latest
 
-before_script:
-    - |
-      if [[ ! -f package.json ]]; then
-        echo "No package.json found!"
-        exit 1
-      fi
-    - FRONTEND_NAME=$(node -p "require('./frontend/package.json').name")
-    - FRONTEND_VERSION=$(node -p "require('./frontend/package.json').version")
-
 audit:
     stage: audit
     script:
@@ -36,9 +27,9 @@ build:
     - |
       {
         npm build &&
-        echo "Successfully built version ${FRONTEND_VERSION} of ${FRONTEND_NAME}"
+        echo "Successfully built frontend."
       } || {
-        echo "Something went wrong while building version ${FRONTEND_VERSION}."
+        echo "Something went wrong while building frontend."
       }
     only:
       - master
