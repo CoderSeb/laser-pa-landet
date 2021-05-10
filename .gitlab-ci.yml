@@ -1,7 +1,11 @@
 stages:
   - triggers
 frontend_pipeline:
-  include: frontend/.gitlab-ci.yml
+  trigger:
+    include: 
+      - local: frontend/.gitlab-ci.yml
 
 backend_pipeline:
-  include: backend/.gitlab-ci.yml
+  trigger:
+    include: 
+      - local: frontend/.gitlab-ci.yml

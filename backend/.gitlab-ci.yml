@@ -13,8 +13,6 @@ install:
   script:
     - npm install
   artifacts:
-      name: "artifacts"
-      untracked: true
       expire_in: 30 mins
       paths:
         - .npm/

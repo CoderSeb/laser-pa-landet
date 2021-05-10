@@ -12,8 +12,6 @@ install:
   script:
     - npm install
   artifacts:
-      name: "artifacts"
-      untracked: true
       expire_in: 30 mins
       paths:
         - .npm/
@@ -30,7 +28,7 @@ build:
   script:
     - |
       {
-        npm build &&
+        npm run build &&
         echo "Successfully built frontend."
       } || {
         echo "Something went wrong while building frontend."
