@@ -15,8 +15,8 @@ before_script:
         echo "No package.json found!"
         exit 1
       fi
-    - BACKEND_NAME=$(node -p "require('./package.json').name")
-    - BACKEND_VERSION=$(node -p "require('./package.json').version")
+    - BACKEND_NAME=$(node -p "require('./backend/package.json').name")
+    - BACKEND_VERSION=$(node -p "require('./backend/package.json').version")
 
 audit:
     stage: audit
