@@ -1,4 +1,10 @@
-image: node:latest
+image: ubuntu:latest
+
+default:
+  before_script:
+    - sudo apt update -y
+    - sudo apt install nodejs -y
+    - sudo apt install npm -y
 
 stages:
   - install
