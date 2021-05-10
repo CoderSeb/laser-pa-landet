@@ -20,8 +20,8 @@ install:
   artifacts:
       expire_in: 30 mins
       paths:
-        - frontend/.npm/
-        - frontend/node_modules/
+        - ./frontend/.npm/
+        - ./frontend/node_modules/
 
 audit:
     stage: audit
