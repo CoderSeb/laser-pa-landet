@@ -31,14 +31,26 @@ const StyledLink = styled(Link)`
   font-weight: bold;
   color: ${props => props.theme.colors.main};
   font-size: 1.3em;
-  transition: all 0.3s ease;
+  transition: all 0.1s ease;
+  padding: 0em 1em;
+  border-radius: 6px;
+  background: ${props => props.theme.colors.accent};
 
   &:hover {
-    font-size: 1.5em;
+    text-decoration: underline;
+    color: ${props => props.theme.colors.accent};
+    background: ${props => props.theme.colors.main};
+
   }
 
   &:active {
+    background: ${props => props.theme.colors.black};
     color: ${props => props.theme.colors.main};
+  }
+
+  &:focus {
+    background: ${props => props.theme.colors.black};
+    color: ${props => props.theme.colors.main};       
   }
 `
 
@@ -48,7 +60,7 @@ const Jumbo = () => {
     <StyledJumbo>
       <h2>Välkommen till Laser på Landet!</h2>
       <h1>Boka Ditt besök hos oss <strong>idag</strong> och bli av med Din värk!</h1>
-      <StyledLink to="/behandlingar">Läs mer här</StyledLink>
+      <StyledLink to="/behandlingar">Läs mer här &gt;</StyledLink>
     </StyledJumbo>
   )
 }

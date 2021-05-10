@@ -53,6 +53,8 @@ const Burger = ({isOpen, setIsOpen}) => {
     <StyledBurgerButton
       isOpen={isOpen}
       onClick={() => setIsOpen(!isOpen)}
+      type="button"
+      aria-label="burger knapp"
     >
       <div></div>
       <div></div>

@@ -95,7 +95,7 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     innerStyle = {
       scale: '1.1',
       position: 'absolute',
-      top: '150px',
+      top: '180px',
       left: '50%',
       transform: 'translate(-50%)',
       width: '70%',
@@ -160,7 +160,7 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     <StyledContainer style={innerStyle} ref={blogRef} onClick={handleSelection}>
     <div style={bigStyle}>
     <h1>{title}</h1>
-      <img src={blogImg} style={imgStyle} alt={`Image for ${title}`} />
+      <img src={blogImg} style={imgStyle} alt={`Laser på landet, bild för inläggstitel: ${title}`} />
       <div style={textStyle} dangerouslySetInnerHTML={{ __html: `${text}` }} className="blogTextContainer">
       </div>
       <small>Skapad {created}</small><br />

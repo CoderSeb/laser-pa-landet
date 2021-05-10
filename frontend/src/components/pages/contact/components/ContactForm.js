@@ -113,6 +113,11 @@ const StyledSubmit = styled.button`
     border: 1px solid ${props => props.theme.colors.black};
   }
 
+  &:focus {
+    background: ${props => props.theme.colors.black};
+    color: ${props => props.theme.colors.white};
+  }
+
 `
 
 

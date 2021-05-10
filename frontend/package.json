@@ -4,6 +4,7 @@
   "private": true,
   "type": "module",
   "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
+  "homepage": "https://laser-pa-landet.se",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^27.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.2",

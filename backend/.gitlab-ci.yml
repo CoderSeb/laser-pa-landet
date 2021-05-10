@@ -1,0 +1,59 @@
+stages:
+  - audit
+  - install
+  - test
+  - staging
+  - deploy
+
+default:
+  image: node:latest
+
+before_script:
+    - |
+      if [[ ! -f package.json ]]; then
+        echo "No package.json found!"
+        exit 1
+      fi
+    - BACKEND_NAME=$(node -p "require('./package.json').name")
+    - BACKEND_VERSION=$(node -p "require('./package.json').version")
+
+audit:
+    stage: audit
+    script:
+        - npm audit
+
+install:
+  stage: install
+  needs: [audit]
+  script:
+    - npm install
+
+linting:
+  stage: linting
+  script:
+    - npm run lint
+
+test:
+  stage: test
+  needs: [install]
+  script:
+    - echo "Running backend tests."
+    - npm test
+
+staging:
+  type: deploy
+  stage: staging
+  image: node:latest
+  script:
+    - echo "Running staging stage."
+  only:
+    - develop
+
+deploy:
+  type: deploy
+  stage: production
+  image: node:latest
+  script:
+    - echo "Running deploy stage."
+  only:
+    - master

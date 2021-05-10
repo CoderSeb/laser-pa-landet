@@ -265,7 +265,7 @@ const BlogEditor = () => {
       <br />
       {blogImg.previewImage &&
         <PreviewImgContainer>
-          <PreviewImg src={blogImg.previewImage} />
+          <PreviewImg alt="Förhandsvisning för ny blog bild" src={blogImg.previewImage} />
           <br />
           <button onClick={() => setBlogImg({})}>Ta bort bild</button>
         </PreviewImgContainer>}

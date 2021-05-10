@@ -1,0 +1,51 @@
+stages:
+  - audit
+  - install
+  - build
+  - test
+  - deploy
+
+default:
+  image: node:latest
+
+before_script:
+    - |
+      if [[ ! -f package.json ]]; then
+        echo "No package.json found!"
+        exit 1
+      fi
+    - FRONTEND_NAME=$(node -p "require('./package.json').name")
+    - FRONTEND_VERSION=$(node -p "require('./package.json').version")
+
+audit:
+    stage: audit
+    script:
+        - npm audit
+
+
+install:
+  stage: install
+  needs: [audit]
+  script:
+    - npm install
+
+build:
+  stage: build
+  needs: [install]
+  script:
+    - |
+      {
+        npm build &&
+        echo "Successfully built version ${FRONTEND_VERSION} of ${FRONTEND_NAME}"
+      } || {
+        echo "Something went wrong while building version ${FRONTEND_VERSION}."
+      }
+    only:
+      - master
+
+test:
+  stage: test
+  needs: [build]
+  script:
+    - echo "Running frontend tests."
+    - npm test

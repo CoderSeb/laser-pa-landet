@@ -38,6 +38,7 @@ const Footer = () => {
           street="Sjörödtorpsvägen 10"
           postal="27297"
           city="Gärsnäs"
+          phone="0707-69 68 85"
           organisation="Org.nr 870207-XXXX"
           tax="F-skatt registrerad"
         />
