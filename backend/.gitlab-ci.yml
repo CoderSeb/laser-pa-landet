@@ -1,6 +1,7 @@
 stages:
   - audit
   - install
+  - linting
   - test
   - staging
   - deploy
