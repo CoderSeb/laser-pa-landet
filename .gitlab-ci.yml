@@ -27,8 +27,12 @@ stages:
 backend_build:
   stage: backend_build
   script:
+    - echo "Running backend build"
     - cd backend/
     - npm install
+    - echo "Attempting to start backend."
+    - npm start
+    - echo "Backend build successfull!"
   artifacts:
     expire_in: 1 hour
     paths:
@@ -36,21 +40,23 @@ backend_build:
 
 backend_test:
   stage: backend_test
+  needs: [backend_build]
   script:
-    - echo "Starting backend tests."
+    - echo "Running backend test(s)."
     - cd backend/
     - npm install
     - npm run test:pipeline
-    - echo "Tests successfull!"
+    - echo "Successfull test(s)!"
+    allow_failure: true
 
 frontend_build:
   stage: frontend_build
   script: 
-    - echo "Start building App"
+    - echo "Running frontend build."
     - cd frontend/
     - npm install
     - npm run build
-    - echo "Build successfully!"
+    - echo "Build successfull!"
   artifacts:
     expire_in: 1 hour
     paths:
@@ -59,8 +65,10 @@ frontend_build:
 
 frontend_test:
   stage: frontend_test
+  needs: [frontend_build]
   script:
-    - echo "Testing App"
+    - echo "Running frontend test(s)."
     - cd frontend/
     - CI=true npm test
-    - echo "Tests successfully!"
+    - echo "Successfull test(s)!"
+  allow_failure: true
