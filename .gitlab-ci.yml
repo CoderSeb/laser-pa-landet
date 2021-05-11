@@ -30,8 +30,6 @@ backend_build:
     - echo "Running backend build"
     - cd backend/
     - npm install
-    - echo "Attempting to start backend."
-    - npm start
     - echo "Backend build successfull!"
   artifacts:
     expire_in: 1 hour
