@@ -44,11 +44,8 @@ frontend_test:
     - echo "Testing App"
     - cd frontend/
     - CI=true npm test
-    - echo "Test successfully!"
+    - echo "Tests successfully!"
 
-cache:
-  paths:
-    - backend/node_modules/
 
 backend_build:
   stage: backend_build
@@ -62,5 +59,8 @@ backend_build:
 backend_test:
   stage: backend_test
   script:
+    - echo "Starting backend tests."
     - cd backend/
-    - npm test
+    - npm install
+    - CI=true npm test
+    - echo "Tests successfull!"
