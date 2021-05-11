@@ -39,6 +39,7 @@ backend_test:
   script:
     - echo "Starting backend tests."
     - cd backend/
+    - npm install
     - npm run test:pipeline
     - echo "Tests successfull!"
 
