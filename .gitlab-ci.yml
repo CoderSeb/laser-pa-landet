@@ -53,6 +53,7 @@ backend_build:
     - cd backend/
     - npm install
   artifacts:
+    expire_in: 1 hour
     paths:
       - backend/node_modules/
 
@@ -61,6 +62,5 @@ backend_test:
   script:
     - echo "Starting backend tests."
     - cd backend/
-    - npm install
-    - CI=true npm test
+    - npm test
     - echo "Tests successfull!"
