@@ -7,9 +7,10 @@ import { AllowedEmail } from '../models/allowedEmail.js'
 import { Admin } from '../models/Admin.js'
 import { authData } from './testData.js'
 import dotenv from 'dotenv'
-
+import {jest} from '@jest/globals'
 // Config .env
 dotenv.config()
+jest.useFakeTimers()
 
 /**
  * Admin routes tests.

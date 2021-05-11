@@ -3,7 +3,9 @@ import { app } from './testServer.js'
 import request from 'supertest'
 import { emailData } from './testData.js'
 import dotenv from 'dotenv'
+import {jest} from '@jest/globals'
 dotenv.config()
+jest.useFakeTimers()
 
 /**
  * Email route tests.
