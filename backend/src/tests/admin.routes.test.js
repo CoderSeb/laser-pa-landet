@@ -1,5 +1,4 @@
 /*eslint-disable */
-jest.useFakeTimers()
 // Imports
 import { app } from './testServer.js'
 import request from 'supertest'
