@@ -5,7 +5,6 @@ import { emailData } from './testData.js'
 import dotenv from 'dotenv'
 dotenv.config()
 
-
 /**
  * Email route tests.
  */
