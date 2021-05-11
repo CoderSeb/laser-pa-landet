@@ -19,10 +19,28 @@ variables:
   PRIVATE_KEY: $PRIVATE_KEY
 
 stages:
-  - frontend_build
-  - frontend_test
   - backend_build
   - backend_test
+  - frontend_build
+  - frontend_test
+
+backend_build:
+  stage: backend_build
+  script:
+    - cd backend/
+    - npm install
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - backend/node_modules/
+
+backend_test:
+  stage: backend_test
+  script:
+    - echo "Starting backend tests."
+    - cd backend/
+    - npm test
+    - echo "Tests successfull!"
 
 frontend_build:
   stage: frontend_build
@@ -45,22 +63,3 @@ frontend_test:
     - cd frontend/
     - CI=true npm test
     - echo "Tests successfully!"
-
-
-backend_build:
-  stage: backend_build
-  script:
-    - cd backend/
-    - npm install
-  artifacts:
-    expire_in: 1 hour
-    paths:
-      - backend/node_modules/
-
-backend_test:
-  stage: backend_test
-  script:
-    - echo "Starting backend tests."
-    - cd backend/
-    - npm test
-    - echo "Tests successfull!"
