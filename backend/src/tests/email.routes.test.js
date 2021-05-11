@@ -1,4 +1,6 @@
 /*eslint-disable */
+// eslint-disable-next-line no-undef
+jest.useFakeTimers()
 import { app } from './testServer.js'
 import request from 'supertest'
 import { emailData } from './testData.js'
