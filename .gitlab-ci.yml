@@ -47,7 +47,7 @@ backend_test:
     - npm install
     - npm run test:pipeline
     - echo "Successfull test(s)!"
-    allow_failure: true
+  allow_failure: true
 
 frontend_build:
   stage: frontend_build
