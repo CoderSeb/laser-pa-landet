@@ -24,7 +24,7 @@ app.use(express.json())
 // Allow server proxy.
 app.set('trust proxy', 1)
 
-const PORT = process.env.TEST_PORT
+const PORT = process.env.TEST_PORT || 4000
 
 // Register routes.
 app.use('/api/v1/', router)
@@ -46,4 +46,7 @@ app.use(function (err, req, res, next) {
   return res.status(500).send()
 })
 
-app.listen(PORT)
+const server = app.listen(PORT, function () {
+  console.log('Test server listening on port ' + PORT)
+  server.close()
+})
