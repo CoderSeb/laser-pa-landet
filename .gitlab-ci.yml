@@ -39,7 +39,7 @@ backend_test:
   script:
     - echo "Starting backend tests."
     - cd backend/
-    - npm test
+    - npm run test:pipeline
     - echo "Tests successfull!"
 
 frontend_build:
