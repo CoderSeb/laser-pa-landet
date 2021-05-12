@@ -54,7 +54,10 @@
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "<rootDir>/node_modules/"
+    ],
+    "modulePaths": [
+      "<rootDir>"
     ]
   }
 }
