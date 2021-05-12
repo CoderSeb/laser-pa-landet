@@ -6,6 +6,7 @@ import { connectTestDB } from '../config/mongo.js'
 import { AllowedEmail } from '../models/allowedEmail.js'
 import { Admin } from '../models/Admin.js'
 import { authData } from './testData.js'
+import mongoose from 'mongoose'
 import dotenv from 'dotenv'
 import {jest} from '@jest/globals'
 // Config .env
@@ -22,6 +23,11 @@ describe('Admin routes tests', () => {
     await AllowedEmail.deleteMany()
     await Admin.deleteMany()
     await AllowedEmail.insertMany({ email: "test@email.com" })
+  })
+
+  afterEach(async (done) => {
+    mongoose.connection.close()
+    done()
   })
 
   // Register with correct credentials.
