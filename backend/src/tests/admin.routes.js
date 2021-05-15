@@ -27,10 +27,6 @@ describe('Admin routes tests', () => {
     await AllowedEmail.insertMany({ email: "test@email.com" })
   })
 
-  afterEach(async (done) => {
-    await done()
-  })
-
   // Register with correct credentials.
   it('Register with correct admin credentials, should return 201 Created.', async done => {
     const res = await request.post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
