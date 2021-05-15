@@ -5,12 +5,14 @@ import { emailData } from './testData.js'
 import dotenv from 'dotenv'
 import {jest} from '@jest/globals'
 dotenv.config()
-jest.useFakeTimers()
 const request = supertest(app)
 /**
  * Email route tests.
  */
 describe('Email tests', () => {
+  beforeEach(async () => {
+    jest.useFakeTimers()
+  })
   // Send email with correct information.
   it('Sending email with correct information, should return 200 OK.', async done => {
     const res = await request.post('/api/v1/email').send(emailData.testPayload)

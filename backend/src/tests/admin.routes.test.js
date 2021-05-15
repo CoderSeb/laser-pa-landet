@@ -11,7 +11,6 @@ import dotenv from 'dotenv'
 import {jest} from '@jest/globals'
 // Config .env
 dotenv.config()
-jest.useFakeTimers()
 const request = supertest(app)
 /**
  * Admin routes tests.
@@ -22,6 +21,7 @@ describe('Admin routes tests', () => {
   })
   let loginToken
   beforeEach(async () => {
+    jest.useFakeTimers()
     await AllowedEmail.deleteMany()
     await Admin.deleteMany()
     await AllowedEmail.insertMany({ email: "test@email.com" })
