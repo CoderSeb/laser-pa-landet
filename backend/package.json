@@ -12,8 +12,8 @@
     "lint": "npx eslint src || exit 0",
     "lint:fix": "npx eslint src --fix || exit 0",
     "test:debug": "npx --trace-warnings jest --no-cache",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose --runInBand --forceExit",
-    "test:pipeline": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --testTimeout=15000 --runInBand --detectOpenHandles --verbose --forceExit"
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV='test' npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose --runInBand --forceExit",
+    "test:pipeline": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV='test' npx jest --testTimeout=15000 --runInBand --detectOpenHandles --verbose --forceExit"
   },
   "keywords": [],
   "license": "ISC",

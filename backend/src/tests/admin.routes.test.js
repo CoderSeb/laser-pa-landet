@@ -2,13 +2,11 @@
 // Imports
 import app from './testServer.js'
 import supertest from 'supertest'
-import { connectTestDB } from 'config/mongo.js'
+import * as TestDB from 'config/mongo.js'
 import { AllowedEmail } from 'models/allowedEmail.js'
-import { Admin } from 'models/admin.js'
 import { authData } from './testData.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
-import {jest} from '@jest/globals'
 // Config .env
 dotenv.config()
 const request = supertest(app)
@@ -16,18 +14,16 @@ const request = supertest(app)
  * Admin routes tests.
  */
 describe('Admin routes tests', () => {
-  const OLD_ENV = process.env
   beforeAll(async () => {
-    await connectTestDB()
+    await TestDB.connectDB()
   })
   let loginToken
   beforeEach(async () => {
-    jest.useFakeTimers()
-    jest.resetModules()
-    process.env = { ...OLD_ENV }
-    await AllowedEmail.deleteMany({})
-    await Admin.deleteMany({})
-    await AllowedEmail.insertMany({ email: "test@email.com" })
+    await TestDB.truncateDB()
+    const allowedEmail = new AllowedEmail({
+      email: "test@email.com"
+    })
+    await allowedEmail.save()
   })
 
   // Register with correct credentials.
@@ -145,8 +141,7 @@ describe('Admin routes tests', () => {
   })
 
   afterAll(async () => {
-    process.env = OLD_ENV
-    await mongoose.connection.close()
+    await TestDB.disconnectDB()
     app.close()
   })
 })
