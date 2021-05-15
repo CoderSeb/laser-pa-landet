@@ -16,6 +16,7 @@ describe('Email tests', () => {
   // Send email with correct information.
   it('Sending email with correct information, should return 200 OK.', async done => {
     const res = await request.post('/api/v1/email').send(emailData.testPayload)
+    console.log(res)
     expect(res.statusCode).toEqual(200)
     expect(res.body).toEqual({ message: 'Ditt meddelande är skickat!' })
     done()
