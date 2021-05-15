@@ -27,4 +27,7 @@ describe('Email tests', () => {
     expect(res.statusCode).toEqual(400)
     done()
   })
+  afterAll(async () => {
+    app.close()
+  })
 })

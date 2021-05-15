@@ -31,10 +31,6 @@ describe('Admin routes tests', () => {
     await done()
   })
 
-  afterAll(async () => {
-    await mongoose.connection.close()
-  })
-
   // Register with correct credentials.
   it('Register with correct admin credentials, should return 201 Created.', async done => {
     const res = await request.post('/api/v1/admin/auth/register').send(authData.testAdminCorrect)
@@ -147,6 +143,11 @@ describe('Admin routes tests', () => {
     const res = await request.put('/api/v1/admin/auth/change-pass').set('Authorization', setBearerToken('IncorrectToken')).send(payload)
     expect(res.statusCode).toBe(403)
     done()
+  })
+
+  afterAll(async () => {
+    await mongoose.connection.close()
+    app.close()
   })
 })
 
