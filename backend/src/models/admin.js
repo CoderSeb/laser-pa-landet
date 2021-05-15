@@ -49,7 +49,7 @@ schema.pre('save', async function (next) {
  * @returns {Promise} - If the validation is successful.
  */
 schema.methods.valPass = async function (password) {
-  return bcrypt.compare(password, this.password)
+  return await bcrypt.compare(password, this.password)
 }
 
 // Create a model using the schema.
