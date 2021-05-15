@@ -15,9 +15,9 @@ const request = supertest(app)
  * Admin routes tests.
  */
 describe('Admin routes tests', () => {
-  beforeAll(async () => {
-    await TestDB.connectDB()
-  })
+  // beforeAll(async () => {
+  //   await TestDB.connectDB()
+  // })
   let loginToken
   beforeEach(async () => {
     jest.useFakeTimers()

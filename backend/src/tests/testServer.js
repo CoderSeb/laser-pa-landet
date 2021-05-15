@@ -10,6 +10,7 @@ import express from 'express'
 import helmet from 'helmet'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import { connectDB } from '../config/mongo.js'
 
 import { router } from '../routes/router.js'
 
@@ -17,6 +18,7 @@ dotenv.config()
 
 // Creates an express application.
 const app = express()
+connectDB()
 app.use(helmet())
 app.use(cors())
 app.use(express.json())
