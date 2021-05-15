@@ -16,12 +16,15 @@ const request = supertest(app)
  * Admin routes tests.
  */
 describe('Admin routes tests', () => {
+  const OLD_ENV = process.env
   beforeAll(async () => {
     await connectTestDB()
   })
   let loginToken
   beforeEach(async () => {
     jest.useFakeTimers()
+    jest.resetModules()
+    process.env = { ...OLD_ENV }
     await AllowedEmail.deleteMany()
     await Admin.deleteMany()
     await AllowedEmail.insertMany({ email: "test@email.com" })
@@ -142,6 +145,7 @@ describe('Admin routes tests', () => {
   })
 
   afterAll(async () => {
+    process.env = OLD_ENV
     await mongoose.connection.close()
     app.close()
   })

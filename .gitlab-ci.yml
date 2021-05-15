@@ -42,7 +42,6 @@ backend_test:
   stage: backend_test
   needs: [backend_build]
   script:
-    - export
     - echo "Running backend test(s)."
     - cd backend/
     - npm run test:pipeline
