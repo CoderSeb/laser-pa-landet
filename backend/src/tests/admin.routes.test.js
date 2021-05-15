@@ -17,17 +17,22 @@ const request = supertest(app)
  * Admin routes tests.
  */
 describe('Admin routes tests', () => {
+  beforeAll(async () => {
+    await connectTestDB()
+  })
   let loginToken
   beforeEach(async () => {
-    await connectTestDB()
     await AllowedEmail.deleteMany()
     await Admin.deleteMany()
     await AllowedEmail.insertMany({ email: "test@email.com" })
   })
 
   afterEach(async (done) => {
-    mongoose.connection.close()
-    done()
+    await done()
+  })
+
+  afterAll(async () => {
+    await mongoose.connection.close()
   })
 
   // Register with correct credentials.

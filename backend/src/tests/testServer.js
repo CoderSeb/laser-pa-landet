@@ -22,7 +22,7 @@ app.use(cors())
 app.use(express.json())
 
 // Allow server proxy.
-app.set('trust proxy', 1)
+// app.set('trust proxy', 1)
 
 // Register routes.
 app.use('/api/v1/', router)

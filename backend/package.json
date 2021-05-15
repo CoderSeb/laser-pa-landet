@@ -11,7 +11,8 @@
     "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
     "lint": "npx eslint src || exit 0",
     "lint:fix": "npx eslint src --fix || exit 0",
-    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose",
+    "test:debug": "npx --trace-warnings jest --no-cache",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV=test npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose --forceExit",
     "test:pipeline": "cross-env NODE_OPTIONS=--experimental-vm-modules npx jest --testTimeout=20000 --runInBand --detectOpenHandles --verbose --forceExit"
   },
   "keywords": [],
@@ -54,10 +55,21 @@
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "<rootDir>/backend/node_modules/"
+      "/node_modules/"
     ],
-    "modulePaths": [
-      "<rootDir>/backend/"
-    ]
+    "verbose": true,
+    "coverageDirectory": "/src/tests/reports/my_reports/",
+    "coverageReporters": [
+      "html",
+      "text"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 100,
+        "functions": 100,
+        "lines": 100,
+        "statements": 100
+      }
+    }
   }
 }
