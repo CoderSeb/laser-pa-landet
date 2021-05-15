@@ -25,8 +25,8 @@ describe('Admin routes tests', () => {
     jest.useFakeTimers()
     jest.resetModules()
     process.env = { ...OLD_ENV }
-    await AllowedEmail.deleteMany()
-    await Admin.deleteMany()
+    await AllowedEmail.deleteMany({})
+    await Admin.deleteMany({})
     await AllowedEmail.insertMany({ email: "test@email.com" })
   })
 
