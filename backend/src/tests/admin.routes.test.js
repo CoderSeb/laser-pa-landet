@@ -7,6 +7,7 @@ import { AllowedEmail } from 'models/allowedEmail.js'
 import { authData } from './testData.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import {jest} from '@jest/globals'
 // Config .env
 dotenv.config()
 const request = supertest(app)
@@ -19,6 +20,7 @@ describe('Admin routes tests', () => {
   })
   let loginToken
   beforeEach(async () => {
+    jest.useFakeTimers()
     await TestDB.truncateDB()
     const allowedEmail = new AllowedEmail({
       email: "test@email.com"
