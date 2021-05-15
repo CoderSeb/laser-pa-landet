@@ -2,9 +2,9 @@
 // Imports
 import app from './testServer.js'
 import supertest from 'supertest'
-import { connectTestDB } from '../config/mongo.js'
-import { AllowedEmail } from '../models/allowedEmail.js'
-import { Admin } from '../models/Admin.js'
+import { connectTestDB } from 'config/mongo.js'
+import { AllowedEmail } from 'models/allowedEmail.js'
+import { Admin } from 'models/Admin.js'
 import { authData } from './testData.js'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'

@@ -54,22 +54,10 @@
   },
   "jest": {
     "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "/node_modules/"
+    "moduleDirectories": [
+      "node_modules",
+      "src"
     ],
-    "verbose": true,
-    "coverageDirectory": "/src/tests/reports/my_reports/",
-    "coverageReporters": [
-      "html",
-      "text"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 100,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      }
-    }
+    "verbose": true
   }
 }
