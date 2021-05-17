@@ -79,7 +79,7 @@ const changePass = creds => {
   axios({
     method: 'put',
     // eslint-disable-next-line no-undef
-    url: process.env.REACT_APP_API_CHANGE_PASS,
+    url: `${process.env.REACT_APP_API}${process.env.REACT_APP_API_CHANGE_PASS}`,
     headers: {
       Authorization: bearerToken.replace(/['"]+/g, '')
     },

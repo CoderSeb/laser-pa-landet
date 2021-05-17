@@ -36,7 +36,7 @@ const Blog = () => {
 
   const getPosts = () => {
     // eslint-disable-next-line no-undef
-    axios.get(process.env.REACT_APP_API_BLOG).then(response => {
+    axios.get(`${process.env.REACT_APP_API}/blog`).then(response => {
     setAllPosts(response.data)
 
   }).

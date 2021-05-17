@@ -173,7 +173,7 @@ const BlogEditor = () => {
 
   const getPosts = () => {
     // eslint-disable-next-line no-undef
-    axios.get(process.env.REACT_APP_API_BLOG).then(response => {
+    axios.get(`${process.env.REACT_APP_API}/blog`).then(response => {
     setBlogPosts(response.data)
   }).
   catch(err => {
@@ -188,7 +188,7 @@ const BlogEditor = () => {
     axios({
       method: 'post',
       // eslint-disable-next-line no-undef
-      url: 'http://localhost:5050/api/v1/blog',
+      url: `${process.env.REACT_APP_API}/blog`,
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
       },
@@ -238,7 +238,7 @@ const BlogEditor = () => {
     axios({
       method: 'delete',
       // eslint-disable-next-line no-undef
-      url: `${process.env.REACT_APP_API_BLOG}/${id}`,
+      url: `${process.env.REACT_APP_API}/blog/${id}`,
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
       }

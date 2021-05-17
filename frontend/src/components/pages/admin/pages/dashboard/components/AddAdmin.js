@@ -88,7 +88,7 @@ const AddAdmin = () => {
     axios({
       method: 'post',
       // eslint-disable-next-line no-undef
-      url: process.env.REACT_APP_API_ADD_ADMIN,
+      url: `${process.env.REACT_APP_API}${process.env.REACT_APP_API_ADD_ADMIN}`,
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
       },

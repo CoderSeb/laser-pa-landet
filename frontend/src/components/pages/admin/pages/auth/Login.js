@@ -74,7 +74,8 @@ const StyledForm = styled.form`
  * @return {object} as the response object data.
  */
 const adminLogin = async adminCreds => {
-  const response = await axios(process.env.REACT_APP_API_LOGIN, {
+  const loginUrl = `${process.env.REACT_APP_API}${process.env.REACT_APP_API_LOGIN}`
+  const response = await axios(loginUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -92,7 +93,8 @@ const adminLogin = async adminCreds => {
  * @return {object} as the response object data.
  */
  const adminSignUp = async adminCreds => {
-  const response = await axios(process.env.REACT_APP_API_REGISTER, {
+  const signUpUrl = `${process.env.REACT_APP_API}${process.env.REACT_APP_API_REGISTER}`
+  const response = await axios(signUpUrl, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

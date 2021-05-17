@@ -230,7 +230,8 @@ const ContactForm = ({right, left}) => {
       try {
         axios({
           method: "POST",
-          url: "http://localhost:5050/api/v1/email",
+          // eslint-disable-next-line no-undef
+          url: `${process.env.REACT_APP_API}/email`,
           headers: {
             'Content-Type': 'application/json'
           },
