@@ -1,16 +1,28 @@
 import React from 'react'
-import TextField from '../../styled/TextField'
-import PageContainer from '../../styled/PageContainer'
-import landingImg from '../../../assets/img/stockphoto/woman-receiving-laser-therapy.jpg&size=1024.jpg'
+import styled from 'styled-components'
+import laserPic1 from '../../../assets/img/laser-pa-landet/neck_laser-landing.jpg'
+import Jumbo from './components/Jumbo'
+
+const StyledLanding = styled.div`
+  background-color: gray;
+  background-image: url(${laserPic1});
+  height: 100%;
+  min-height: 80vh;
+  min-width: 100%;
+  filter: saturate(60%);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+`
+
 
 const Landing = () => {
   return (
-    <PageContainer backImgSrc={landingImg} pageImgAlt="Image of a woman receiving laser therapy.">
-    <TextField width="50%" left>
-    <h2>Hej!<br /></h2>
-    <h4>Mitt namn är Michaela Blomquist och jag är laserterapeut, utbildad vid Sjöbo laserklinik. Till vardags arbetar jag som personalchef inom kollektivtrafiken och har min mottagning som deltidssysselsättning. Jag har min mottagning på min gård i Sjöröd, vid Gyllebosjöns vackra bokskog på Österlen.<br />Väl mött!</h4>
-    </TextField>
-    </PageContainer>
+    <>
+    <StyledLanding>
+    </StyledLanding>
+    <Jumbo />
+    </>
   )
 }
 

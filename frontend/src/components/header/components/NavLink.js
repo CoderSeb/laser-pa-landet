@@ -48,6 +48,10 @@ const StyledNavLink = styled(NavLink)`
     box-shadow: 0px 0px 5px 1px ${props => props.theme.colors.black};
   }
 
+  &:focus {
+    border: 2px solid black;
+  }
+
   .onPage {
     opacity:0.5;
   }
@@ -55,7 +59,7 @@ const StyledNavLink = styled(NavLink)`
 
 const CustomNavLink = ({linkTo, linkName}) => {
   return (
-    <StyledNavLink activeClassName="onPage" to={linkTo}>{linkName}</StyledNavLink>
+    <StyledNavLink tabIndex="0" activeClassName="onPage" to={linkTo}>{linkName}</StyledNavLink>
   )
 }
 

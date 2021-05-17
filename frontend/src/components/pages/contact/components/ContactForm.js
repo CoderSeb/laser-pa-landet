@@ -6,9 +6,11 @@ const StyledForm = styled.form`
   background: ${props => props.theme.colors.main};
   border-radius: 10px;
   padding:1em;
-  width: 600px;
-  min-height: 600px;
-  margin: 1em auto;
+  width:45%;
+  min-height: 450px;
+  max-height: fit-content;
+  height: max-content;
+
   h2 {
     text-align: center;
     margin-bottom:1rem;
@@ -28,18 +30,16 @@ const StyledForm = styled.form`
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     ${({left}) => left && css`
     float: left;
-    margin: 1em;
   `}
 
   ${({right}) => right && css`
     float: right;
-    margin: 1em;
   `}
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    margin: 1em auto;
     max-width: 100%;
+    width:100%;
   }
 `
 
@@ -113,20 +113,35 @@ const StyledSubmit = styled.button`
     border: 1px solid ${props => props.theme.colors.black};
   }
 
+  &:focus {
+    background: ${props => props.theme.colors.black};
+    color: ${props => props.theme.colors.white};
+  }
+
 `
 
 
 const ContactForm = ({right, left}) => {
   const [charsLeft, setCharsLeft] = useState(0)
   const [errors, setErrors] = useState({})
-  const [fullName, setFullName] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [phone, setPhone] = useState(null)
-  const [subject, setSubject] = useState(null)
-  const [message, setMessage] = useState(null)
+  const [fullName, setFullName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
+  const [subject, setSubject] = useState('')
+  const [message, setMessage] = useState('')
   const [serverMessage, setServerMessage] = useState('')
 
   const maxLength = 600
+
+  const resetForm = () => {
+    setFullName('')
+    setEmail('')
+    setPhone('')
+    setSubject('')
+    setMessage('')
+    setErrors({})
+    setCharsLeft(maxLength)
+  }
 
   const handleTextChange = e => {
     const {value} = e.target
@@ -158,7 +173,11 @@ const ContactForm = ({right, left}) => {
 
   const validateForm = errList => {
     let isValid = true
-    Object.values(errList).forEach(error => error !== null && (isValid = false))
+    Object.values(errList).forEach(error => {
+      if (error) {
+        isValid = false
+      }
+    })
     return isValid
   }
 
@@ -167,26 +186,26 @@ const ContactForm = ({right, left}) => {
     const {name, value} = e.target
     switch (name) {
       case 'fullName':
-        errors.fullName = value.length < 3 ? 'Vänligen fyll i ditt fullständiga namn.' : null
+        errors.fullName = value.length < 3 && 'Vänligen fyll i ditt fullständiga namn.'
         setFullName(value)
         break
       case 'email':
-        errors.email = validateEmail(value) ? null : 'Epost addressen är inte giltig.'
+        errors.email = !validateEmail(value) && 'Epost addressen är inte giltig.'
         setEmail(value)
         break
       case 'subject':
-        errors.subject = value.length < 3 ? 'Ämnet behöver vara minst 3 tecken långt.' : null
+        errors.subject = value.length < 3 && 'Ämnet behöver vara minst 3 tecken långt.'
         setSubject(value)
         break
       case 'message':
-        errors.message = value.length < 8 ? 'Meddelandet behöver vara minst 8 tecken långt.' : null
+        errors.message = value.length < 8 && 'Meddelandet behöver vara minst 8 tecken långt.'
         setMessage(value)
         break
       case 'phone':
         if (value.length !== 0) {
-          errors.phone = validatePhone(value) ? null : 'Telefonnumret är ogiltigt'
+          errors.phone = !validatePhone(value) && 'Telefonnumret är ogiltigt.'
         } else {
-          errors.phone = null
+          errors.phone = false
         }
         setPhone(value)
         break
@@ -198,11 +217,21 @@ const ContactForm = ({right, left}) => {
 
   const handleSubmit = e => {
     e.preventDefault()
+    const stateArray = [fullName, email, subject, message]
+    stateArray.forEach(element => {
+      if (element.length < 1) {
+        errors.empty = 'Du behöver fylla i formuläret för att skicka!'
+      } else {
+        errors.empty = false
+      }
+      setErrors(errors)
+    })
     if (validateForm(errors)) {
       try {
         axios({
           method: "POST",
-          url: "http://localhost:5050/api/v1/email",
+          // eslint-disable-next-line no-undef
+          url: `${process.env.REACT_APP_API}/email`,
           headers: {
             'Content-Type': 'application/json'
           },
@@ -214,14 +243,18 @@ const ContactForm = ({right, left}) => {
             message
           })
         }).then(response => {
-          setServerMessage(response.data.status)
+          setServerMessage(response.data.message)
+          resetForm()
           e.target.reset()
+        }).
+        catch(err => {
+          setServerMessage(err.response.data.message)
         })
       } catch (err) {
         setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
       }
     } else {
-      setServerMessage('Något gick fel, ladda om sidan och försök gärna igen.')
+      setServerMessage('Vänligen kontrollera dina uppgifter...')
     }
   }
 
@@ -235,24 +268,27 @@ const ContactForm = ({right, left}) => {
           type="text"
           name="fullName"
           onChange={handleInputChange}
+          value={fullName}
         />
-        {errors.fullName !== null &&
+        {errors.fullName &&
         <span>{errors.fullName}</span>}
         <StyledInput
           placeholder="Epost..."
           type="email"
           name="email"
           onChange={handleInputChange}
+          value={email}
         />
-        {errors.email !== null &&
+        {errors.email &&
         <span>{errors.email}</span>}
         <StyledInput
           placeholder="(Frivilligt) Telefon..."
           type="tel"
           name="phone"
           onChange={handleInputChange}
+          value={phone}
         />
-        {errors.subject !== null &&
+        {errors.subject &&
         <span>{errors.phone}</span>}
       </div>
       <div>
@@ -262,8 +298,9 @@ const ContactForm = ({right, left}) => {
           type="text"
           name="subject"
           onChange={handleInputChange}
+          value={subject}
         />
-        {errors.subject !== null &&
+        {errors.subject &&
         <span>{errors.subject}</span>}
         <StyledTextarea
           placeholder="Meddelande"
@@ -272,14 +309,17 @@ const ContactForm = ({right, left}) => {
           onChange={e => {
             handleTextChange(e)
             handleInputChange(e)
-            }} />
+            }}
+          value={message} />
         <p>{charsLeft}/{maxLength}</p>
-        {errors.message !== null &&
+        {errors.message &&
         <span>{errors.message}</span>}
       </div>
       <StyledSubmit type="submit">Skicka meddelande</StyledSubmit>
-      {serverMessage.length > 0 &&
+      {serverMessage.length > 0 && !errors.empty &&
       <span style={{color: "black"}}>{serverMessage}</span>}
+      {errors.empty &&
+        <span>{errors.empty}</span>}
     </StyledForm>
   )
 }

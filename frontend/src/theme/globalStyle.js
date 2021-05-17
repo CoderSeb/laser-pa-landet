@@ -20,6 +20,30 @@ html {
     }
 }
 
+/* Works on Firefox */
+* {
+  scrollbar-width: thick;
+  scrollbar-color: ${props => props.theme.colors.accent} ${props => props.theme.colors.secondary};
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 15px;
+  margin: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: ${props => props.theme.colors.secondary};
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: ${props => props.theme.colors.accent};
+  border-radius: 10px;
+  border: 1px solid  ${props => props.theme.colors.main};
+}
+
+
 body {
 position:relative;
 min-height:100vh;

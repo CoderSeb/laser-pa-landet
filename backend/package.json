@@ -1,5 +1,5 @@
 {
-  "name": "Laser-pa-landet api",
+  "name": "Laser-pa-landet_api",
   "version": "1.0.0",
   "description": "",
   "type": "module",
@@ -10,29 +10,60 @@
     "start": "node -r dotenv/config src/server.js",
     "start:dev": "nodemon --inspect -r dotenv/config src/server.js",
     "lint": "npx eslint src || exit 0",
-    "lint:fix": "npx eslint src --fix || exit 0"
+    "lint:fix": "npx eslint src --fix || exit 0",
+    "test:debug": "npx --trace-warnings jest --no-cache",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV='test' npx jest --testTimeout=15000 --detectOpenHandles --watchAll --verbose --runInBand --forceExit",
+    "test:pipeline": "cross-env NODE_OPTIONS=--experimental-vm-modules NODE_ENV='test' npx jest --testTimeout=15000 --runInBand --detectOpenHandles --verbose --forceExit"
   },
   "keywords": [],
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
+    "bcryptjs": "^2.4.3",
+    "connect-multiparty": "^2.2.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.2.6",
+    "fs-extra": "^10.0.0",
     "helmet": "^4.4.1",
+    "http-errors": "^1.7.2",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
     "mongoose": "^5.12.2",
     "morgan": "^1.10.0",
-    "nodemailer": "^6.5.0"
+    "multer": "^1.4.2",
+    "multiparty": "^4.2.2",
+    "nodemailer": "^6.5.0",
+    "validator": "^13.5.2"
   },
   "devDependencies": {
     "@lnu/eslint-config": "^1.1.2",
+    "cross-env": "^7.0.3",
     "eslint": "^7.21.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsdoc": "^32.2.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.3.1",
-    "nodemon": "^2.0.7"
+    "jest": "^26.6.3",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.1.3"
   },
   "eslintConfig": {
     "extends": "@lnu"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "verbose": true,
+    "roots": [
+      "<rootDir>"
+    ],
+    "modulePaths": [
+      "<rootDir>"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   }
 }

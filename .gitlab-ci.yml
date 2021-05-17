@@ -1,0 +1,75 @@
+image: node:latest
+
+variables: {
+  EMAIL_SERVICE_NAME: $EMAIL_SERVICE_NAME,
+  EMAIL_SERVICE_HOST: $EMAIL_SERVICE_HOST,
+  EMAIL_SERVICE_SECURE: $EMAIL_SERVICE_SECURE,
+  EMAIL_SERVICE_PORT: $EMAIL_SERVICE_PORT,
+  DEV_EMAIL_USER_NAME: $DEV_EMAIL_USER_NAME,
+  DEV_EMAIL_PASSWORD: $DEV_EMAIL_PASSWORD,
+  EMAIL_PASSWORD: $EMAIL_PASSWORD,
+  EMAIL_USER_NAME: $EMAIL_USER_NAME,
+  DB_PASSPHRASE: $DB_PASSPHRASE,
+  DB_USER: $DB_USER,
+  DB_CONNECTION_STRING: $DB_CONNECTION_STRING,
+  DB_TEST_CONNECTION_STRING: $DB_TEST_CONNECTION_STRING,
+  TOKEN_ALGORITHM: $TOKEN_ALGORITHM,
+  PORT: $PORT,
+  TEST_PORT: $TEST_PORT,
+  PRIVATE_KEY: $PRIVATE_KEY
+}
+  
+
+stages:
+  - backend_build
+  - backend_test
+  - frontend_build
+  - frontend_test
+
+backend_build:
+  stage: backend_build
+  script:
+    - echo "Running backend build"
+    - cd backend/
+    - npm install
+    - echo "Backend build successfull!"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - backend/node_modules/
+
+backend_test:
+  stage: backend_test
+  needs: [backend_build]
+  script:
+    - echo "Running backend test(s)."
+    - cd backend/
+    - npm run test:pipeline
+    - echo "Successfull test(s)!"
+  dependencies:
+    - backend_build
+  allow_failure: true
+
+frontend_build:
+  stage: frontend_build
+  script: 
+    - echo "Running frontend build."
+    - cd frontend/
+    - npm install
+    - npm run build
+    - echo "Build successfull!"
+  artifacts:
+    expire_in: 1 hour
+    paths:
+      - frontend/build
+      - frontend/node_modules/
+
+frontend_test:
+  stage: frontend_test
+  needs: [frontend_build]
+  script:
+    - echo "Running frontend test(s)."
+    - cd frontend/
+    - CI=true npm test
+    - echo "Successfull test(s)!"
+  allow_failure: true

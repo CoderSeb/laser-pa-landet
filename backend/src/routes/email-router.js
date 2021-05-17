@@ -8,10 +8,15 @@
 // Imports
 import express from 'express'
 import { EmailController as controller } from '../controllers/email-controller.js'
+import rateLimit from 'express-rate-limit'
+
+const emailLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: process.env.NODE_ENV === 'test' ? 100 : 15,
+  message: 'För många mail har skickats redan! Vänta en (1) timme innan nästa försök.'
+})
 
 export const router = express.Router()
 
-router.post('/', controller.sendEmail)
-
-// Catch 404 (ALWAYS keep this as the last route).
-router.use('*', (req, res, next) => next(res.sendStatus(404)))
+// Routes
+router.post('/', emailLimiter, controller.sendEmail)

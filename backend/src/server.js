@@ -10,13 +10,16 @@ import express from 'express'
 import helmet from 'helmet'
 import logger from 'morgan'
 import cors from 'cors'
+import dotenv from 'dotenv'
 
 import { router } from './routes/router.js'
+import { connectDB } from './config/mongo.js'
 
 /**
- * Main function of the authentication service.
+ * Main function of the laser-pa-landet backend.
  */
-const main = async () => {
+export const main = async () => {
+  dotenv.config()
   // Creates an express application.
   const app = express()
   app.use(helmet())
@@ -24,21 +27,33 @@ const main = async () => {
   app.use(logger('dev'))
   app.use(express.json())
 
-  const PORT = process.env.PORT || 5050
+  // Allow server proxy.
+  app.set('trust proxy', 1)
+
+  const PORT = process.env.PORT
+
+  // Connect to database
+  connectDB()
+
+  // Register routes.
+  app.use('/api/v1/', router)
 
   // Error handler.
   app.use(function (err, req, res, next) {
     // 404 Not Found.
     if (err.status === 404) {
-      return res
-        .status(404)
-    } else {
-      return res.status(500)
+      return res.status(err.status).json({ message: 'Oops!\nNothing here...' })
     }
-  })
 
-  // Register routes.
-  app.use('/api/v1/', router)
+    if (err.status < 500) {
+      return res.status(err.status).json({
+        status: err.status,
+        message: err.message
+      })
+    }
+    console.log(err)
+    return res.status(500).send()
+  })
 
   app.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`)

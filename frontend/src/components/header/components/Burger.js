@@ -3,8 +3,8 @@ import styled from 'styled-components'
 
 const StyledBurgerButton = styled.button`
   position: absolute;
-  top: 1%;
-  left: 2%;
+  top: 50px;
+  left: 30px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -53,6 +53,8 @@ const Burger = ({isOpen, setIsOpen}) => {
     <StyledBurgerButton
       isOpen={isOpen}
       onClick={() => setIsOpen(!isOpen)}
+      type="button"
+      aria-label="burger knapp"
     >
       <div></div>
       <div></div>
