@@ -6,7 +6,7 @@ import val from 'validator'
 
 const StyledContainer = styled.div`
   background: ${props => props.theme.colors.accent};
-  height:80vh;
+  height:100vh;
   padding: 1rem;
 `
 
@@ -24,6 +24,11 @@ const StyledForm = styled.form`
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     width: 100%;
+  }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+    width: 100%;
+    margin: 1rem auto;
   }
 
   input, button {

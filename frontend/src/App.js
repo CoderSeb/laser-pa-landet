@@ -1,14 +1,14 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import {Switch, Route, BrowserRouter as Router} from 'react-router-dom'
 import styled from 'styled-components'
 import Footer from './components/footer'
 import Header from './components/header'
 
-import Landing from './components/pages/landing'
-import Treatments from './components/pages/treatments'
-import Contact from './components/pages/contact'
-import Blog from './components/pages/blog'
-import Admin from './components/pages/admin'
+const Landing = lazy(() => import('./components/pages/landing'))
+const Treatments = lazy(() => import('./components/pages/treatments'))
+const Admin = lazy(() => import('./components/pages/admin'))
+const Contact = lazy(() => import('./components/pages/contact'))
+const Blog = lazy(() => import('./components/pages/blog'))
 import FourOFour from './components/pages/404'
 
 
@@ -40,6 +40,7 @@ const App = () => {
     <Router>
       <StyledFlexBox>
         <Header />
+        <Suspense fallback={<div>Laddar...</div>}>
         <StyledWrapper>
         <Switch>
           <Route exact path="/">
@@ -59,6 +60,7 @@ const App = () => {
           <Route render={() => <FourOFour />} />
         </Switch>
         </StyledWrapper>
+        </Suspense>
         <Footer />
         </StyledFlexBox>
     </Router>

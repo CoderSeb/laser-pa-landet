@@ -20,6 +20,11 @@ const StyledNavbar = styled.nav`
   
   @media (max-width: ${props => props.theme.sizes.mobile}) {
     width: 100%;
+    padding-top: 5rem;
+  }
+
+  @media (max-width: 1100px;) and (max-height: 500px;) {
+    padding-top: 5rem;
   }
 
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {

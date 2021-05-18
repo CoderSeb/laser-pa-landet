@@ -13,13 +13,28 @@ const StyledHeader = styled.header`
   overflow:hidden;
   z-index: 100;
 
+  .logolink {
+    padding: 3rem;
+    z-index:150;
+  }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+      height: 6rem;
+  }
+
   .mainBrand {
     height:60px;
+    max-width: 50%;
     margin: 1em;
     float:right;
 
     @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
       display:none;
+    }
+
+    @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+      height: 40px;
+      margin-top: 2em;
     }
   }
 `
@@ -51,7 +66,7 @@ const Header = () => {
           linkName="Blog"
         />
       </Navbar>
-      <img className="mainBrand" src={logo} alt="Laser på landet logo" />
+      <a href="/" className="logolink"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></a>
     </StyledHeader>
   )
 }

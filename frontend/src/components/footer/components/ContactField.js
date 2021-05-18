@@ -28,6 +28,11 @@ const StyledContainer = styled.div`
     font-weight: bold;
   }
 
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+    font-size: 0.8em;
+    width: 150px;
+  }
+
   .companyInfo {
     font-size: 0.8em;
     line-height: 15px;
