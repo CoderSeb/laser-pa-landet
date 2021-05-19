@@ -41,8 +41,9 @@ export const BlogController = {
         }
         payload.push(postToSend)
       })
+      const sortedPayload = payload.sort((a, b) => b.created - a.created)
 
-      res.status(200).json(payload)
+      res.status(200).json(sortedPayload)
     } catch (err) {
       next(err)
     }
@@ -115,6 +116,54 @@ export const BlogController = {
         }
         res.sendStatus(204)
       })
+    } catch (err) {
+      next(err)
+    }
+  },
+
+  /**
+   * Get one post.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async getPost (req, res, next) {
+    try {
+      const token = await req.headers.authorization
+      const validToken = await verifyToken(token.split(' ')[1])
+      if (!validToken) throw createError(403, 'Ej behörig att hämta ett specifikt inlägg!')
+      const postToReturn = await BlogPost.findOne({ _id: req.params.id })
+      if (!postToReturn) throw createError(400, 'Inlägget finns inte!')
+      res.status(200).json(postToReturn)
+    } catch (err) {
+      next(err)
+    }
+  },
+
+  /**
+   * Edit a post.
+   *
+   * @param {object} req - Express request object.
+   * @param {object} res - Express response object.
+   * @param {Function} next - Express next middleware function.
+   */
+  async editPost (req, res, next) {
+    try {
+      const token = await req.headers.authorization
+      const validToken = await verifyToken(token.split(' ')[1])
+      if (!validToken) throw createError(403, 'Ej behörig att redigera inlägg!')
+      const postToEdit = await BlogPost.findOne({ _id: req.params.id })
+      if (!postToEdit) throw createError(400, 'Inlägget finns inte!')
+      const { title, content } = await req.body
+      if (title.length > 50) throw createError(400, 'Kontrollera titeln! Max storlek: 50 tecken.')
+      if (content.length > 15000) throw createError(400, 'Kontrollera texten! Max storlek: 15000 tecken.')
+
+      const edited = await BlogPost.findOneAndUpdate({ _id: req.params.id }, {
+        title: title,
+        content: content
+      })
+      res.status(200).json('Redigerat inlägg med id: ' + edited._id + ' har sparats.')
     } catch (err) {
       next(err)
     }

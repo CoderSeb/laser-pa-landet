@@ -88,7 +88,7 @@ const changePass = creds => {
   then(response => {
     return response.message
   }).
-  catch(err => err.response.data)
+  catch(err => err.response.data.message)
 }
 
 

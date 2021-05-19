@@ -6,6 +6,7 @@ const StyledItem = styled.li`
 
   img {
     height:1em;
+    width: 1em;
     transform: translateY(0.1em)
   }
 

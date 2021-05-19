@@ -31,7 +31,9 @@ const StyledText = styled.div`
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    margin:1em;
+    margin-top:1em;
+    margin-left: 0.1em;
+    margin-right:0.1em;
   }
 
   li {

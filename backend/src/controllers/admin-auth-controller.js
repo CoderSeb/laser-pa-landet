@@ -159,7 +159,7 @@ export const AdminAuthController = {
         })
       }).catch(err => {
         console.log(err.message)
-        res.send(createError(400, 'Lösenordet kunde inte bytas just nu...'))
+        throw createError(404, 'Lösenordet kunde inte bytas just nu...')
       })
     } catch (err) {
       next(err)

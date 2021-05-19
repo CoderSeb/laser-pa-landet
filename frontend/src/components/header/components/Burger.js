@@ -23,6 +23,10 @@ const StyledBurgerButton = styled.button`
   @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
     display: none;
   }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+      top: 2em;
+    }
   
   div {
     width: 2rem;

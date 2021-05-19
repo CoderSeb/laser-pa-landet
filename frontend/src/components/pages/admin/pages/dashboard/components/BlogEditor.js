@@ -170,6 +170,8 @@ const BlogEditor = () => {
   const [feedback, setFeedback] = useState('')
   const [blogPosts, setBlogPosts] = useState([])
   const [modified, setModified] = useState(false)
+  const [willEdit, setWillEdit] = useState(false)
+  const [editId, setEditId] = useState('')
 
   const getPosts = () => {
     // eslint-disable-next-line no-undef
@@ -197,7 +199,7 @@ const BlogEditor = () => {
       setFeedback(response.data.message)
       setModified(true)
       setBlogImg({})
-      setBlogContent('')
+      setBlogContent('<p>Skriv ditt inlägg här!</p>')
       setBlogTitle('')
     }).
       catch(err => {
@@ -253,26 +255,79 @@ const BlogEditor = () => {
     })
   }
 
+  const handleStartEdit = id => {
+    const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
+    axios({
+      method: 'get',
+      url: `${process.env.REACT_APP_API}/blog/${id}`,
+      headers: {
+        Authorization: bearerToken.replace(/['"]+/g, '')
+      }
+    }).then(response => {
+      console.log(response.data)
+      setBlogTitle(response.data.title)
+      setBlogContent(response.data.content)
+      setEditId(response.data._id)
+      setWillEdit(true)
+      setFeedback('Inlägget kan nu editeras.')
+    }).
+    catch(err => {
+      if (err) {
+        setFeedback('Något gick fel! Ladda om sidan och försök igen.')
+      }
+    })
+  }
+
+  const saveEditedPost = (e, id) => {
+    e.preventDefault()
+    const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
+    const payload = {
+      title: blogTitle,
+      content: blogContent
+    }
+    axios({
+      method: 'put',
+      url: `${process.env.REACT_APP_API}/blog/${id}`,
+      headers: {
+        Authorization: bearerToken.replace(/['"]+/g, '')
+      },
+      data: payload
+    }).then(response => {
+      setBlogTitle('')
+      setBlogContent('<p>Skriv ditt inlägg här!</p>')
+      setEditId('')
+      setFeedback(response.data)
+      setWillEdit(false)
+      setModified(true)
+    }).
+    catch(err => {
+      if (err) {
+        setFeedback('Något gick fel! Ladda om sidan och försök igen.')
+      }
+    })
+  }
+
   return (
     <StyledContainer>
       <h2>Blog Editor</h2>
       <form encType="multipart/form-data">
+      {editId.length > 0 && <p>ID: {editId}</p>}
       <input className="titleInput" value={blogTitle} onChange={e => setBlogTitle(e.target.value)} placeholder="Titel..." />
       <br />
-      <label>Välj bild för inlägg</label><br />
-      {fileError.length > 0 && <small className="fileError">{fileError}</small>}
-      <input className="imageInput" type="file" name="file" accept="image/*" onChange={selectFile} />
-      <br />
-      {blogImg.previewImage &&
-        <PreviewImgContainer>
-          <PreviewImg alt="Förhandsvisning för ny blog bild" src={blogImg.previewImage} />
-          <br />
-          <button onClick={() => setBlogImg({})}>Ta bort bild</button>
-        </PreviewImgContainer>}
+      {!willEdit && <label>Välj bild för inlägg</label>}
+        {fileError.length > 0 && <small className="fileError">{fileError}</small>}
+        {!willEdit && <input className="imageInput" type="file" name="file" accept="image/*" onChange={selectFile} />}
+        <br />
+        {blogImg.previewImage && !willEdit &&
+          <PreviewImgContainer>
+            <PreviewImg alt="Förhandsvisning för ny blog bild" src={blogImg.previewImage} />
+            <br />
+            <button onClick={() => setBlogImg({})}>Ta bort bild</button>
+          </PreviewImgContainer>}
       <CKEditor
           editor={ ClassicEditor }
           config={ editorConfiguration }
-          data="<p>Skriv ditt inlägg här!</p>"
+          data={blogContent}
           onReady={editor => {
             console.log(Array.from(editor.ui.componentFactory.names()))
           }}
@@ -281,8 +336,9 @@ const BlogEditor = () => {
               setBlogContent(data)
           }}
       />
-      {feedback.length > 0 && <p className="feedbackParagraph">{feedback}</p>}
-      <StyledButton onClick={e => handleSubmit(e)}>Spara inlägg</StyledButton>
+      <p className="feedbackParagraph">{feedback}</p>
+      {willEdit && <StyledButton onClick={e => saveEditedPost(e, editId)}>Spara redigerat inlägg</StyledButton>}
+      {!willEdit && <StyledButton onClick={e => handleSubmit(e)}>Spara inlägg</StyledButton>}
       </form>
       <div className="tableContainer">
       <h2>Aktiva inlägg</h2>
@@ -292,7 +348,7 @@ const BlogEditor = () => {
             {blogPosts.map(post => <tr key={post.id}>
               <td className="idTd">{post.id}</td>
               <td>{post.title}</td>
-              <td className="btnTd"><StyledButton className="tableBtn" type="button">Redigera</StyledButton></td>
+              <td className="btnTd"><StyledButton className="tableBtn" onClick={() => handleStartEdit(post.id)}>Redigera</StyledButton></td>
               <td className="btnTd"><StyledButton className="tableBtn" onClick={() => handleRemovePost(post.id)}>Ta bort</StyledButton></td>
               </tr>)}
           </tbody>

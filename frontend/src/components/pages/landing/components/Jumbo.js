@@ -23,6 +23,23 @@ const StyledJumbo = styled.div`
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     font-size: 0.9em;
     top: 15%;
+    height: 200px;
+  }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+    font-size: 0.8em;
+    height: 220px;
+    top:12%;
+  }
+
+  @media only screen and (max-width: ${props => props.theme.sizes.smallMobile}) {
+    font-size: 0.7em;
+    height: 220px;
+  }
+
+  @media only screen and (max-width: 290px;) {
+    font-size: 0.6em;
+    height: 240px;
   }
 `
 

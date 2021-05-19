@@ -11,9 +11,9 @@ import { EmailController as controller } from '../controllers/email-controller.j
 import rateLimit from 'express-rate-limit'
 
 const emailLimiter = rateLimit({
-  windowMs: 60 * 60 * 1000, // 1 hour
-  max: process.env.NODE_ENV === 'test' ? 100 : 15,
-  message: 'För många mail har skickats redan! Vänta en (1) timme innan nästa försök.'
+  windowMs: 60 * 60 * 500, // 30 minutes.
+  max: process.env.NODE_ENV === 'test' ? 150 : 50,
+  message: 'För många mail har skickats redan! Vänta trettio (30) minuter innan nästa försök.'
 })
 
 export const router = express.Router()

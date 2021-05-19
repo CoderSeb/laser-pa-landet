@@ -13,6 +13,12 @@ const StyledContainer = styled.div`
   h2 {
     text-align: center;
   }
+
+  .currentUser {
+    @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+      font-size: 1em;
+    }
+  }
 `
 
 const StyledButton = styled.button`
@@ -48,6 +54,11 @@ const StyledButton = styled.button`
   @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
     left: 0.6rem;
   }
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+    left: 0.6rem;
+    top: 6.5rem;
+    padding: 0.2em;
+  }
 `
 
 const StyledButton02 = styled(StyledButton)`
@@ -77,7 +88,7 @@ const Dashboard = ({ currentUser }) => {
     <>
     {logout ? <Redirect to="/admin" />
     : <StyledContainer>
-        <h2>Inloggad som {currentUser.adminName}</h2>
+        <h2 className="currentUser">Inloggad som {currentUser.adminName}</h2>
         <StyledButton onClick={handleLogout}>Logout</StyledButton>
         <BlogEditor />
         <AddAdmin />

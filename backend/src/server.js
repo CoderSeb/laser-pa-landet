@@ -35,8 +35,12 @@ export const main = async () => {
   // Connect to database
   connectDB()
 
+  if (process.env.NODE_ENV !== 'production') {
   // Register routes.
-  app.use('/api/v1/', router)
+    app.use('/api/v1', router)
+  } else {
+    app.use('/v1', router)
+  }
 
   // Error handler.
   app.use(function (err, req, res, next) {
