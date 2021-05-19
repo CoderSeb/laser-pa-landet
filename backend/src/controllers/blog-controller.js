@@ -41,8 +41,9 @@ export const BlogController = {
         }
         payload.push(postToSend)
       })
+      const sortedPayload = payload.sort((a, b) => b.created - a.created)
 
-      res.status(200).json(payload)
+      res.status(200).json(sortedPayload)
     } catch (err) {
       next(err)
     }
