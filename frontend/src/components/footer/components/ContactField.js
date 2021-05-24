@@ -11,7 +11,9 @@ const StyledContainer = styled.div`
   width: 200px;
 
   p, a {
-    line-height:20px;
+    line-height: 24px;
+    overflow: hidden;
+    padding-top: 0;
   }
 
   a {

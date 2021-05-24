@@ -3,11 +3,9 @@ import styled, { css } from 'styled-components'
 
 const StyledContainer = styled.div`
 width: 100%;
-min-height: 80vh;
+height: 100%;
 overflow: auto;
 padding: 1em;
-height: fit-content;
-padding-bottom: 3rem;
 background-color: #ccd6ff;
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});

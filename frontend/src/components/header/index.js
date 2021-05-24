@@ -9,13 +9,11 @@ import logo from '../../assets/img/LPL-Brand.png'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.theme.colors.main};
-  height:7rem;
+  height:8rem;
   overflow:hidden;
-  z-index: 100;
 
   .logolink {
     padding: 3rem;
-    z-index:150;
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
@@ -76,7 +74,7 @@ const Header = () => {
           clicked={clicked}
         />
       </Navbar>
-      <Link to="/"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></Link>
+      <Link to="/" className="logoLink"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></Link>
     </StyledHeader>
   )
 }

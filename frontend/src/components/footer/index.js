@@ -8,12 +8,10 @@ import ContactField from './components/ContactField'
 
 const StyledFooter = styled.footer`
   background-color: ${props => props.theme.colors.main};
-  position: absolute;
-  bottom: 0;
+  position: relative;
   width: 100%;
   color: ${props => props.theme.colors.black};
   text-align: center;
-  margin-top:1em;
   height:12rem;
   padding:1rem;
   z-index: 100;

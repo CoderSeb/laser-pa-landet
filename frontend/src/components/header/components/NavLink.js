@@ -21,10 +21,12 @@ const StyledNavLink = styled(NavLink)`
   transition: color 0.3s linear;
   text-align:center;
   margin:1em 1.5em;
+  z-index: 110;
   
   @media (max-width: ${props => props.theme.sizes.tablet}) {
     font-size: 1.5rem;
     text-align: center;
+    display:block;
   }
 
   @media only screen and (min-width: ${props => props.theme.sizes.desktop}) {

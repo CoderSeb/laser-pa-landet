@@ -8,7 +8,6 @@ const StyledText = styled.div`
   border-radius: 10px;
   margin: 1em;
   background: ${props => props.theme.colors.mainTransparent};
-  user-select:none;
 
   ${({left}) => left && css`
     float: left;

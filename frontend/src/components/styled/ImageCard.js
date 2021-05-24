@@ -1,64 +1,24 @@
 import React from 'react'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
 const StyledContainer = styled.div`
 overflow:auto;
 margin: 1em;
-padding: 1em;
-border-radius: 10px;
-background-color: gray;
-  ${({backImgSrc}) => backImgSrc && css`
-    background-image: url(${backImgSrc});
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-  `}
+  img {
+    width: 100%;
+    border-radius: 10px;
 
-  ${({portrait}) => portrait && css`
-    padding-top: 100%;
-  `}
-
-  ${({landscape}) => landscape && css`
-    padding-top:62%;
-  `}
-
-  ${({left}) => left && css`
-    float: left;
-    margin: 1em;
-  `}
-
-  ${({right}) => right && css`
-    float: right;
-    margin: 1em;
-  `}
-
-  ${({sat}) => sat && css`
-    filter: saturate(${sat});
-  `}
-
-  @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
-    ${({width}) => width && css`
-    max-width: ${width};
-    max-height: 600px;
-  `}
-  }
-
-  @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
-    margin:.5em;
+    @media only screen and (min-width: ${props => props.theme.sizes.tablet}) {
+      width: 65%;
+    }
   }
 `
 
-const ImageCard = ({backImgSrc, backImgAlt, portrait, landscape, left, right, saturation}) => {
+const ImageCard = ({backImgSrc, backImgAlt}) => {
   return (
     <StyledContainer
-    backImgSrc={backImgSrc}
-    title={backImgAlt}
-    portrait={portrait}
-    landscape={landscape}
-    left={left}
-    right={right}
-    sat={saturation}
     >
+    <img src={backImgSrc} alt={backImgAlt}/>
     </StyledContainer>
     )
 }

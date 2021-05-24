@@ -4,15 +4,17 @@ import laserPic1 from '../../../assets/img/laser-pa-landet/neck_laser-landing.jp
 import Jumbo from './components/Jumbo'
 
 const StyledLanding = styled.div`
+  height: calc(100vh - 20rem);
   background-color: gray;
   background-image: url(${laserPic1});
-  height: 100%;
-  min-height: 80vh;
-  min-width: 100%;
   filter: saturate(60%);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+
+  @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
+    height: calc(100vh - 18rem);
+  }
 `
 
 

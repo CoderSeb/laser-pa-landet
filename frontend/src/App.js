@@ -15,23 +15,14 @@ import FourOFour from './components/pages/404'
 const StyledFlexBox = styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow:5;
+  position: relative;
   width:100%;
-  height:100%;
-
-  Header {
-    order:1
-  }
-
-  Footer {
-    order: 3;
-  }
+  min-height: 100%;
 `
 
 const StyledWrapper = styled.div`
-order:2;
-flex: 5  1 auto;
-padding-bottom:9.5rem;
+  flex:1;
+  background: ${props => props.theme.colors.secondary};
 `
 
 const App = () => {
