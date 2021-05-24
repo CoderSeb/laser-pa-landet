@@ -49,7 +49,7 @@ const StyledNavLink = styled(NavLink)`
   }
 
   &:focus {
-    border: 2px solid black;
+    border: 1px solid black;
   }
 
   .onPage {
@@ -57,9 +57,9 @@ const StyledNavLink = styled(NavLink)`
   }
 `
 
-const CustomNavLink = ({linkTo, linkName}) => {
+const CustomNavLink = ({linkTo, linkName, clicked}) => {
   return (
-    <StyledNavLink tabIndex="0" activeClassName="onPage" to={linkTo}>{linkName}</StyledNavLink>
+    <StyledNavLink onClick={() => clicked()} tabIndex="0" activeClassName="onPage" to={linkTo}>{linkName}</StyledNavLink>
   )
 }
 

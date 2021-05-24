@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Burger from './components/Burger'
 import NavLink from './components/NavLink'
@@ -45,6 +45,12 @@ const Header = () => {
 
   useClickRef(headerRef, () => setIsOpen(false))
 
+  const clicked = () => {
+    setTimeout(() => {
+      setIsOpen(false)
+    }, 300)
+  }
+
   return (
     <StyledHeader ref={headerRef}>
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -52,21 +58,25 @@ const Header = () => {
         <NavLink
           linkTo="/"
           linkName="Hem"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/behandlingar"
           linkName="Behandlingar"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/kontakt"
           linkName="Kontakt"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/blog"
           linkName="Blog"
+          clicked={clicked}
         />
       </Navbar>
-      <a href="/" className="logolink"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></a>
+      <Link to="/"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></Link>
     </StyledHeader>
   )
 }

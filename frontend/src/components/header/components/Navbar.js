@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import logo from '../../../assets/img/LPL-Brand.png'
-
+import { Link } from 'react-router-dom'
 
 const StyledNavbar = styled.nav`
   display: flex;
@@ -38,6 +38,12 @@ const StyledNavbar = styled.nav`
     padding-top: 1rem;
   }
 
+  .logoLink {
+    @media only screen and (max-width: ${props => props.theme.sizes.tablet}) {
+      display:none;
+    }
+  }
+
   img {
     height:60px;
     margin: 1em;
@@ -54,7 +60,7 @@ const StyledNavbar = styled.nav`
 const Navbar = ({isOpen, children}) => {
   return (
     <StyledNavbar isOpen={isOpen}>
-      <img src={logo} alt="Laser på landet logo" />
+      <Link className="logoLink" to="/"><img src={logo} alt="Laser på landet logo" /></Link>
       {children}
     </StyledNavbar>
   )
