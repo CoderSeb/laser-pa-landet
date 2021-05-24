@@ -10,7 +10,7 @@ const theme = {
     "black": '#1c021a'
   },
   "sizes": {
-    "smallMobile": '390px',
+    "smallMobile": '415px',
     "mobile": '550px',
     "tablet": '1274px',
     "desktop": '1384px'

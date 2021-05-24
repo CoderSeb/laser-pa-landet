@@ -1,7 +1,7 @@
 import React from 'react'
 import ContactForm from './components/ContactForm'
 import ImageCard from '../../styled/ImageCard'
-import profilePic from '../../../assets/img/laser-pa-landet/neck_laser.jpg'
+import profilePic from '../../../assets/img/laser-pa-landet/michaela_profile.jpg'
 import styled, { css } from 'styled-components'
 
 
