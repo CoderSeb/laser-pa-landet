@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react'
 import styled from 'styled-components'
-
+import { Link } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Burger from './components/Burger'
 import NavLink from './components/NavLink'
@@ -9,13 +9,11 @@ import logo from '../../assets/img/LPL-Brand.png'
 
 const StyledHeader = styled.header`
   background-color: ${props => props.theme.colors.main};
-  height:7rem;
+  height:8rem;
   overflow:hidden;
-  z-index: 100;
 
   .logolink {
     padding: 3rem;
-    z-index:150;
   }
 
   @media only screen and (max-width: ${props => props.theme.sizes.mobile}) {
@@ -45,6 +43,12 @@ const Header = () => {
 
   useClickRef(headerRef, () => setIsOpen(false))
 
+  const clicked = () => {
+    setTimeout(() => {
+      setIsOpen(false)
+    }, 300)
+  }
+
   return (
     <StyledHeader ref={headerRef}>
       <Burger isOpen={isOpen} setIsOpen={setIsOpen} />
@@ -52,21 +56,25 @@ const Header = () => {
         <NavLink
           linkTo="/"
           linkName="Hem"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/behandlingar"
           linkName="Behandlingar"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/kontakt"
           linkName="Kontakt"
+          clicked={clicked}
         />
         <NavLink
           linkTo="/blog"
           linkName="Blog"
+          clicked={clicked}
         />
       </Navbar>
-      <a href="/" className="logolink"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></a>
+      <Link to="/" className="logoLink"><img className="mainBrand" src={logo} alt="Laser på landet logo" /></Link>
     </StyledHeader>
   )
 }

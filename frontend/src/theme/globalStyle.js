@@ -1,8 +1,12 @@
 import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyle = createGlobalStyle`
-html {
-  height: 100vh;
+html, body {
+  height: 100%;
+}
+
+#root {
+  height: 100%;
 }
 
 * {
@@ -45,7 +49,6 @@ html {
 
 
 body {
-position:relative;
 min-height:100vh;
 }
 `

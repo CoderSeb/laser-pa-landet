@@ -7,21 +7,16 @@ import styled, { css } from 'styled-components'
 
 const StyledContainer = styled.div`
   width: 100%;
-  min-height: 80vh;
-  overflow: auto;
+  min-height:100%;
   padding: 1em;
-  padding-bottom: 15rem;
   background-color: #ccd6ff;
   justify-content: center;
   gap: 1em;
-  z-index: 50;
-  max-height: fit-content;
-  height:max-content;
 
   ${({backImgSrc}) => backImgSrc && css`
     background-image: url(${backImgSrc});
     background-position: center;
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
   `}
 
@@ -52,7 +47,8 @@ const Blog = () => {
   }, [])
 
   return (
-    <StyledContainer>
+    <StyledContainer style={allPosts.length > 0 ? {minHeight: '100vh'} : {minHeight: '100%'}}>
+    {allPosts.length === 0 && <h1 style={{textAlign: 'center'}}>Inlägg kommer inom kort, kika in snart igen!</h1>}
     <BlogContainer>
     {allPosts.length > 0 && allPosts.map(post => {
     return (

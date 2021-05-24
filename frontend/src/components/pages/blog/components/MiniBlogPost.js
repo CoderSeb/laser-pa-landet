@@ -160,7 +160,7 @@ const BlogPost = ({title, text, blogImg, created, creator}) => {
     <StyledContainer style={innerStyle} ref={blogRef} onClick={handleSelection}>
     <div style={bigStyle}>
     <h1>{title}</h1>
-      <img src={blogImg} style={imgStyle} alt={`Laser på landet, bild för inläggstitel: ${title}`} />
+    {blogImg && <img src={blogImg} style={imgStyle} alt={`Laser på landet, bild för inläggstitel: ${title}`} />}
       <div style={textStyle} dangerouslySetInnerHTML={{ __html: `${text}` }} className="blogTextContainer">
       </div>
       <small>Skapad {created}</small><br />

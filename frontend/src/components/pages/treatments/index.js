@@ -43,7 +43,7 @@ const diagnoser = [
 
 const Treatments = () => {
   return (
-    <PageContainer height="80vh">
+    <PageContainer>
     <TextField><h3>Vad är Medicinsk Laser?</h3>
       <hr />
       En laser är en ljuskälla, som en lampa. Alla ljuskällor har sitt eget spektrum av olika våglängder (färger).<br />Lasern avger ljus med ett mycket smalt spektrum, vilkt innebär att det är strikt enfärgat. Laserljuset går in på cellnivå i kroppen och &quot;ställer tillrätta&quot; obalans och skada genom att markant öka cellens ämnesomsättning och på så sätt hjälper laserljuset kroppen att läka (sig själv).<br /><br />
