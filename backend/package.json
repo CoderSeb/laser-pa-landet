@@ -1,7 +1,7 @@
 {
   "name": "Laser-pa-landet_api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend for laser-pa-landet frontend.",
   "type": "module",
   "main": "src/server.js",
   "private": true,

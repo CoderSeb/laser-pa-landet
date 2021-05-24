@@ -1,6 +1,7 @@
 {
   "name": "laser-pa-landet",
-  "version": "0.1.0",
+  "description": "Frontend for laser-pa-landet.",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "author": "Sebastian Åkerblom <sa224ny@student.lnu.se>",
