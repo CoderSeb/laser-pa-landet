@@ -27,7 +27,6 @@ jobs:
       env:
         CI: true
 
-jobs:
   frontend-build:
 
     runs-on: ubuntu-latest
