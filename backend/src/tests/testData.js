@@ -42,3 +42,10 @@ export const emailData = {
     message: 'This is an automatic test message.'
   }
 }
+
+export const blogData = {
+  blogAdmin: {
+    email: 'test@email.com',
+    pass: 'TestTestssonPass#7327'
+  }
+}
