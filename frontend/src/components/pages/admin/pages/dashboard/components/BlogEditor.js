@@ -259,6 +259,7 @@ const BlogEditor = () => {
     const bearerToken = `Bearer ${sessionStorage.getItem('lpl-admin-token')}`
     axios({
       method: 'get',
+      // eslint-disable-next-line no-undef
       url: `${process.env.REACT_APP_API}/blog/${id}`,
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
@@ -287,6 +288,7 @@ const BlogEditor = () => {
     }
     axios({
       method: 'put',
+      // eslint-disable-next-line no-undef
       url: `${process.env.REACT_APP_API}/blog/${id}`,
       headers: {
         Authorization: bearerToken.replace(/['"]+/g, '')
